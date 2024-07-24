@@ -13,6 +13,7 @@ class ButtonProductCustom extends StatelessWidget {
   final bool fontInBold;
 
   const ButtonProductCustom({
+    super.key,
     required this.products,
     required this.onPressed,
     this.backgroundColor = productColor,
@@ -35,7 +36,7 @@ class ButtonProductCustom extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
         ),
         child: Center(
           child: Text(
