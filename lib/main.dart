@@ -1,4 +1,6 @@
 import 'package:cash_track/src/config/theme_data.dart';
+import 'package:cash_track/src/core/presentation/theme_container.dart';
+import 'package:cash_track/src/features/events/presentation/event_grid.dart';
 import 'package:cash_track/src/features/order/presentation/product_grid.dart';
 import 'package:flutter/material.dart';
 
@@ -14,40 +16,18 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
-      themeMode: ThemeMode.system,
-      home: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 255, 255, 255),
-                Color.fromARGB(255, 153, 153, 153),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+      home: const Scaffold(
+        body: Stack(
+          children: [
+            ThemeContainer(
+              isDark: false,
             ),
-            //     LinearGradient(
-            //   colors: [
-            //     Color.fromARGB(255, 158, 158, 158),
-            //     Color.fromARGB(255, 56, 56, 56),
-            //   ],
-            //   begin: Alignment.topCenter,
-            //   end: Alignment.bottomCenter,
-            // ),
-          ),
-          child: const SafeArea(
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ProductGrid(),
-                  ],
-                ),
-              ),
-            ),
-          ),
+            Center(
+                child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: EventGrid(),
+            )),
+          ],
         ),
       ),
     );
