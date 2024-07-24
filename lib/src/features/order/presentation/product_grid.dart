@@ -8,13 +8,14 @@ class ProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400,
+      height: 250,
       child: GridView.builder(
         itemCount: productsData.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
           mainAxisSpacing: 16,
           crossAxisSpacing: 12,
+          mainAxisExtent: 60,
         ),
         itemBuilder: (BuildContext context, int index) {
           return ButtonProductCustom(
