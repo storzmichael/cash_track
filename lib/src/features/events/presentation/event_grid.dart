@@ -8,10 +8,11 @@ class EventGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 430,
+      height: 312,
       child: GridView.builder(
-        shrinkWrap: false,
+        shrinkWrap: true,
         itemCount: eventButtonData.length,
+        padding: EdgeInsets.zero,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 32,
