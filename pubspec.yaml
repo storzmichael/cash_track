@@ -27,7 +27,7 @@ flutter:
       fonts:
         - asset: assets/fonts/SF-Pro-Rounded-Regular.otf
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
   image_path: "assets/icons/app_icon_ct.png"
