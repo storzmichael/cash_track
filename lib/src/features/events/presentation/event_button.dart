@@ -22,7 +22,7 @@ class EventButton extends StatelessWidget {
     this.borderRadius = borderRadiusSmallButton,
     this.height = 140,
     this.width = 140,
-    this.fontInBold = true,
+    this.fontInBold = false,
   });
 
   @override
