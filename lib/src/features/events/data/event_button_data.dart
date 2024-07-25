@@ -1,4 +1,4 @@
-import 'package:cash_track/src/features/events/domain/event_item.dart';
+import 'package:cash_track/src/features/events/domain/event_button_item.dart';
 
 import 'package:flutter/material.dart';
 
