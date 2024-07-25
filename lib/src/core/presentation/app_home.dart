@@ -1,5 +1,9 @@
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/data/nav_item_data.dart';
+import 'package:cash_track/src/features/events/presentation/event_screen.dart';
+import 'package:cash_track/src/features/events/presentation/favorites_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppHome extends StatefulWidget {
   static const routeName = '/';
@@ -18,8 +22,8 @@ class _AppHomeState extends State<AppHome> {
   } //List of screen from navigation bar
 
   final List<Widget> screens = [
-    const Placeholder(),
-    const Placeholder(),
+    const EventScreen(),
+    const FavoritesScreen(),
     const Placeholder(),
   ];
 
@@ -27,10 +31,11 @@ class _AppHomeState extends State<AppHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          'CashTrack',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        title: Text(
+          navigationItemData[currentIndex].label,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
@@ -47,7 +52,7 @@ class _AppHomeState extends State<AppHome> {
           });
         },
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.white,
+        unselectedItemColor: orangeColor,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         items: [
