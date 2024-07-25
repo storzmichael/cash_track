@@ -9,6 +9,7 @@ class ThemeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      clipBehavior: Clip.none,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDark ? darkTheme : lightTheme,
