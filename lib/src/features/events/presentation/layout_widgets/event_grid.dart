@@ -11,7 +11,7 @@ class EventGrid extends StatelessWidget {
       height: 312,
       child: GridView.builder(
         shrinkWrap: true,
-        itemCount: eventButtonData.length,
+        itemCount: eventButtonDatas.length,
         padding: EdgeInsets.zero,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -21,7 +21,7 @@ class EventGrid extends StatelessWidget {
         ),
         itemBuilder: (BuildContext context, int index) {
           return EventButton(
-            eventButtonItem: eventButtonData[index],
+            eventButtonItem: eventButtonDatas[index],
             onPressed: () {},
           );
         },
