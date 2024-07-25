@@ -1,6 +1,6 @@
 import 'package:cash_track/src/config/theme_data.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
-import 'package:cash_track/src/features/events/presentation/event_grid.dart';
+import 'package:cash_track/src/features/events/presentation/layout_widgets/event_grid.dart';
 import 'package:flutter/material.dart';
 
 void main() {
