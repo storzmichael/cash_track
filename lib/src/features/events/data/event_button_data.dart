@@ -1,4 +1,5 @@
 import 'package:cash_track/src/features/events/domain/event_button_item.dart';
+
 import 'package:flutter/material.dart';
 
 List<EventButtonItem> eventButtonData = [
@@ -8,15 +9,15 @@ List<EventButtonItem> eventButtonData = [
     eventButtonIcon: Icons.add,
   ),
   const EventButtonItem(
-    eventButtonTitle: "Neues Event",
-    eventButtonIcon: Icons.add,
+    eventButtonTitle: "Share",
+    eventButtonIcon: Icons.share,
   ),
   const EventButtonItem(
-    eventButtonTitle: "Neues Event",
-    eventButtonIcon: Icons.add,
+    eventButtonTitle: "Join Event",
+    eventButtonIcon: Icons.play_arrow_outlined,
   ),
   const EventButtonItem(
-    eventButtonTitle: "Neues Event",
-    eventButtonIcon: Icons.add,
+    eventButtonTitle: "QR-Code",
+    eventButtonIcon: Icons.qr_code_scanner_rounded,
   ),
 ];
