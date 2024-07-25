@@ -13,7 +13,7 @@ ThemeData lightTheme = ThemeData(
     labelLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // for buttons
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: Color.fromARGB(155, 246, 119, 0),
+    backgroundColor: Color.fromARGB(255, 153, 153, 153),
     selectedItemColor: Colors.black,
     unselectedItemColor: Colors.white,
   ),
