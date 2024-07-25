@@ -20,9 +20,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/icons/
+    - assets/logo/
+    - assets/fonts/
 
   fonts:
+    - family: RubikOne
+      fonts:
+        - asset: assets/fonts/RubikOne-Regular.ttf
     - family: SFProRounded
       fonts:
         - asset: assets/fonts/SF-Pro-Rounded-Regular.otf
