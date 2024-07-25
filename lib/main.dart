@@ -1,6 +1,5 @@
 import 'package:cash_track/src/config/theme_data.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
-import 'package:cash_track/src/features/events/presentation/layout_widgets/event_grid.dart';
+import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,20 +14,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
-      home: const Scaffold(
-        body: Stack(
-          children: [
-            ThemeContainer(
-              isDark: false,
-            ),
-            Center(
-                child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: EventGrid(),
-            )),
-          ],
-        ),
-      ),
+      home: AppHome(),
     );
   }
 }

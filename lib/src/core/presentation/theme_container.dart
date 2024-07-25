@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ThemeContainer extends StatelessWidget {
   final bool isDark;
   final Widget? child;
-  const ThemeContainer({super.key, this.isDark = true, this.child});
+  const ThemeContainer({super.key, this.isDark = false, this.child});
 
   @override
   Widget build(BuildContext context) {
