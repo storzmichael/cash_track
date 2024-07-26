@@ -31,7 +31,6 @@ class _AppHomeState extends State<AppHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: Text(
           navigationItemData[currentIndex].label,
@@ -51,8 +50,6 @@ class _AppHomeState extends State<AppHome> {
             currentIndex = index;
           });
         },
-        selectedItemColor: Colors.black,
-        unselectedItemColor: orangeColor,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         items: [
