@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:cash_track/src/features/events/data/event_button_data.dart';
 import 'package:cash_track/src/features/events/presentation/single_widgets/event_button.dart';
-import 'package:flutter/material.dart';
 
 class EventGrid extends StatelessWidget {
   const EventGrid({super.key});
@@ -22,7 +22,6 @@ class EventGrid extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return EventButton(
             eventButtonItem: eventButtonDatas[index],
-            onPressed: () {},
           );
         },
       ),
