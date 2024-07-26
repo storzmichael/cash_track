@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class EventButton extends StatelessWidget {
   final EventButtonItem eventButtonItem;
-  final VoidCallback onPressed;
+
   final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
@@ -17,7 +17,6 @@ class EventButton extends StatelessWidget {
   const EventButton({
     super.key,
     required this.eventButtonItem,
-    required this.onPressed,
     this.backgroundColor = orangeColor,
     this.textColor = Colors.black,
     this.borderRadius = borderRadiusSmallButton,
@@ -32,7 +31,7 @@ class EventButton extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () => eventButtonItem.eventButtonOnPressed(context),
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
