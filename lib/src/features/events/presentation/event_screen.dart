@@ -1,23 +1,25 @@
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/event_grid.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class EventScreen extends StatelessWidget {
   const EventScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return Stack(
       children: [
-        ThemeContainer(),
+        const ThemeContainer(),
         Padding(
-          padding: EdgeInsets.fromLTRB(40.0, 32.0, 40.0, 32.0),
+          padding: const EdgeInsets.fromLTRB(40.0, sitesPadding, 40.0, sitesPadding),
           child: Column(
             children: [
               Center(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 150,
                       width: 320,
                       child: Image(
@@ -25,20 +27,28 @@ class EventScreen extends StatelessWidget {
                         fit: BoxFit.fitHeight,
                       ),
                     ),
-                    Text(
-                      'CashTrack',
-                      style: TextStyle(fontFamily: 'RubikOne', fontSize: 24, fontWeight: FontWeight.bold),
+                    SizedBox(
+                      child: Shimmer.fromColors(
+                        period: const Duration(milliseconds: 3000),
+                        loop: 1,
+                        baseColor: Colors.black,
+                        highlightColor: Colors.grey,
+                        child: const Text(
+                          'CashTrack',
+                          style: TextStyle(fontFamily: 'RubikOne', fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
-                    Text(
+                    const Text(
                       'Einfach Smart Kassieren',
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
-              EventGrid(),
+              const EventGrid(),
             ],
           ),
         ),

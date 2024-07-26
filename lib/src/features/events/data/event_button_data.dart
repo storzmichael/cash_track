@@ -1,23 +1,26 @@
+import 'package:flutter/material.dart';
+import 'package:cash_track/src/features/events/application/button_funktions.dart';
 import 'package:cash_track/src/features/events/domain/event_button_item.dart';
 
-import 'package:flutter/material.dart';
-
 List<EventButtonItem> eventButtonDatas = [
-  // collection of data
-  const EventButtonItem(
+  EventButtonItem(
     eventButtonTitle: "Neues Event",
     eventButtonIcon: Icons.add,
+    eventButtonOnPressed: (context) => navigateToCreateEventScreen(context),
   ),
-  const EventButtonItem(
+  EventButtonItem(
     eventButtonTitle: "Share",
     eventButtonIcon: Icons.share,
+    eventButtonOnPressed: (context) {},
   ),
-  const EventButtonItem(
+  EventButtonItem(
     eventButtonTitle: "Join Event",
     eventButtonIcon: Icons.play_arrow_outlined,
+    eventButtonOnPressed: (context) {},
   ),
-  const EventButtonItem(
+  EventButtonItem(
     eventButtonTitle: "QR-Code",
     eventButtonIcon: Icons.qr_code_scanner_rounded,
+    eventButtonOnPressed: (context) {},
   ),
 ];

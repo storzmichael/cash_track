@@ -11,3 +11,4 @@ const List<Color> darkTheme = [
 ];
 
 const Color orangeColor = Color.fromARGB(255, 246, 118, 0);
+const Color textFieldColor = Colors.grey;
