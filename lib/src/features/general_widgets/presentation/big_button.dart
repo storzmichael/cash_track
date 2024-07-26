@@ -1,5 +1,4 @@
 import 'package:cash_track/src/config/config_colors.dart';
-
 import 'package:flutter/material.dart';
 
 class BigButton extends StatelessWidget {
@@ -42,7 +41,10 @@ class BigButton extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelLarge,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: textColor,
+                  fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal,
+                ),
           ),
         ),
       ),
