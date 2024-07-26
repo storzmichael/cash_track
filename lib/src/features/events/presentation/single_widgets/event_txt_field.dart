@@ -1,3 +1,4 @@
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/features/events/domain/event_item.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class EventTxtField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+      padding: const EdgeInsets.fromLTRB(textPadding, textPadding, textPadding, 0),
       child: Column(
         children: [
           Row(
