@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class BigButton extends StatelessWidget {
   final String buttonName;
+  final VoidCallback? onPressed;
   final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
@@ -13,6 +14,7 @@ class BigButton extends StatelessWidget {
   const BigButton({
     super.key,
     required this.buttonName,
+    this.onPressed,
     this.backgroundColor = orangeColor,
     this.textColor = Colors.black,
     this.borderRadius = 20,
@@ -27,7 +29,7 @@ class BigButton extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed ?? () {},
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
