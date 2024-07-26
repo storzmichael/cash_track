@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ButtonProductCustom extends StatelessWidget {
   final ProductItem products;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
@@ -15,7 +15,7 @@ class ButtonProductCustom extends StatelessWidget {
   const ButtonProductCustom({
     super.key,
     required this.products,
-    required this.onPressed,
+    this.onPressed,
     this.backgroundColor = productColor,
     this.textColor = Colors.black,
     this.borderRadius = borderRadiusSmallButton,
@@ -30,7 +30,7 @@ class ButtonProductCustom extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () {},
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
