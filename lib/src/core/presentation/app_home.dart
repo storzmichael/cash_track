@@ -1,7 +1,7 @@
-import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/data/nav_item_data.dart';
 import 'package:cash_track/src/features/events/presentation/event_screen.dart';
 import 'package:cash_track/src/features/events/presentation/favorites_screen.dart';
+import 'package:cash_track/src/features/profil/presentation/profil_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,7 +24,7 @@ class _AppHomeState extends State<AppHome> {
   final List<Widget> screens = [
     const EventScreen(),
     const FavoritesScreen(),
-    const Placeholder(),
+    const ProfilScreen(),
   ];
 
   @override

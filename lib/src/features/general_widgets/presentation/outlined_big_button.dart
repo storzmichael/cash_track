@@ -1,24 +1,28 @@
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
-class BigButton extends StatelessWidget {
+class OutlinedBigButton extends StatelessWidget {
   final String buttonName;
   final Color backgroundColor;
+  final Color borderColor;
   final Color textColor;
   final double borderRadius;
   final double height;
   final double width;
   final bool fontInBold;
+  final double borderWidth;
 
-  const BigButton({
+  const OutlinedBigButton({
     super.key,
     required this.buttonName,
-    this.backgroundColor = orangeColor,
+    this.backgroundColor = Colors.transparent,
+    this.borderColor = orangeColor,
     this.textColor = Colors.black,
     this.borderRadius = 20,
     this.height = 40,
     this.width = double.infinity,
     this.fontInBold = true,
+    this.borderWidth = 3.0,
   });
 
   @override
@@ -26,10 +30,11 @@ class BigButton extends StatelessWidget {
     return SizedBox(
       height: height,
       width: width,
-      child: ElevatedButton(
+      child: OutlinedButton(
         onPressed: () {},
-        style: ElevatedButton.styleFrom(
+        style: OutlinedButton.styleFrom(
           backgroundColor: backgroundColor,
+          side: BorderSide(color: borderColor, width: borderWidth), // Randfarbe und -dicke
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
