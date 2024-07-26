@@ -1,3 +1,4 @@
+import 'package:cash_track/src/features/events/application/button_funktions.dart';
 import 'package:cash_track/src/features/events/data/event_textfield_data.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
@@ -37,7 +38,12 @@ class TextFieldEvent extends StatelessWidget {
           ),
           const BigButton(buttonName: 'Generiere neuen Code'),
           const Expanded(child: SizedBox()),
-          const BigButton(buttonName: 'Start Event'),
+          BigButton(
+            buttonName: 'Erstelle neues Event',
+            onPressed: () {
+              navigateToEditEventScreen(context);
+            },
+          ),
         ],
       ),
     );
