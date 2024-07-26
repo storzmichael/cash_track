@@ -1,3 +1,4 @@
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/event_list.dart';
 
@@ -12,7 +13,7 @@ class FavoritesScreen extends StatelessWidget {
       children: [
         ThemeContainer(),
         Padding(
-          padding: EdgeInsets.fromLTRB(24.0, 32.0, 24.0, 16),
+          padding: EdgeInsets.all(sitesPadding),
           child: Column(
             children: [
               Center(
