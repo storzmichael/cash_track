@@ -1,3 +1,4 @@
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoginTextFormField extends StatefulWidget {
@@ -5,6 +6,9 @@ class LoginTextFormField extends StatefulWidget {
   final String hintText;
   final bool isPassword;
   final TextEditingController controller;
+  final Color borderColor;
+  final Color focusedBorderColor;
+  final Color errorBorderColor;
 
   const LoginTextFormField({
     super.key,
@@ -12,9 +16,13 @@ class LoginTextFormField extends StatefulWidget {
     required this.hintText,
     this.isPassword = false,
     required this.controller,
+    this.borderColor = Colors.grey,
+    this.focusedBorderColor = orangeColor,
+    this.errorBorderColor = Colors.red,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginTextFormFieldState createState() => _LoginTextFormFieldState();
 }
 
@@ -26,7 +34,15 @@ class _LoginTextFormFieldState extends State<LoginTextFormField> {
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: widget.borderColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: widget.focusedBorderColor),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: widget.errorBorderColor),
+        ),
         labelText: widget.labelName,
         hintText: widget.hintText,
         suffixIcon: widget.isPassword
