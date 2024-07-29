@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LoginTextFormField extends StatelessWidget {
+class LoginTextFormField extends StatefulWidget {
   final String labelName;
   final String hintText;
   final bool isPassword;
@@ -15,20 +15,39 @@ class LoginTextFormField extends StatelessWidget {
   });
 
   @override
+  _LoginTextFormFieldState createState() => _LoginTextFormFieldState();
+}
+
+class _LoginTextFormFieldState extends State<LoginTextFormField> {
+  bool _obscureText = true;
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
+      controller: widget.controller,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
-        labelText: labelName,
-        hintText: hintText,
+        labelText: widget.labelName,
+        hintText: widget.hintText,
+        suffixIcon: widget.isPassword
+            ? IconButton(
+                icon: Icon(
+                  _obscureText ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+              )
+            : null,
       ),
-      obscureText: isPassword,
+      obscureText: widget.isPassword ? _obscureText : false,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter your $labelName';
+          return 'Please enter your ${widget.labelName}';
         }
-        if (!isPassword) {
+        if (!widget.isPassword) {
           final emailRegex = RegExp(r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$');
           if (!emailRegex.hasMatch(value)) {
             return 'Please enter a valid email';
