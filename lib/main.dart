@@ -1,5 +1,5 @@
 import 'package:cash_track/src/config/theme_data.dart';
-import 'package:cash_track/src/features/login/presentation/login_screen.dart';
+import 'package:cash_track/src/features/registration/presentation/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
