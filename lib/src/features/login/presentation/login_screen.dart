@@ -88,8 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 12,
                   ),
                   LoginTextFormField(
-                    labelName: 'Password',
-                    hintText: 'Password',
+                    labelName: 'Passwort',
+                    hintText: 'Passwort',
                     isPassword: true,
                     controller: passwordController,
                   ),
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Incorrect password')),
+                            const SnackBar(content: Text('Passwort falsch')),
                           );
                         }
                       }
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           Text(
-                            'Remember Me',
+                            'angemeldet bleiben',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
