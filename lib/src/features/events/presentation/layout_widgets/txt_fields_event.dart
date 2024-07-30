@@ -4,8 +4,16 @@ import 'package:cash_track/src/features/general_widgets/presentation/big_button.
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
 import 'package:flutter/material.dart';
 
-class TextFieldEvent extends StatelessWidget {
+class TextFieldEvent extends StatefulWidget {
   const TextFieldEvent({super.key});
+
+  @override
+  _TextFieldEventState createState() => _TextFieldEventState();
+}
+
+class _TextFieldEventState extends State<TextFieldEvent> {
+  // Controller für das letzte Textfeld
+  final TextEditingController _lastTextFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +40,20 @@ class TextFieldEvent extends StatelessWidget {
           ),
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[3],
+            controller: _lastTextFieldController,
           ),
           const SizedBox(
             height: 12,
           ),
-          const BigButton(buttonName: 'Generiere neuen Code'),
+          BigButton(
+            buttonName: 'Generiere neuen Code',
+            onPressed: () {
+              setState(() {
+                String newCode = generateRandomCode(8);
+                _lastTextFieldController.text = newCode;
+              });
+            },
+          ),
           const Expanded(child: SizedBox()),
           BigButton(
             buttonName: 'Erstelle neues Event',
