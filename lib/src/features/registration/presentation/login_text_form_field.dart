@@ -6,7 +6,9 @@ class LoginTextFormField extends StatefulWidget {
 
   final bool isPassword;
   final bool isUsername;
+
   final TextEditingController controller;
+
   final Color borderColor;
   final Color focusedBorderColor;
   final Color errorBorderColor;
@@ -47,8 +49,8 @@ class _LoginTextFormFieldState extends State<LoginTextFormField> {
           borderSide: BorderSide(color: widget.errorBorderColor),
         ),
         labelText: widget.labelName,
-        labelStyle: TextStyle(color: widget.labelTextColor), // Initial label text color
-        floatingLabelStyle: TextStyle(color: widget.focusedBorderColor), // Color when label floats
+        labelStyle: TextStyle(color: widget.labelTextColor),
+        floatingLabelStyle: TextStyle(color: widget.focusedBorderColor),
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
