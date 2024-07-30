@@ -6,7 +6,13 @@ import 'package:cash_track/src/config/config_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final EventTextfieldItem eventTextfieldItem;
-  const CustomTextField({super.key, required this.eventTextfieldItem});
+  final TextEditingController? controller;
+
+  const CustomTextField({
+    super.key,
+    required this.eventTextfieldItem,
+    this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +26,10 @@ class CustomTextField extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: textPadding),
         child: Center(
-          child: TextField(
+          child: TextFormField(
+            controller: controller,
             decoration: InputDecoration(
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
               hintText: eventTextfieldItem.eventTextfieldHintText,
               hintStyle: const TextStyle(color: Colors.white),
               border: InputBorder.none,
