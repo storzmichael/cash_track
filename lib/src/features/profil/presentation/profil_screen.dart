@@ -10,27 +10,28 @@ class ProfilScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return Stack(
       children: [
-        ThemeContainer(),
+        const ThemeContainer(),
         Padding(
-          padding: EdgeInsets.all(sitesPadding),
+          padding: const EdgeInsets.all(sitesPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatarWidget(),
                 ],
               ),
-              Expanded(
+              const Expanded(
                 child: SizedBox(
                   height: 32,
                 ),
               ),
               OutlinedBigButton(
                 buttonName: 'Profil ändern',
+                onPressed: () {},
               ),
             ],
           ),

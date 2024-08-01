@@ -2,10 +2,10 @@ import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
+import 'package:cash_track/src/features/registration/presentation/login_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shimmer/shimmer.dart';
-import 'login_text_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,18 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
           'Login Screen',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Stack(
         children: [
           const ThemeContainer(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, sitesPadding, 16.0, sitesPadding),
+            padding: const EdgeInsets.fromLTRB(sitesPadding, sitesPadding, sitesPadding, bottomPadding),
             child: Form(
               key: _formKey,
               child: Column(
@@ -81,15 +75,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   LoginTextFormField(
                     labelName: 'E-mail',
-                    hintText: 'E-mail',
                     controller: userController,
                   ),
                   const SizedBox(
                     height: 12,
                   ),
                   LoginTextFormField(
-                    labelName: 'Password',
-                    hintText: 'Password',
+                    labelName: 'Passwort',
                     isPassword: true,
                     controller: passwordController,
                   ),
@@ -106,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Incorrect password')),
+                            const SnackBar(content: Text('Passwort falsch')),
                           );
                         }
                       }
@@ -127,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           Text(
-                            'Remember Me',
+                            'angemeldet bleiben',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],

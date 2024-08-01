@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class OutlinedBigButton extends StatelessWidget {
   final String buttonName;
+  final VoidCallback onPressed;
   final Color backgroundColor;
   final Color borderColor;
   final Color textColor;
@@ -15,6 +16,7 @@ class OutlinedBigButton extends StatelessWidget {
   const OutlinedBigButton({
     super.key,
     required this.buttonName,
+    required this.onPressed,
     this.backgroundColor = Colors.transparent,
     this.borderColor = orangeColor,
     this.textColor = Colors.black,
@@ -31,7 +33,7 @@ class OutlinedBigButton extends StatelessWidget {
       height: height,
       width: width,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           backgroundColor: backgroundColor,
           side: BorderSide(color: borderColor, width: borderWidth), // Randfarbe und -dicke
