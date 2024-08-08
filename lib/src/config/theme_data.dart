@@ -20,5 +20,4 @@ ThemeData lightTheme = ThemeData(
     selectedItemColor: Colors.black,
     unselectedItemColor: Colors.white,
   ),
-  appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
 );
