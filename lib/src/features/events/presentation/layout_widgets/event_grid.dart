@@ -11,6 +11,7 @@ class EventGrid extends StatelessWidget {
       height: 312,
       child: GridView.builder(
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: eventButtonDatas.length,
         padding: EdgeInsets.zero,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

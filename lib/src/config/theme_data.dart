@@ -12,6 +12,9 @@ ThemeData lightTheme = ThemeData(
     labelMedium: TextStyle(fontSize: 16), // for symbols
     labelLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // for buttons
   ),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+  ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Colors.transparent,
     selectedItemColor: Colors.black,
