@@ -16,7 +16,7 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Color.fromARGB(255, 255, 255, 255),
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: Colors.transparent,
+    backgroundColor: Color.fromARGB(255, 153, 153, 153),
     selectedItemColor: Colors.black,
     unselectedItemColor: Colors.white,
   ),
