@@ -3,7 +3,7 @@ import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
-import 'package:cash_track/src/features/registration/presentation/registration_screen.dart';
+import 'package:cash_track/src/features/registration-login/presentation/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shimmer/shimmer.dart';
@@ -94,10 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         if (passwordController.text == correctPassword) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const AppHome()),
-                          );
+                          Navigator.pushNamed(context, "/apphome");
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Passwort falsch')),

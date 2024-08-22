@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AppHome extends StatefulWidget {
-  static const routeName = '/';
   const AppHome({super.key});
 
   @override

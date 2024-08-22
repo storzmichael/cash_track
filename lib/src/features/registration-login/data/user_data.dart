@@ -1,4 +1,4 @@
-import 'package:cash_track/src/features/registration/domain/user.dart';
+import 'package:cash_track/src/features/registration-login/domain/user.dart';
 
 Map<String, User> users = {
   '1': User(userName: 'Michael', email: 'michael@example.com', password: 'password123'),
