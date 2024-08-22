@@ -1,5 +1,7 @@
 import 'package:cash_track/src/config/theme_data.dart';
-import 'package:cash_track/src/features/registration/presentation/login_screen.dart';
+import 'package:cash_track/src/core/presentation/app_home.dart';
+
+import 'package:cash_track/src/features/registration-login/presentation/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +16,11 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
-      home: const LoginScreen(),
+      //home: const LoginScreen(),
+      routes: {
+        "/": (context) => LoginScreen(),
+        "/apphome": (context) => AppHome(),
+      },
     );
   }
 }
