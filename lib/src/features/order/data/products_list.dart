@@ -43,8 +43,23 @@ List<ProductItem> productsData = [
     productOnPressed: (context) {},
   ),
   ProductItem(
-    productTitle: 'erstellen',
+    productTitle: 'Bier',
     productPrice: 0.00,
+    productOnPressed: (context) {},
+  ),
+  ProductItem(
+    productTitle: "Radler",
+    productPrice: 2.50,
+    productOnPressed: (context) {},
+  ),
+  ProductItem(
+    productTitle: "Weizen",
+    productPrice: 2.50,
+    productOnPressed: (context) {},
+  ),
+  ProductItem(
+    productTitle: "Bier 0%",
+    productPrice: 2.50,
     productOnPressed: (context) {},
   ),
 ];
