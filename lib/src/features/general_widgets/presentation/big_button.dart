@@ -7,8 +7,7 @@ class BigButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
-  final double height;
-  final double width;
+
   final bool fontInBold;
 
   const BigButton({
@@ -18,36 +17,30 @@ class BigButton extends StatelessWidget {
     this.backgroundColor = orangeColor,
     this.textColor = Colors.black,
     this.borderRadius = 20,
-    this.height = 40,
-    this.width = double.infinity,
     this.fontInBold = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: width,
-      child: ElevatedButton(
-        onPressed: onPressed ?? () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-          padding: const EdgeInsets.all(5),
+    return ElevatedButton(
+      onPressed: onPressed ?? () {},
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
-        child: Center(
-          child: Text(
-            buttonName,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: textColor,
-                  fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal,
-                ),
-          ),
+        padding: const EdgeInsets.all(5),
+      ),
+      child: Center(
+        child: Text(
+          buttonName,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: textColor,
+                fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal,
+              ),
         ),
       ),
     );
