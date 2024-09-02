@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:cash_track/src/features/events/presentation/create_event_screen.dart';
-import 'package:cash_track/src/features/events/presentation/edit_event_screen.dart';
+import 'package:cash_track/src/features/events/presentation/screens/create_event_screen.dart';
+import 'package:cash_track/src/features/events/presentation/screens/edit_event_screen.dart';
+
 import 'package:flutter/material.dart';
 
 void navigateToCreateEventScreen(BuildContext context) {
