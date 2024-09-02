@@ -22,18 +22,22 @@ class _TextFieldEventState extends State<TextFieldEvent> {
         children: [
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[0],
+            controller: null,
+            onChanged: (value) {},
           ),
           const SizedBox(
             height: 12,
           ),
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[1],
+            onChanged: (value) {},
           ),
           const SizedBox(
             height: 32,
           ),
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[2],
+            onChanged: (value) {},
           ),
           const SizedBox(
             height: 32,
@@ -41,6 +45,7 @@ class _TextFieldEventState extends State<TextFieldEvent> {
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[3],
             controller: _lastTextFieldController,
+            onChanged: (value) {},
           ),
           const SizedBox(
             height: 12,
