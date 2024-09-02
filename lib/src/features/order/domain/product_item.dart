@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
-
 class ProductItem {
   final String productTitle;
-  final double productPrice;
-  final Function(BuildContext) productOnPressed;
+  final String productPrice;
+  final String productCategory;
 
-  const ProductItem({
-    required this.productTitle,
-    required this.productPrice,
-    required this.productOnPressed,
-  });
+  const ProductItem({required this.productTitle, required this.productPrice, required this.productCategory});
 }
