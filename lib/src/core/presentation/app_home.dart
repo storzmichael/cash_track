@@ -1,6 +1,6 @@
 import 'package:cash_track/src/core/data/nav_item_data.dart';
-import 'package:cash_track/src/features/events/presentation/event_screen.dart';
-import 'package:cash_track/src/features/events/presentation/favorites_screen.dart';
+import 'package:cash_track/src/features/events/presentation/screens/event_screen.dart';
+import 'package:cash_track/src/features/events/presentation/screens/favorites_screen.dart';
 import 'package:cash_track/src/features/profil/presentation/profil_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,8 +18,9 @@ class _AppHomeState extends State<AppHome> {
   @override
   void initState() {
     super.initState();
-  } //List of screen from navigation bar
+  }
 
+  //List of screen from navigation bar
   final List<Widget> screens = [
     const EventScreen(),
     const FavoritesScreen(),
@@ -38,6 +39,7 @@ class _AppHomeState extends State<AppHome> {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
+            //TODO: navigation to settings
             onPressed: () {},
           ),
         ],
@@ -52,16 +54,21 @@ class _AppHomeState extends State<AppHome> {
         showSelectedLabels: true,
         showUnselectedLabels: false,
         items: [
+          // navigate to Event
           BottomNavigationBarItem(
             activeIcon: Icon(navigationItemData[0].activeIcon),
             icon: Icon(navigationItemData[0].icon),
             label: navigationItemData[0].label,
           ),
+
+          // navigate to Favorites
           BottomNavigationBarItem(
             activeIcon: Icon(navigationItemData[1].activeIcon),
             icon: Icon(navigationItemData[1].icon),
             label: navigationItemData[1].label,
           ),
+
+          // navigate to Profile
           BottomNavigationBarItem(
             activeIcon: Icon(navigationItemData[2].activeIcon),
             icon: Icon(navigationItemData[2].icon),
@@ -69,6 +76,8 @@ class _AppHomeState extends State<AppHome> {
           ),
         ],
       ),
+
+      // show selected screens
       body: screens[currentIndex],
     );
   }
