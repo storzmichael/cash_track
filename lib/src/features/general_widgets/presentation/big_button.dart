@@ -7,29 +7,30 @@ class BigButton extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
-
   final bool fontInBold;
+  final EdgeInsetsGeometry padding;
 
   const BigButton({
     super.key,
     required this.buttonName,
-    this.onPressed,
+    required this.onPressed,
     this.backgroundColor = orangeColor,
     this.textColor = Colors.black,
-    this.borderRadius = 20,
+    this.borderRadius = 20.0,
     this.fontInBold = true,
+    this.padding = const EdgeInsets.all(5.0),
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed ?? () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
-        padding: const EdgeInsets.all(5),
+        padding: padding,
       ),
       child: Center(
         child: Text(
