@@ -3,10 +3,10 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
-import 'package:cash_track/src/features/order/data/products_list.dart';
+import 'package:cash_track/src/features/order/data/category_data_map.dart';
+
 import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/monitor_view.dart';
-import 'package:cash_track/src/features/order/presentation/layout_widgets/product_grid.dart';
 
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,6 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   final bool _isSelect = true;
   final int _deskNumber = 1; //test
-
-  final int _itemCount = 4; //test
 
   final bool _isContainerEmpty = false;
   @override
@@ -59,20 +57,10 @@ class _OrderScreenState extends State<OrderScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                const SizedBox(
-                  height: 40,
+                Expanded(
                   child: CategoryRow(
-                    categories: {},
+                    category: categoryData,
                   ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                ProductGrid(
-                  productsBttnList: productsData,
-                ),
-                const Expanded(
-                  child: SizedBox(),
                 ),
                 SizedBox(
                   height: bigBttnHeight,
