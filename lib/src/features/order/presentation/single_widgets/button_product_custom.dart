@@ -3,8 +3,8 @@ import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/material.dart';
 
 class ButtonProductCustom extends StatelessWidget {
-  final ProductItem products;
-  final VoidCallback? onPressed;
+  final ProductItem productItem;
+  final VoidCallback onPressed;
   final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
@@ -14,8 +14,8 @@ class ButtonProductCustom extends StatelessWidget {
 
   const ButtonProductCustom({
     super.key,
-    required this.products,
-    this.onPressed,
+    required this.productItem,
+    required this.onPressed,
     this.backgroundColor = productColor,
     this.textColor = Colors.black,
     this.borderRadius = borderRadiusSmallButton,
@@ -30,7 +30,7 @@ class ButtonProductCustom extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
@@ -40,7 +40,7 @@ class ButtonProductCustom extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            products.productTitle,
+            productItem.productTitle,
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
