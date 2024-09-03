@@ -1,30 +1,27 @@
+import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
-class OutlinedBigButton extends StatelessWidget {
-  final String buttonName;
-  final VoidCallback onPressed;
+class ButtonCategoryCustom extends StatelessWidget {
+  final String categoryTitle;
+  final VoidCallback? onPressed;
   final Color backgroundColor;
-  final Color borderColor;
   final Color textColor;
   final double borderRadius;
   final double height;
   final double width;
   final bool fontInBold;
-  final double borderWidth;
 
-  const OutlinedBigButton({
+  const ButtonCategoryCustom({
     super.key,
-    required this.buttonName,
-    required this.onPressed,
-    this.backgroundColor = Colors.transparent,
-    this.borderColor = orangeColor,
-    this.textColor = Colors.black,
-    this.borderRadius = 20,
+    required this.categoryTitle,
+    this.onPressed,
+    this.backgroundColor = greenColor,
+    this.textColor = Colors.white,
+    this.borderRadius = borderRadiusSmallButton,
     this.height = double.infinity,
-    this.width = double.infinity,
-    this.fontInBold = true,
-    this.borderWidth = 3.0,
+    this.width = 104,
+    this.fontInBold = false,
   });
 
   @override
@@ -32,11 +29,10 @@ class OutlinedBigButton extends StatelessWidget {
     return SizedBox(
       height: height,
       width: width,
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
-          side: BorderSide(color: borderColor, width: borderWidth), // Randfarbe und -dicke
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
@@ -44,11 +40,11 @@ class OutlinedBigButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            buttonName,
+            categoryTitle,
             textAlign: TextAlign.center,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: textColor,
                   fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal,
                 ),
