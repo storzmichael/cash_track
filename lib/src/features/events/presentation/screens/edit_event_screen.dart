@@ -11,8 +11,6 @@ import 'package:cash_track/src/features/order/data/products_list.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 class EditEventScreen extends StatefulWidget {
   const EditEventScreen({super.key});
 
