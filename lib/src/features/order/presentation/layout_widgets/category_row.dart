@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class CategoryRow extends StatefulWidget {
   final Map<String, List<ProductItem>> category;
 
+  // ignore: prefer_typing_uninitialized_variables
   static var setCategory;
 
   const CategoryRow({
@@ -14,6 +15,7 @@ class CategoryRow extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _CategoryRowState createState() => _CategoryRowState();
 }
 
@@ -54,11 +56,10 @@ class _CategoryRowState extends State<CategoryRow> {
         // Anzeige des Widgets basierend auf der ausgewählten Kategorie
         Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
-            Container(
-              //color: Colors.grey,
+            SizedBox(
               height: 275,
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
