@@ -1,6 +1,8 @@
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
+  hintColor: Colors.orange,
   fontFamily: 'SFProRounded',
   textTheme: const TextTheme(
     bodySmall: TextStyle(fontSize: 12),
@@ -19,5 +21,10 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Color.fromARGB(255, 153, 153, 153),
     selectedItemColor: Colors.black,
     unselectedItemColor: Colors.white,
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(
+      foregroundColor: orangeColor,
+    ),
   ),
 );
