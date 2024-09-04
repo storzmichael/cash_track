@@ -1,3 +1,4 @@
+import 'package:cash_track/src/config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config_colors.dart';
@@ -128,21 +129,21 @@ class _OrderScreenState extends State<OrderScreen> {
       body: Stack(
         children: [
           const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const MonitorView(),
-                const SizedBox(height: 24),
-                isTableSelect
-                    ? Expanded(
-                        child: CategoryRow(
-                          category: categoryData,
-                        ),
-                      )
-                    : Expanded(
-                        child: Scrollbar(
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const MonitorView(),
+                  const SizedBox(height: 24),
+                  isTableSelect
+                      ? Expanded(
+                          child: CategoryRow(
+                            category: categoryData,
+                          ),
+                        )
+                      : Expanded(
                           child: ListView.builder(
                             itemCount: tables.length,
                             itemBuilder: (context, index) {
@@ -157,7 +158,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                       onPressed: () {
                                         setState(() {
                                           deskNumber = tables[index];
-                                          isTableSelect = true; // Setze isTableSelect auf true
+                                          isTableSelect = true;
                                         });
                                       },
                                       buttonName: tables[index],
@@ -168,23 +169,22 @@ class _OrderScreenState extends State<OrderScreen> {
                             },
                           ),
                         ),
-                      ),
-                SizedBox(
-                  height: bigBttnHeight,
-                  child: BigButton(
-                      buttonName: 'Bestellen',
-                      backgroundColor: isTableSelect ? orangeColor : Colors.grey.shade300,
-                      textColor: isTableSelect ? Colors.black : Colors.grey.shade500,
-                      onPressed: isTableSelect
-                          ? () {
-                              setState(() {
-                                isTableSelect = false; // Setze isTableSelect zurück
-                              });
-                            }
-                          : null),
-                ),
-                const SizedBox(height: 50),
-              ],
+                  SizedBox(
+                    height: bigBttnHeight,
+                    child: BigButton(
+                        buttonName: 'Bestellen',
+                        backgroundColor: isTableSelect ? orangeColor : Colors.grey.shade300,
+                        textColor: isTableSelect ? Colors.black : Colors.grey.shade500,
+                        onPressed: isTableSelect
+                            ? () {
+                                setState(() {
+                                  isTableSelect = false; // Setze isTableSelect zurück
+                                });
+                              }
+                            : null),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

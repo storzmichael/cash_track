@@ -244,124 +244,123 @@ class _EditEventScreenState extends State<EditEventScreen> {
       body: Stack(
         children: [
           const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.all(sitesPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextField(
-                  controller: _nameController,
-                  eventTextfieldItem: const EventTextfieldItem(
-                    eventTextfieldHintText: 'Produktname',
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(sitesPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextField(
+                    controller: _nameController,
+                    eventTextfieldItem: const EventTextfieldItem(
+                      eventTextfieldHintText: 'Produktname',
+                    ),
+                    onChanged: (value) {},
                   ),
-                  onChanged: (value) {},
-                ),
-                const SizedBox(height: 10),
-                CustomTextField(
-                  controller: _priceController,
-                  // Add custom input validation here
-                  onChanged: (value) {
-                    if (!RegExp(r'^[0-9]*[.,]?[0-9]*$').hasMatch(value)) {
-                      // Show error or handle invalid input
-                    }
-                  },
-                  eventTextfieldItem: const EventTextfieldItem(
-                    eventTextfieldHintText: 'Produktpreis',
-                  ),
-                ),
-                const SizedBox(height: 10),
-                CustomTextField(
-                  controller: _categoryController,
-                  eventTextfieldItem: const EventTextfieldItem(
-                    eventTextfieldHintText: 'Produktkategorie',
-                  ),
-                  onChanged: (value) {},
-                ),
-                const SizedBox(height: 30),
-                Center(
-                  child: SizedBox(
-                    width: 200,
-                    height: bigBttnHeight,
-                    child: OutlinedBigButton(
-                      buttonName: 'Hinzufügen',
-                      onPressed: addProductToGrid,
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    controller: _priceController,
+                    // Add custom input validation here
+                    onChanged: (value) {
+                      if (!RegExp(r'^[0-9]*[.,]?[0-9]*$').hasMatch(value)) {
+                        // Show error or handle invalid input
+                      }
+                    },
+                    eventTextfieldItem: const EventTextfieldItem(
+                      eventTextfieldHintText: 'Produktpreis',
                     ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                const Text('Produktliste nach Kategorien'),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: categoryData.entries.map((entry) {
-                        final String category = entry.key;
-                        final List<ProductItem> products = entry.value;
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    controller: _categoryController,
+                    eventTextfieldItem: const EventTextfieldItem(
+                      eventTextfieldHintText: 'Produktkategorie',
+                    ),
+                    onChanged: (value) {},
+                  ),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: SizedBox(
+                      width: 200,
+                      height: bigBttnHeight,
+                      child: OutlinedBigButton(
+                        buttonName: 'Hinzufügen',
+                        onPressed: addProductToGrid,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  const Text('Produktliste nach Kategorien'),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: categoryData.entries.map((entry) {
+                          final String category = entry.key;
+                          final List<ProductItem> products = entry.value;
 
-                        return Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Container(
-                            width: 200,
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10.0),
-                                  child: Text(
-                                    category,
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                          return Card(
+                            margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Container(
+                              width: 200,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10.0),
+                                    child: Text(
+                                      category,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: products.length > 12 ? 12 : products.length,
-                                    itemBuilder: (context, index) {
-                                      final product = products[index];
+                                  Expanded(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: products.length > 12 ? 12 : products.length,
+                                      itemBuilder: (context, index) {
+                                        final product = products[index];
 
-                                      return GestureDetector(
-                                        onLongPress: () {
-                                          _showProductOptionsDialog(category, product);
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Text(product.productTitle),
-                                              ),
-                                              Text('${double.parse(product.productPrice).toStringAsFixed(2)} €'),
-                                            ],
+                                        return GestureDetector(
+                                          onLongPress: () {
+                                            _showProductOptionsDialog(category, product);
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(product.productTitle),
+                                                ),
+                                                Text('${double.parse(product.productPrice).toStringAsFixed(2)} €'),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: bigBttnHeight),
-                BigButton(
-                  buttonName: 'Erstelle Event',
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/order");
-                    CategoryRow.setCategory;
-                  },
-                ),
-                const SizedBox(
-                  height: bottomPadding,
-                ),
-              ],
+                  const SizedBox(height: bigBttnHeight),
+                  BigButton(
+                    buttonName: 'Erstelle Event',
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/order");
+                      CategoryRow.setCategory;
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],

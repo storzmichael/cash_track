@@ -28,10 +28,12 @@ class CreateEventScreen extends StatelessWidget {
       body: const Stack(
         children: [
           ThemeContainer(),
-          Padding(
-            padding: EdgeInsets.all(sitesPadding),
-            child: Center(
-              child: TextFieldEvent(),
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(sitesPadding),
+              child: Center(
+                child: TextFieldEvent(),
+              ),
             ),
           ),
         ],
