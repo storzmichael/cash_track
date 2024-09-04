@@ -1,3 +1,4 @@
+import 'package:cash_track/src/features/order/data/products_list.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class MonitorView extends StatefulWidget {
 class _MonitorViewState extends State<MonitorView> {
   final double valueList = 2.50;
   final String orderSum = '2,50 €';
-  final List<ProductItem> _orderItems = [];
+  final List<ProductItem> _orderItems = productsData;
 
   @override
   Widget build(
