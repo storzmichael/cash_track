@@ -236,7 +236,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           ),
         ],
         title: const Text('Produkte erstellen'),
