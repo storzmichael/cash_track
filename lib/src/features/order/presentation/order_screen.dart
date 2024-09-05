@@ -1,4 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config_colors.dart';
@@ -19,14 +20,13 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   bool isTableSelect = false; // Status der Auswahl, initial auf false gesetzt
   String deskNumber = ''; // Aktuelle Tischnummer
-  final bool _isContainerEmpty = false;
 
   void _addNewButton(String buttonName) {
     if (buttonName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Bitte geben Sie etwas ein'),
-          backgroundColor: Colors.red,
+          content: Text(textFiles[language]![9]),
+          backgroundColor: alertColor,
         ),
       );
       return;
@@ -36,8 +36,8 @@ class _OrderScreenState extends State<OrderScreen> {
       // Zeige Fehlermeldung an, wenn der Name bereits existiert
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Tisch mit dem Namen "$buttonName" existiert bereits!'),
-          backgroundColor: Colors.red,
+          content: Text('${textFiles[language]![10]} "$buttonName" ${textFiles[language]![11]}'),
+          backgroundColor: alertColor,
         ),
       );
       return;
@@ -56,22 +56,22 @@ class _OrderScreenState extends State<OrderScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Neuen Button hinzufügen'),
+          title: Text(textFiles[language]![12]),
           content: TextField(
             controller: buttonTextController,
-            decoration: const InputDecoration(
-              hintText: 'Button Name eingeben',
+            decoration: InputDecoration(
+              hintText: textFiles[language]![13],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Abbrechen'),
+              child: Text(textFiles[language]![14]),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Hinzufügen'),
+              child: Text(textFiles[language]![15]),
               onPressed: () {
                 String buttonName = buttonTextController.text.trim();
                 _addNewButton(buttonName);
@@ -89,17 +89,17 @@ class _OrderScreenState extends State<OrderScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Button löschen'),
-          content: const Text('Möchten Sie diesen Button wirklich löschen?'),
+          title: Text(textFiles[language]![16]),
+          content: Text(textFiles[language]![17]),
           actions: <Widget>[
             TextButton(
-              child: const Text('Abbrechen'),
+              child: Text(textFiles[language]![13]),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Löschen'),
+              child: Text(textFiles[language]![18]),
               onPressed: () {
                 setState(() {
                   tables.removeAt(index);
@@ -131,7 +131,7 @@ class _OrderScreenState extends State<OrderScreen> {
           const ThemeContainer(),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: sitesPadding),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -152,9 +152,9 @@ class _OrderScreenState extends State<OrderScreen> {
                                 child: GestureDetector(
                                   onLongPress: () => _showDeleteConfirmDialog(index),
                                   child: SizedBox(
-                                    height: 40,
+                                    height: bigBttnHeight,
                                     child: BigButton(
-                                      backgroundColor: Colors.white,
+                                      backgroundColor: whiteColor,
                                       onPressed: () {
                                         setState(() {
                                           deskNumber = tables[index];

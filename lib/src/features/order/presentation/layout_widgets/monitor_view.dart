@@ -1,3 +1,5 @@
+import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/data/products_list.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ class _MonitorViewState extends State<MonitorView> {
   final double valueList = 2.50;
   final String orderSum = '2,50 €';
   final List<ProductItem> _orderItems = productsData;
+  final double _monitorHeight = 160;
 
   @override
   Widget build(
@@ -27,11 +30,11 @@ class _MonitorViewState extends State<MonitorView> {
             Flexible(
               flex: 2,
               child: SizedBox(
-                height: 160,
+                height: _monitorHeight,
                 child: Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.horizontal(
-                      left: Radius.circular(8),
+                      left: Radius.circular(monitorBorderRadius),
                     ),
                     color: Colors.grey,
                   ),
@@ -59,11 +62,11 @@ class _MonitorViewState extends State<MonitorView> {
             Flexible(
               flex: 1,
               child: SizedBox(
-                height: 160,
+                height: _monitorHeight,
                 child: Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.horizontal(
-                      right: Radius.circular(8),
+                      right: Radius.circular(monitorBorderRadius),
                     ),
                     color: Colors.grey,
                   ),
@@ -89,7 +92,7 @@ class _MonitorViewState extends State<MonitorView> {
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [const Text('Gesamt'), Text(orderSum)],
+                children: [Text(textFiles[language]![4]), Text(orderSum)],
               ),
             ),
           ),

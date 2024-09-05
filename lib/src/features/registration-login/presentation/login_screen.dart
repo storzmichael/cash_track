@@ -1,4 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
@@ -22,15 +23,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool rememberMe = false;
-  final String correctPassword = '1234567';
+  final String correctPassword = '123';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        title: const Text(
-          'Login Screen',
+        title: Text(
+          textFiles[language]![20],
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           const ThemeContainer(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, sitesPadding, 16.0, sitesPadding),
+            padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
             child: Form(
               key: _formKey,
               child: Column(
@@ -47,8 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 150,
-                          width: 320,
+                          height: logoheight,
+                          width: logowidth,
                           child: Image(
                             image: AssetImage('assets/logo/logo.png'),
                             fit: BoxFit.fitHeight,
@@ -66,8 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        const Text(
-                          'Einfach Smart Kassieren',
+                        Text(
+                          textFiles[language]![21],
                         ),
                       ],
                     ),
@@ -76,14 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 32,
                   ),
                   LoginTextFormField(
-                    labelName: 'E-mail',
+                    labelName: textFiles[language]![22],
                     controller: emailController,
                   ),
                   const SizedBox(
                     height: 12,
                   ),
                   LoginTextFormField(
-                    labelName: 'Passwort',
+                    labelName: textFiles[language]![23],
                     isPassword: true,
                     controller: passwordController,
                   ),
@@ -97,12 +98,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushNamed(context, "/apphome");
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Passwort falsch')),
+                            SnackBar(content: Text(textFiles[language]![24])),
                           );
                         }
                       }
                     },
-                    buttonName: 'Login',
+                    buttonName: textFiles[language]![20],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -118,13 +119,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           Text(
-                            'angemeldet bleiben',
+                            textFiles[language]![25],
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
                       Text(
-                        'Passwort vergessen?',
+                        textFiles[language]![26],
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
@@ -133,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SizedBox(),
                   ),
                   OutlinedBigButton(
-                    buttonName: 'Neuen Account erstellen',
+                    buttonName: textFiles[language]![27],
                     onPressed: () {
                       Navigator.push(
                         context,

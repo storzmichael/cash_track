@@ -1,4 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
@@ -25,16 +26,16 @@ class _RegistrationScreenState extends State<RegistrastionScreen> {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        title: const Text(
-          'Login Screen',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          textFiles[language]![20],
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: Stack(
         children: [
           const ThemeContainer(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, sitesPadding, 16.0, sitesPadding),
+            padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
             child: Form(
               key: _formKey,
               child: Column(
@@ -43,8 +44,8 @@ class _RegistrationScreenState extends State<RegistrastionScreen> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 150,
-                          width: 320,
+                          height: logoheight,
+                          width: logowidth,
                           child: Image(
                             image: AssetImage('assets/logo/logo.png'),
                             fit: BoxFit.fitHeight,
@@ -62,8 +63,8 @@ class _RegistrationScreenState extends State<RegistrastionScreen> {
                             ),
                           ),
                         ),
-                        const Text(
-                          'Einfach Smart Kassieren',
+                        Text(
+                          textFiles[language]![21],
                         ),
                       ],
                     ),
@@ -73,7 +74,7 @@ class _RegistrationScreenState extends State<RegistrastionScreen> {
                   ),
                   // USERNAME TEXTFIELD
                   LoginTextFormField(
-                    labelName: 'Username',
+                    labelName: textFiles[language]![33],
                     isUsername: true,
                     controller: userController,
                   ),
@@ -82,7 +83,7 @@ class _RegistrationScreenState extends State<RegistrastionScreen> {
                   ),
                   //EMAIL TEXTFIELD
                   LoginTextFormField(
-                    labelName: 'E-mail',
+                    labelName: textFiles[language]![22],
                     controller: emailController,
                   ),
                   const SizedBox(
@@ -90,7 +91,7 @@ class _RegistrationScreenState extends State<RegistrastionScreen> {
                   ),
                   //PASSWORT TEXTFIELD
                   LoginTextFormField(
-                    labelName: 'Passwort',
+                    labelName: textFiles[language]![23],
                     isPassword: true,
                     controller: passwordController,
                   ),
@@ -106,13 +107,13 @@ class _RegistrationScreenState extends State<RegistrastionScreen> {
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Eingaben ungültig'),
+                          SnackBar(
+                            content: Text(textFiles[language]![34]),
                           ),
                         );
                       }
                     },
-                    buttonName: 'Registrierung abschließen',
+                    buttonName: textFiles[language]![35],
                   ),
                 ],
               ),

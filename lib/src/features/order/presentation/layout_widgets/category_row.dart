@@ -1,3 +1,6 @@
+import 'package:cash_track/src/config/button_varibals.dart';
+import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/product_grid.dart';
 import 'package:cash_track/src/features/order/presentation/single_widgets/button_category_custom.dart';
@@ -34,13 +37,13 @@ class _CategoryRowState extends State<CategoryRow> {
     return Column(
       children: [
         SizedBox(
-          height: 40,
+          height: bigBttnHeight,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: keys.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                padding: const EdgeInsets.symmetric(horizontal: smallPadding),
                 child: ButtonCategoryCustom(
                   categoryTitle: keys[index],
                   fontInBold: true,
@@ -74,13 +77,13 @@ class _CategoryRowState extends State<CategoryRow> {
 
   Widget selectCategory(String? categoryKey) {
     if (categoryKey == null) {
-      return const Text('Bitte erstelle eine Kategorie.');
+      return Text(textFiles[language]![7]);
     }
 
     List<ProductItem>? items = widget.category[categoryKey];
 
     if (items == null || items.isEmpty) {
-      return const Text('Keine Elemente in dieser Kategorie.');
+      return Text(textFiles[language]![8]);
     }
 
     return ProductGrid(
