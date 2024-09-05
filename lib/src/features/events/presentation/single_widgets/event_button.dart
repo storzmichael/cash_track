@@ -17,7 +17,7 @@ class EventButton extends StatelessWidget {
   const EventButton({
     super.key,
     required this.eventButtonItem,
-    this.backgroundColor = orangeColor,
+    this.backgroundColor = primeryColor,
     this.textColor = Colors.black,
     this.borderRadius = borderRadiusSmallButton,
     this.height = 140,
