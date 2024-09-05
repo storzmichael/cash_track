@@ -1,4 +1,4 @@
-import 'package:cash_track/src/core/data/nav_item_data.dart';
+import 'package:cash_track/src/data/nav_item_data.dart';
 import 'package:cash_track/src/features/events/presentation/screens/event_screen.dart';
 import 'package:cash_track/src/features/events/presentation/screens/favorites_screen.dart';
 import 'package:cash_track/src/features/profil/presentation/profil_screen.dart';
