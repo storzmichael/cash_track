@@ -1,6 +1,6 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
-import 'package:cash_track/src/core/data/lang/app_text.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginTextFormField extends StatefulWidget {
@@ -22,10 +22,10 @@ class LoginTextFormField extends StatefulWidget {
     this.isUsername = false,
     this.isPassword = false,
     required this.controller,
-    this.borderColor = Colors.grey,
-    this.focusedBorderColor = orangeColor,
-    this.errorBorderColor = Colors.red,
-    this.labelTextColor = Colors.black,
+    this.borderColor = greyColor,
+    this.focusedBorderColor = primeryColor,
+    this.errorBorderColor = alertColor,
+    this.labelTextColor = blackColor,
   });
 
   @override
