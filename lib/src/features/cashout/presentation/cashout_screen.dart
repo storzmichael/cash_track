@@ -1,7 +1,7 @@
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
-import 'package:cash_track/src/core/data/lang/app_text.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/cashout/presentation/single_widgets/listview_unpaid.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
@@ -52,7 +52,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(monitorBorderRadius),
                     ),
-                    color: greyColor,
+                    color: textFieldColor,
                   ),
                 ),
               ),
@@ -69,7 +69,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                       borderRadius: BorderRadius.all(
                         Radius.circular(monitorBorderRadius),
                       ),
-                      color: greyColor,
+                      color: textFieldColor,
                     ),
                     child: Padding(
                       padding: const EdgeInsetsDirectional.symmetric(horizontal: textPadding),
@@ -90,7 +90,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
                   height: bigBttnHeight,
                   child: BigButton(
                     buttonName: textFiles[language]![5],
-                    backgroundColor: _isContainerEmpty ? Colors.grey.shade300 : orangeColor,
+                    backgroundColor: _isContainerEmpty ? Colors.grey.shade300 : primeryColor,
                     textColor: _isContainerEmpty ? Colors.grey.shade500 : Colors.black,
                     onPressed: _isContainerEmpty ? null : () {},
                   ),
