@@ -1,5 +1,6 @@
 import 'package:cash_track/src/config/config.dart';
-import 'package:cash_track/src/core/data/lang/app_text.dart';
+import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/data/products_list.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _MonitorViewState extends State<MonitorView> {
                     borderRadius: BorderRadius.horizontal(
                       left: Radius.circular(monitorBorderRadius),
                     ),
-                    color: Colors.grey,
+                    color: monitorColor,
                   ),
                   child: ListView.builder(
                     itemCount: _orderItems.length,
@@ -68,7 +69,7 @@ class _MonitorViewState extends State<MonitorView> {
                     borderRadius: BorderRadius.horizontal(
                       right: Radius.circular(monitorBorderRadius),
                     ),
-                    color: Colors.grey,
+                    color: monitorColor,
                   ),
                 ),
               ),
@@ -86,7 +87,7 @@ class _MonitorViewState extends State<MonitorView> {
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
-              color: Colors.grey,
+              color: textFieldColor,
             ),
             child: Padding(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0),
