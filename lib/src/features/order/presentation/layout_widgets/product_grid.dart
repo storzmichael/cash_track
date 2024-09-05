@@ -15,7 +15,7 @@ class ProductGrid extends StatelessWidget {
     required this.productItemsList,
     this.crossAxisCount = 4,
     this.crossAxisSpacing = 10,
-    this.mainAxisSpacing = 10,
+    this.mainAxisSpacing = 20,
   });
 
   @override
