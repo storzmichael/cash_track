@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 const double borderRadiusSmallButton = 12.0;
+const double borderRadiusLargeButton = 20.0;
 
 const double productBttnHeight = 60;
 const double productBttnWidth = 60;
