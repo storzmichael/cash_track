@@ -1,3 +1,3 @@
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 
-Map<String, List<ProductItem>> categoryData = {};
+Map<String, ProductItem> orderData = {};

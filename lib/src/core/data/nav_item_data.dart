@@ -1,21 +1,23 @@
+import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 import 'package:cash_track/src/core/domain/nav_items.dart';
 import 'package:flutter/material.dart';
 
 List<NavigationItem> navigationItemData = [
   // collection of data
-  const NavigationItem(
+  NavigationItem(
     activeIcon: Icons.event_available,
     icon: Icons.event_outlined,
-    label: 'Event',
+    label: textFiles[language]![0], // Event
   ),
-  const NavigationItem(
+  NavigationItem(
     activeIcon: Icons.favorite,
     icon: Icons.favorite_border,
-    label: 'Favoriten',
+    label: textFiles[language]![1], // Favoriten
   ),
-  const NavigationItem(
+  NavigationItem(
     activeIcon: Icons.person,
     icon: Icons.person_outline,
-    label: 'Profil',
+    label: textFiles[language]![2], // Profil
   ),
 ];

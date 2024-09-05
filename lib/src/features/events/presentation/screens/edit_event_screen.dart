@@ -6,9 +6,8 @@ import 'package:cash_track/src/features/general_widgets/presentation/big_button.
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
 import 'package:cash_track/src/features/order/data/category_data_map.dart';
-
-import 'package:cash_track/src/features/order/data/products_list.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
+import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
 import 'package:flutter/material.dart';
 
 class EditEventScreen extends StatefulWidget {
@@ -39,14 +38,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
     super.dispose();
   }
 
-  addProductToGrid() {
-    ProductItem product1 = ProductItem(
-        productTitle: _nameController.text,
-        productPrice: _priceController.text,
-        productCategory: _categoryController.text);
-
-    productsData.add(product1);
-
+  void addProductToGrid() {
     if (_categoryController.text.isEmpty || _nameController.text.isEmpty || _priceController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -57,31 +49,34 @@ class _EditEventScreenState extends State<EditEventScreen> {
       return;
     }
 
-    double? price;
-    try {
-      price = double.parse(_priceController.text.replaceAll(',', '.'));
-    } catch (e) {
+    final String category = _categoryController.text;
+    final List<ProductItem>? products = categoryData[category];
+
+    if (products != null && products.length >= 12) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Bitte geben Sie einen gültigen Preis ein."),
+          content:
+              Text("Es sind bereits 12 Produkte in dieser Kategorie. Kein weiteres Produkt kann hinzugefügt werden."),
           duration: Duration(seconds: 2),
         ),
       );
       return;
     }
 
-    // Ausgabe für Card
-    final String product = '${_nameController.text} - ${price.toStringAsFixed(2)}';
+    ProductItem product = ProductItem(
+      productTitle: _nameController.text,
+      productPrice: _priceController.text,
+      productCategory: _categoryController.text,
+    );
 
     setState(() {
-      if (categoryData.containsKey(_categoryController.text)) {
-        categoryData[_categoryController.text]!.add(product);
+      if (categoryData.containsKey(category)) {
+        categoryData[category]!.add(product);
       } else {
-        categoryData[_categoryController.text] = [product];
+        categoryData[category] = [product];
       }
 
       clearAllController();
-
       //_saveProducts();
     });
   }
@@ -91,44 +86,8 @@ class _EditEventScreenState extends State<EditEventScreen> {
     _priceController.clear();
     _categoryController.clear();
   }
-  //! nur zu Testzwecken
-  // Future<void> _saveProducts() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final Map<String, List<String>> productsMap = _categorizedProducts;
-  //   final Map<String, String> stringMap = {};
 
-  //   productsMap.forEach((category, products) {
-  //     stringMap[category] = products.join(';');
-  //   });
-
-  //   await prefs.setString('products', stringMap.entries.map((e) => '${e.key}:${e.value}').join('|'));
-  // }
-
-  // Future<void> _loadProducts() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final String? productsString = prefs.getString('products');
-  //   if (productsString != null) {
-  //     final Map<String, List<String>> loadedProducts = {};
-  //     final Map<String, String> map = {};
-
-  //     productsString.split('|').forEach((element) {
-  //       final parts = element.split(':');
-  //       if (parts.length == 2) {
-  //         map[parts[0]] = parts[1];
-  //       }
-  //     });
-
-  //     map.forEach((category, products) {
-  //       loadedProducts[category] = products.split(';').toList();
-  //     });
-
-  //     setState(() {
-  //       _categorizedProducts.addAll(loadedProducts);
-  //     });
-  //   }
-  // }
-
-  void _showProductOptionsDialog(String category, String product) {
+  void _showProductOptionsDialog(String category, ProductItem product) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -137,7 +96,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Produkt: $product'),
+              Text('Produkt: ${product.productTitle}'),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,13 +126,9 @@ class _EditEventScreenState extends State<EditEventScreen> {
     );
   }
 
-  void _showEditProductDialog(String category, String product) {
-    final parts = product.split(' - ');
-    final String name = parts[0];
-    final String price = parts[1];
-
-    _nameController.text = name;
-    _priceController.text = price;
+  void _showEditProductDialog(String category, ProductItem product) {
+    _nameController.text = product.productTitle;
+    _priceController.text = product.productPrice;
     _categoryController.text = category;
 
     showDialog(
@@ -226,7 +181,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
     );
   }
 
-  void _updateProduct(String category, String oldProduct) {
+  void _updateProduct(String category, ProductItem oldProduct) {
     final String newName = _nameController.text.trim();
     final String newPriceText = _priceController.text.trim();
 
@@ -243,25 +198,25 @@ class _EditEventScreenState extends State<EditEventScreen> {
       return;
     }
 
-    final String newProduct = '$newName - ${newPrice.toStringAsFixed(2)}';
-
     setState(() {
       final products = categoryData[category];
       if (products != null) {
         final index = products.indexOf(oldProduct);
         if (index != -1) {
-          products[index] = newProduct;
+          products[index] = ProductItem(
+            productTitle: newName,
+            productPrice: newPrice!.toStringAsFixed(2),
+            productCategory: category,
+          );
         }
         //_saveProducts();
       }
     });
 
-    _nameController.clear();
-    _priceController.clear();
-    _categoryController.clear();
+    clearAllController();
   }
 
-  void _deleteProduct(String category, String product) {
+  void _deleteProduct(String category, ProductItem product) {
     setState(() {
       final products = categoryData[category];
       if (products != null) {
@@ -281,7 +236,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           ),
         ],
         title: const Text('Produkte erstellen'),
@@ -289,126 +244,123 @@ class _EditEventScreenState extends State<EditEventScreen> {
       body: Stack(
         children: [
           const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.all(sitesPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextField(
-                  controller: _nameController,
-                  eventTextfieldItem: const EventTextfieldItem(
-                    eventTextfieldHintText: 'Produktname',
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(sitesPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextField(
+                    controller: _nameController,
+                    eventTextfieldItem: const EventTextfieldItem(
+                      eventTextfieldHintText: 'Produktname',
+                    ),
+                    onChanged: (value) {},
                   ),
-                  onChanged: (value) {},
-                ),
-                const SizedBox(height: 10),
-                CustomTextField(
-                  controller: _priceController,
-                  // Add custom input validation here
-                  onChanged: (value) {
-                    if (!RegExp(r'^[0-9]*[.,]?[0-9]*$').hasMatch(value)) {
-                      // Show error or handle invalid input
-                    }
-                  },
-                  eventTextfieldItem: const EventTextfieldItem(
-                    eventTextfieldHintText: 'Produktpreis',
-                  ),
-                ),
-                const SizedBox(height: 10),
-                CustomTextField(
-                  controller: _categoryController,
-                  eventTextfieldItem: const EventTextfieldItem(
-                    eventTextfieldHintText: 'Produktkategorie',
-                  ),
-                  onChanged: (value) {},
-                ),
-                const SizedBox(height: 30),
-                Center(
-                  child: SizedBox(
-                    width: 200,
-                    height: bigBttnHeight,
-                    child: OutlinedBigButton(
-                      buttonName: 'Hinzufügen',
-                      onPressed: addProductToGrid,
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    controller: _priceController,
+                    // Add custom input validation here
+                    onChanged: (value) {
+                      if (!RegExp(r'^[0-9]*[.,]?[0-9]*$').hasMatch(value)) {
+                        // Show error or handle invalid input
+                      }
+                    },
+                    eventTextfieldItem: const EventTextfieldItem(
+                      eventTextfieldHintText: 'Produktpreis',
                     ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                const Text('Produktliste nach Kategorien'),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: categoryData.entries.map((entry) {
-                        final String category = entry.key;
-                        final List<String> products = entry.value;
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    controller: _categoryController,
+                    eventTextfieldItem: const EventTextfieldItem(
+                      eventTextfieldHintText: 'Produktkategorie',
+                    ),
+                    onChanged: (value) {},
+                  ),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: SizedBox(
+                      width: 200,
+                      height: bigBttnHeight,
+                      child: OutlinedBigButton(
+                        buttonName: 'Hinzufügen',
+                        onPressed: addProductToGrid,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  const Text('Produktliste nach Kategorien'),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: categoryData.entries.map((entry) {
+                          final String category = entry.key;
+                          final List<ProductItem> products = entry.value;
 
-                        return Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Container(
-                            width: 200,
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10.0),
-                                  child: Text(
-                                    category,
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                          return Card(
+                            margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Container(
+                              width: 200,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10.0),
+                                    child: Text(
+                                      category,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: products.length,
-                                    itemBuilder: (context, index) {
-                                      final product = products[index];
-                                      final parts = product.split(' - ');
-                                      final name = parts[0];
-                                      final price = parts[1];
+                                  Expanded(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: products.length > 12 ? 12 : products.length,
+                                      itemBuilder: (context, index) {
+                                        final product = products[index];
 
-                                      return GestureDetector(
-                                        onLongPress: () {
-                                          _showProductOptionsDialog(category, product);
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Text(name),
-                                              ),
-                                              Text('$price €'),
-                                            ],
+                                        return GestureDetector(
+                                          onLongPress: () {
+                                            _showProductOptionsDialog(category, product);
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(product.productTitle),
+                                                ),
+                                                Text('${double.parse(product.productPrice).toStringAsFixed(2)} €'),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList(),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: bigBttnHeight),
-                BigButton(
-                  buttonName: 'Erstelle Event ',
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/order");
-                  },
-                ),
-                const SizedBox(
-                  height: bottomPadding,
-                ),
-              ],
+                  const SizedBox(height: bigBttnHeight),
+                  BigButton(
+                    buttonName: 'Erstelle Event',
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/order");
+                      CategoryRow.setCategory;
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],

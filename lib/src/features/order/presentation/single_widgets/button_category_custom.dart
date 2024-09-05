@@ -4,24 +4,28 @@ import 'package:flutter/material.dart';
 
 class ButtonCategoryCustom extends StatelessWidget {
   final String categoryTitle;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
   final Color backgroundColor;
   final Color textColor;
   final double borderRadius;
   final double height;
   final double width;
   final bool fontInBold;
+  final Widget? child;
+  final int maxLines;
 
   const ButtonCategoryCustom({
     super.key,
     required this.categoryTitle,
-    this.onPressed,
+    required this.onPressed,
     this.backgroundColor = greenColor,
     this.textColor = Colors.white,
     this.borderRadius = borderRadiusSmallButton,
     this.height = double.infinity,
     this.width = 104,
     this.fontInBold = false,
+    this.child,
+    this.maxLines = 2,
   });
 
   @override
@@ -30,7 +34,7 @@ class ButtonCategoryCustom extends StatelessWidget {
       height: height,
       width: width,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
@@ -42,7 +46,7 @@ class ButtonCategoryCustom extends StatelessWidget {
           child: Text(
             categoryTitle,
             textAlign: TextAlign.center,
-            maxLines: 2,
+            maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: textColor,

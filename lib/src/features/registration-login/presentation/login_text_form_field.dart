@@ -1,4 +1,6 @@
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginTextFormField extends StatefulWidget {
@@ -67,22 +69,22 @@ class _LoginTextFormFieldState extends State<LoginTextFormField> {
       obscureText: widget.isPassword ? _obscureText : false,
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Bitte gib ein ${widget.labelName} ein';
+          return '${textFiles[language]![28]} ${widget.labelName} ${textFiles[language]![29]}';
         }
         if (!widget.isPassword && !widget.isUsername) {
           final emailRegex = RegExp(r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$');
           if (!emailRegex.hasMatch(value)) {
-            return 'Bitte gib eine gültige Email ein';
+            return textFiles[language]![30];
           }
         }
         if (widget.isUsername) {
           if (value.length < 6) {
-            return 'Username muss mindesten 6 Zeichen lang sein';
+            return textFiles[language]![31];
           }
         }
         {
           if (value.length < 6) {
-            return 'Passworts muss mindesten 6 Zeichen lang sein';
+            return textFiles[language]![32];
           }
         }
         return null;

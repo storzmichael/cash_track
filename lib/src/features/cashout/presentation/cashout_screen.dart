@@ -1,4 +1,7 @@
+import 'package:cash_track/src/config/button_varibals.dart';
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/core/data/lang/app_text.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/cashout/presentation/single_widgets/listview_unpaid.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
@@ -22,11 +25,12 @@ class _CashoutScreenState extends State<CashoutScreen> {
   };
 
   final bool _isContainerEmpty = true;
+  final double _monitorHeight = 200;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tischnummer: ${desksItems.keys}'),
+        title: Text('${textFiles[language]![3]}: ${desksItems.keys}'),
         actions: const [
           Icon(Icons.settings),
           SizedBox(
@@ -41,16 +45,14 @@ class _CashoutScreenState extends State<CashoutScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SizedBox(
-                  height: 200,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                      color: greyColor,
+                padding: const EdgeInsets.symmetric(horizontal: sitesPadding),
+                child: Container(
+                  height: _monitorHeight,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(monitorBorderRadius),
                     ),
+                    color: greyColor,
                   ),
                 ),
               ),
@@ -58,22 +60,22 @@ class _CashoutScreenState extends State<CashoutScreen> {
                 height: 8,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: sitesPadding),
                 child: SizedBox(
-                  height: 40,
+                  height: bigBttnHeight,
                   width: double.infinity,
                   child: Container(
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
-                        Radius.circular(8),
+                        Radius.circular(monitorBorderRadius),
                       ),
                       color: greyColor,
                     ),
                     child: Padding(
-                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsetsDirectional.symmetric(horizontal: textPadding),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [const Text('Gesamt'), Text(_orderSum)],
+                        children: [Text(textFiles[language]![4]), Text(_orderSum)],
                       ),
                     ),
                   ),
@@ -85,9 +87,9 @@ class _CashoutScreenState extends State<CashoutScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: SizedBox(
-                  height: 40,
+                  height: bigBttnHeight,
                   child: BigButton(
-                    buttonName: 'Bezahlung abschließen',
+                    buttonName: textFiles[language]![5],
                     backgroundColor: _isContainerEmpty ? Colors.grey.shade300 : orangeColor,
                     textColor: _isContainerEmpty ? Colors.grey.shade500 : Colors.black,
                     onPressed: _isContainerEmpty ? null : () {},
@@ -97,9 +99,9 @@ class _CashoutScreenState extends State<CashoutScreen> {
               const SizedBox(
                 height: 24,
               ),
-              const Text(
-                'Ausstehend',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Text(
+                textFiles[language]![6],
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(
                 height: 8,
