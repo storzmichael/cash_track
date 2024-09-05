@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: Text(
           textFiles[language]![20],
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: Stack(
