@@ -13,7 +13,7 @@ class EventList extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: greyColor,
+          color: textFieldColor,
           borderRadius: BorderRadius.circular(borderRadiusSmallButton),
         ),
         child: ListView.builder(
