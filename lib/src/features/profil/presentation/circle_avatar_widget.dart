@@ -14,7 +14,7 @@ class CircleAvatarWidget extends StatelessWidget {
     this.imageUrl,
     this.radius = 50,
     this.backgroundColor = Colors.grey,
-    this.iconColor = orangeColor,
+    this.iconColor = primeryColor,
     this.iconSize = 70,
   });
 
