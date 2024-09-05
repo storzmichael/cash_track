@@ -12,6 +12,7 @@ class ButtonCategoryCustom extends StatelessWidget {
   final double width;
   final bool fontInBold;
   final Widget? child;
+  final int maxLines;
 
   const ButtonCategoryCustom({
     super.key,
@@ -24,6 +25,7 @@ class ButtonCategoryCustom extends StatelessWidget {
     this.width = 104,
     this.fontInBold = false,
     this.child,
+    this.maxLines = 2,
   });
 
   @override
@@ -44,7 +46,7 @@ class ButtonCategoryCustom extends StatelessWidget {
           child: Text(
             categoryTitle,
             textAlign: TextAlign.center,
-            maxLines: 2,
+            maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: textColor,
@@ -56,30 +58,3 @@ class ButtonCategoryCustom extends StatelessWidget {
     );
   }
 }
-// import 'package:flutter/material.dart';
-
-// class ButtonCategoryCustom extends StatelessWidget {
-//   final String categoryTitle;
-//   final bool fontInBold;
-//   final VoidCallback onPressed;
-
-//   const ButtonCategoryCustom({
-//     super.key,
-//     required this.categoryTitle,
-//     required this.fontInBold,
-//     required this.onPressed,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ElevatedButton(
-//       onPressed: onPressed,
-//       child: Text(
-//         categoryTitle,
-//         style: TextStyle(
-//           fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal,
-//         ),
-//       ),
-//     );
-//   }
-// }

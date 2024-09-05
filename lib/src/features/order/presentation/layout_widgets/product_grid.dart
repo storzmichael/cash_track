@@ -6,20 +6,26 @@ import 'package:cash_track/src/features/order/domain/product_item.dart';
 
 class ProductGrid extends StatelessWidget {
   final List<ProductItem> productItemsList;
+  final int crossAxisCount;
+  final double crossAxisSpacing;
+  final double mainAxisSpacing;
 
   const ProductGrid({
     super.key,
     required this.productItemsList,
+    this.crossAxisCount = 4,
+    this.crossAxisSpacing = 10,
+    this.mainAxisSpacing = 10,
   });
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: crossAxisSpacing,
+        mainAxisSpacing: mainAxisSpacing,
       ),
       itemCount: productItemsList.length,
       itemBuilder: (context, index) {

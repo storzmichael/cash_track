@@ -11,6 +11,7 @@ class ButtonProductCustom extends StatelessWidget {
   final double height;
   final double width;
   final bool fontInBold;
+  final int maxLines;
 
   const ButtonProductCustom({
     super.key,
@@ -22,6 +23,7 @@ class ButtonProductCustom extends StatelessWidget {
     this.height = 60,
     this.width = 80,
     this.fontInBold = false,
+    this.maxLines = 2,
   });
 
   @override
@@ -42,7 +44,7 @@ class ButtonProductCustom extends StatelessWidget {
           child: Text(
             productItem.productTitle,
             textAlign: TextAlign.center,
-            maxLines: 2,
+            maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   color: textColor,
