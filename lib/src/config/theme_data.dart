@@ -9,6 +9,7 @@ ThemeData lightTheme = ThemeData(
     bodyMedium: TextStyle(fontSize: 15),
 
     headlineSmall: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+    headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
 
     labelSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.bold), // for small buttons
     labelMedium: TextStyle(fontSize: 16), // for symbols
