@@ -1,5 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
-import 'package:cash_track/src/core/data/lang/app_text.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: logoheight,
                           width: logowidth,
                           child: Image(
-                            image: AssetImage('assets/logo/logo.png'),
+                            image: AssetImage(appImagePath),
                             fit: BoxFit.fitHeight,
                           ),
                         ),
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             baseColor: Colors.black,
                             highlightColor: Colors.grey,
                             child: const Text(
-                              'CashTrack',
+                              appName,
                               style: TextStyle(fontFamily: 'RubikOne', fontSize: 24, fontWeight: FontWeight.bold),
                             ),
                           ),
