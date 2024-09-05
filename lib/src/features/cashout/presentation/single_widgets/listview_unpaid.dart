@@ -1,3 +1,5 @@
+import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
 class ListViewUnpaid extends StatefulWidget {
@@ -8,19 +10,20 @@ class ListViewUnpaid extends StatefulWidget {
 }
 
 class _ListViewUnpaidState extends State<ListViewUnpaid> {
+  final double _containerHeight = 300;
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
+          topLeft: Radius.circular(borderRadius),
+          topRight: Radius.circular(borderRadius),
         ),
         color: Color.fromARGB(255, 170, 170, 170),
       ),
-      height: 300,
+      height: _containerHeight,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(allSitesPadding),
         child: ListView.builder(
           itemCount: 5 /*desksItems.length*/,
           itemBuilder: (context, index) {
@@ -43,7 +46,7 @@ class _ListViewUnpaidState extends State<ListViewUnpaid> {
                 if (index <= 100 /*desksItems.length*/)
                   const Divider(
                     thickness: 0.3,
-                    color: Colors.black,
+                    color: blackColor,
                   ),
               ],
             );

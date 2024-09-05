@@ -27,7 +27,7 @@ class CustomTextField extends StatelessWidget {
         color: greyColor,
         borderRadius: BorderRadius.circular(borderRadiusSmallButton),
       ),
-      height: 40,
+      height: textFieldheight,
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: textPadding),

@@ -1,3 +1,4 @@
+import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class BigButton extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor = orangeColor,
     this.textColor = Colors.black,
-    this.borderRadius = 20.0,
+    this.borderRadius = borderRadiusLargeButton,
     this.fontInBold = true,
     this.padding = const EdgeInsets.all(5.0),
   });

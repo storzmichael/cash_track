@@ -1,3 +1,4 @@
+import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class OutlinedBigButton extends StatelessWidget {
   final double width;
   final bool fontInBold;
   final double borderWidth;
+  final int maxLines;
 
   const OutlinedBigButton({
     super.key,
@@ -20,11 +22,12 @@ class OutlinedBigButton extends StatelessWidget {
     this.backgroundColor = Colors.transparent,
     this.borderColor = orangeColor,
     this.textColor = Colors.black,
-    this.borderRadius = 20,
+    this.borderRadius = borderRadiusLargeButton,
     this.height = double.infinity,
     this.width = double.infinity,
     this.fontInBold = true,
     this.borderWidth = 3.0,
+    this.maxLines = 1,
   });
 
   @override
@@ -46,7 +49,7 @@ class OutlinedBigButton extends StatelessWidget {
           child: Text(
             buttonName,
             textAlign: TextAlign.center,
-            maxLines: 1,
+            maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: textColor,
