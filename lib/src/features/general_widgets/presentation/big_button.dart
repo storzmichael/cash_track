@@ -15,7 +15,7 @@ class BigButton extends StatelessWidget {
     super.key,
     required this.buttonName,
     required this.onPressed,
-    this.backgroundColor = orangeColor,
+    this.backgroundColor = primeryColor,
     this.textColor = Colors.black,
     this.borderRadius = borderRadiusLargeButton,
     this.fontInBold = true,

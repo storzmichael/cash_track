@@ -20,13 +20,13 @@ class OutlinedBigButton extends StatelessWidget {
     required this.buttonName,
     required this.onPressed,
     this.backgroundColor = Colors.transparent,
-    this.borderColor = orangeColor,
+    this.borderColor = primeryColor,
     this.textColor = Colors.black,
     this.borderRadius = borderRadiusLargeButton,
     this.height = double.infinity,
     this.width = double.infinity,
     this.fontInBold = true,
-    this.borderWidth = 3.0,
+    this.borderWidth = 2.0,
     this.maxLines = 1,
   });
 
