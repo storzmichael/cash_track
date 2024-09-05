@@ -1,6 +1,6 @@
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
-import 'package:cash_track/src/core/data/lang/app_text.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/product_grid.dart';
 import 'package:cash_track/src/features/order/presentation/single_widgets/button_category_custom.dart';
@@ -24,6 +24,7 @@ class CategoryRow extends StatefulWidget {
 
 class _CategoryRowState extends State<CategoryRow> {
   String? selectedCategoryKey;
+  final double gridHeight = 320;
 
   void setCategory(String categoryKey) {
     setState(() {
@@ -63,7 +64,7 @@ class _CategoryRowState extends State<CategoryRow> {
               height: 24,
             ),
             SizedBox(
-              height: 275,
+              height: gridHeight,
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: selectCategory(selectedCategoryKey),
