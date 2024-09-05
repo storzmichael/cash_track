@@ -1,4 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/txt_fields_event.dart';
 
@@ -14,9 +15,9 @@ class CreateEventScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        title: const Text(
-          'Neues Event erstellen',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          textFiles[language]![42],
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
