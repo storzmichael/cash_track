@@ -24,7 +24,7 @@ class CategoryRow extends StatefulWidget {
 
 class _CategoryRowState extends State<CategoryRow> {
   String? selectedCategoryKey;
-  final double gridHeight = 320;
+  final double gridHeight = 315;
 
   void setCategory(String categoryKey) {
     setState(() {
