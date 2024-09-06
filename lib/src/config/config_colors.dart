@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 const List<Color> lightTheme = [
-  Color.fromARGB(255, 255, 255, 255),
-  Color.fromARGB(255, 153, 153, 153),
+  lightThemeColorLight,
+  lightThemeColorDark,
 ];
 
 const List<Color> darkTheme = [
@@ -20,6 +20,9 @@ const Color whiteColor = Colors.white;
 const Color monitorColor = textFieldColor;
 const Color textFieldColor = Color.fromARGB(255, 198, 198, 198);
 const Color greyColor = Colors.grey;
+
+const Color lightThemeColorLight = Color.fromARGB(255, 255, 255, 255);
+const Color lightThemeColorDark = Color.fromARGB(255, 153, 153, 153);
 
 Color disabledTextColor = Colors.grey.shade500;
 Color disabledBttnColor = Colors.grey.shade300;
