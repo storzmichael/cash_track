@@ -1,4 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/txt_fields_event.dart';
@@ -13,7 +14,7 @@ class CreateEventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: lightThemeColorLight,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: Text(
           textFiles[language]![42],
