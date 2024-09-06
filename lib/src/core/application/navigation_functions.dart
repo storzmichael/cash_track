@@ -8,7 +8,7 @@ void navigateToOrderScreen(BuildContext context) {
   Navigator.pushNamed(context, "/order");
 }
 
-void navigateToCashoutScrenn(BuildContext context) {
+void navigateToCashoutScreen(BuildContext context) {
   Navigator.pushNamed(context, "/cashout");
 }
 
