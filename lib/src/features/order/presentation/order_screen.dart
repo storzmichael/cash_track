@@ -26,7 +26,11 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: isTableSelect ? Text('${textFiles[language]![3]}: $deskNumber') : const Text('Tischnummer wählen'),
+        title: isTableSelect
+            ? Text('${textFiles[language]![3]}: $deskNumber')
+            : Text(
+                textFiles[language]![46],
+              ),
         actions: [
           IconButton(
             onPressed: () => TableFunctions.showAddButtonDialog(context, language, setState),
@@ -90,7 +94,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                 setState(() {
                                   isTableSelect = false;
                                 });
-                                navigateToCashoutScrenn(context);
+                                navigateToCashoutScreen(context);
                               }
                             : null),
                   ),
