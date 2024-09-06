@@ -10,6 +10,7 @@ class BigButton extends StatelessWidget {
   final double borderRadius;
   final bool fontInBold;
   final EdgeInsetsGeometry padding;
+  final int maxLines;
 
   const BigButton({
     super.key,
@@ -20,6 +21,7 @@ class BigButton extends StatelessWidget {
     this.borderRadius = borderRadiusLargeButton,
     this.fontInBold = true,
     this.padding = const EdgeInsets.all(5.0),
+    this.maxLines = 1,
   });
 
   @override
@@ -37,7 +39,7 @@ class BigButton extends StatelessWidget {
         child: Text(
           buttonName,
           textAlign: TextAlign.center,
-          maxLines: 1,
+          maxLines: maxLines,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 color: textColor,
