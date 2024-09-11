@@ -18,21 +18,28 @@ List<String> english = [
   'Delete button', // 16
   'Do you really want to delete this button?', // 17
   'Delete', // 18
-  'Change profile', // 19
+  'Edit profile', // 19
   'Login', // 20
-  'Simply Smart Cashiering', // 21
+  'Smart Cashing Made Easy', // 21
   'Email', // 22
   'Password', // 23
-  'Incorrect password', // 24
-  'Stay signed in', // 25
+  'Password incorrect', // 24
+  'Stay logged in', // 25
   'Forgot password?', // 26
   'Create new account', // 27
   'Please enter', // 28
-  'an', // 29
+  'a', // 29
   'Please enter a valid email', // 30
   'Username must be at least 6 characters long', // 31
   'Password must be at least 6 characters long', // 32
   'Username', // 33
   'Invalid input', // 34
   'Complete registration', // 35
+  'Create products', // 36
+  'Product name', // 37
+  'Product price', // 38
+  'Product category', // 39
+  'Product list by categories', // 40
+  'Create event', // 41
+  'Create new event', // 42
 ];

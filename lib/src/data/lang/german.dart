@@ -11,8 +11,8 @@ List<String> german = [
   'Bitte geben Sie etwas ein', // 9
   'Tisch mit dem Namen', //10
   'existiert bereits!', // 11
-  'Neuen Button hinzufügen', // 12
-  'Button Name eingeben', // 13
+  'Neuen Tisch hinzufügen', // 12
+  'Tisch Name eingeben', // 13
   'Abbrechen', // 14
   'Hinzufügen', // 15
   'Button löschen', // 16
@@ -35,5 +35,16 @@ List<String> german = [
   'Username', // 33
   'Eingaben ungültig', // 34
   'Registrierung abschließen', // 35
+  'Produkte erstellen', // 36
+  'Produktname', // 37
+  'Produktpreis', // 38
+  'Produktkategorie', // 39
+  'Produktliste nach Kategorien', // 40
+  'Erstelle Event', // 41
+  'Neues Event erstellen', // 42
+  'Generiere neuen Code', // 43
+  'Erstelle neues Event', // 44
+  'Bestellen', // 45
+  'Tischnummer wählen', // 46
 ];
 // textFiles[language]![0]

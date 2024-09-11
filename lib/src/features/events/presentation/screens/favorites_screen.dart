@@ -20,7 +20,7 @@ class FavoritesScreen extends StatelessWidget {
                 child: SizedBox(
                   height: 150,
                   child: Image(
-                    image: AssetImage('assets/logo/logo.png'),
+                    image: AssetImage(appImagePath),
                     fit: BoxFit.fitHeight,
                   ),
                 ),

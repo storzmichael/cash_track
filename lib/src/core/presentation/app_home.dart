@@ -1,4 +1,4 @@
-import 'package:cash_track/src/core/data/nav_item_data.dart';
+import 'package:cash_track/src/data/nav_item_data.dart';
 import 'package:cash_track/src/features/events/presentation/screens/event_screen.dart';
 import 'package:cash_track/src/features/events/presentation/screens/favorites_screen.dart';
 import 'package:cash_track/src/features/profil/presentation/profil_screen.dart';
@@ -13,14 +13,14 @@ class AppHome extends StatefulWidget {
 }
 
 class _AppHomeState extends State<AppHome> {
-  int currentIndex = 0;
+  int currentIndex = 0; // Current index of the bottom navigation bar
 
   @override
   void initState() {
     super.initState();
   }
 
-  //List of screen from navigation bar
+  // List of screens that the bottom navigation bar will switch between
   final List<Widget> screens = [
     const EventScreen(),
     const FavoritesScreen(),
@@ -31,53 +31,53 @@ class _AppHomeState extends State<AppHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.dark, // Changes status bar text color to dark
         title: Text(
-          navigationItemData[currentIndex].label,
+          navigationItemData[currentIndex].label, // Sets the title according to the current screen
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            //TODO: navigation to settings
+            // TODO: Navigation to settings screen
             onPressed: () {},
           ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
+        currentIndex: currentIndex, // Highlights the currently selected item
         onTap: (index) {
           setState(() {
-            currentIndex = index;
+            currentIndex = index; // Updates the screen based on selected item
           });
         },
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
+        showSelectedLabels: true, // Shows label for the selected item
+        showUnselectedLabels: false, // Hides labels for unselected items
         items: [
-          // navigate to Event
+          // Navigate to Event screen
           BottomNavigationBarItem(
-            activeIcon: Icon(navigationItemData[0].activeIcon),
-            icon: Icon(navigationItemData[0].icon),
-            label: navigationItemData[0].label,
+            activeIcon: Icon(navigationItemData[0].activeIcon), // Active icon for event screen
+            icon: Icon(navigationItemData[0].icon), // Default icon for event screen
+            label: navigationItemData[0].label, // Label for event screen
           ),
 
-          // navigate to Favorites
+          // Navigate to Favorites screen
           BottomNavigationBarItem(
-            activeIcon: Icon(navigationItemData[1].activeIcon),
-            icon: Icon(navigationItemData[1].icon),
-            label: navigationItemData[1].label,
+            activeIcon: Icon(navigationItemData[1].activeIcon), // Active icon for favorites screen
+            icon: Icon(navigationItemData[1].icon), // Default icon for favorites screen
+            label: navigationItemData[1].label, // Label for favorites screen
           ),
 
-          // navigate to Profile
+          // Navigate to Profile screen
           BottomNavigationBarItem(
-            activeIcon: Icon(navigationItemData[2].activeIcon),
-            icon: Icon(navigationItemData[2].icon),
-            label: navigationItemData[2].label,
+            activeIcon: Icon(navigationItemData[2].activeIcon), // Active icon for profile screen
+            icon: Icon(navigationItemData[2].icon), // Default icon for profile screen
+            label: navigationItemData[2].label, // Label for profile screen
           ),
         ],
       ),
 
-      // show selected screens
+      // Shows the currently selected screen from the list
       body: screens[currentIndex],
     );
   }

@@ -13,6 +13,10 @@ const double borderRadius = 16;
 const double monitorBorderRadius = 8;
 
 bool isTableSelect = false;
+
 String deskNumber = '';
 
 String language = 'Deutsch';
+
+const String appName = 'CashTrack';
+const String appImagePath = 'assets/logo/logo.png';
