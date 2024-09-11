@@ -13,10 +13,10 @@ class MonitorView extends StatefulWidget {
 }
 
 class _MonitorViewState extends State<MonitorView> {
-  final double valueList = 2.50;
-  final String orderSum = '2,50 €';
-  final List<ProductItem> _orderItems = productsData;
-  final double _monitorHeight = 160;
+  final double valueList = 2.50; // Beispielwert für eine Produktliste
+  final String orderSum = '2,50 €'; // Beispiel für die Summe der Bestellung
+  final List<ProductItem> _orderItems = productsData; // Liste der bestellten Produkte
+  final double _monitorHeight = 160; // Höhe des Monitors (Bildschirms) für die Anzeige
 
   @override
   Widget build(
@@ -24,33 +24,34 @@ class _MonitorViewState extends State<MonitorView> {
   ) {
     return Column(
       children: [
+        // Erste Zeile: Enthält Bestellungsdetails und den Tischmonitor
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Verteilung der Elemente in der Zeile
           children: [
-            // show OrderSum
+            // Anzeige der Bestellsumme (links)
             Flexible(
-              flex: 2,
+              flex: 2, // Nimmt zwei Drittel der Breite ein
               child: SizedBox(
-                height: _monitorHeight,
+                height: _monitorHeight, // Höhe des Containers
                 child: Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.horizontal(
-                      left: Radius.circular(monitorBorderRadius),
+                      left: Radius.circular(monitorBorderRadius), // Abgerundete Ecken links
                     ),
-                    color: monitorColor,
+                    color: monitorColor, // Hintergrundfarbe
                   ),
                   child: ListView.builder(
-                    itemCount: _orderItems.length,
+                    itemCount: _orderItems.length, // Anzahl der bestellten Produkte
                     itemBuilder: (context, index) {
                       return Row(
                         children: [
-                          const Text('1x'),
+                          const Text('1x'), // Beispiel für die Anzahl eines Produkts
                           const SizedBox(
-                            width: 8,
+                            width: 8, // Abstand zwischen Anzahl und Produktnamen
                           ),
-                          Text(_orderItems[index].productTitle),
-                          const Expanded(child: SizedBox()),
-                          Text('${_orderItems[index].productPrice} €'),
+                          Text(_orderItems[index].productTitle), // Anzeige des Produktnamens
+                          const Expanded(child: SizedBox()), // Füllt den verfügbaren Platz
+                          Text('${_orderItems[index].productPrice} €'), // Anzeige des Produktpreises
                         ],
                       );
                     },
@@ -58,18 +59,18 @@ class _MonitorViewState extends State<MonitorView> {
                 ),
               ),
             ),
-            const SizedBox(width: 2),
-            // show Tablescreen
+            const SizedBox(width: 2), // Abstand zwischen den beiden Teilen
+            // Anzeige des Tischmonitors (rechts)
             Flexible(
-              flex: 1,
+              flex: 1, // Nimmt ein Drittel der Breite ein
               child: SizedBox(
-                height: _monitorHeight,
+                height: _monitorHeight, // Höhe des Containers
                 child: Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.horizontal(
-                      right: Radius.circular(monitorBorderRadius),
+                      right: Radius.circular(monitorBorderRadius), // Abgerundete Ecken rechts
                     ),
-                    color: monitorColor,
+                    color: monitorColor, // Hintergrundfarbe
                   ),
                 ),
               ),
@@ -77,23 +78,27 @@ class _MonitorViewState extends State<MonitorView> {
           ],
         ),
         const SizedBox(
-          height: 8,
+          height: 8, // Abstand zwischen den Elementen
         ),
+        // Zweite Zeile: Anzeige der Gesamtsumme
         SizedBox(
-          height: 40,
-          width: double.infinity,
+          height: 40, // Höhe des Summenfelds
+          width: double.infinity, // Nimmt die gesamte Breite ein
           child: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
-                Radius.circular(8),
+                Radius.circular(8), // Abgerundete Ecken des Containers
               ),
-              color: textFieldColor,
+              color: textFieldColor, // Hintergrundfarbe
             ),
             child: Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 8.0), // Innenabstand links und rechts
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text(textFiles[language]![4]), Text(orderSum)],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Verteilung von Texten am Rand
+                children: [
+                  Text(textFiles[language]![4]), // Text für "Gesamtsumme" oder ähnliches
+                  Text(orderSum), // Anzeige der Gesamtsumme
+                ],
               ),
             ),
           ),

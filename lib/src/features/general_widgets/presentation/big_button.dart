@@ -16,34 +16,36 @@ class BigButton extends StatelessWidget {
     super.key,
     required this.buttonName,
     required this.onPressed,
-    this.backgroundColor = primeryColor,
-    this.textColor = Colors.black,
-    this.borderRadius = borderRadiusLargeButton,
-    this.fontInBold = true,
-    this.padding = const EdgeInsets.all(5.0),
-    this.maxLines = 1,
+    this.backgroundColor = primeryColor, // Background color (default: primeryColor)
+    this.textColor = Colors.black, // Text color (default: black)
+    this.borderRadius = borderRadiusLargeButton, // Rounded corners (default: borderRadiusLargeButton)
+    this.fontInBold = true, // Font weight (default: bold)
+    this.padding = const EdgeInsets.all(5.0), // Button padding (default: EdgeInsets.all(5.0))
+    this.maxLines = 1, // Max number of text lines (default: 1)
   });
 
   @override
   Widget build(BuildContext context) {
+    // Build method that returns the UI widget for the button
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(borderRadius), // Rounded corners
         ),
-        padding: padding,
+        padding: padding, // Button padding
       ),
       child: Center(
+        // Text label inside the button
         child: Text(
           buttonName,
-          textAlign: TextAlign.center,
-          maxLines: maxLines,
-          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center, // Centered text alignment
+          maxLines: maxLines, // Limits the text to the specified max lines
+          overflow: TextOverflow.ellipsis, // Text overflow behavior
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: textColor,
-                fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal,
+                color: textColor, // Text color
+                fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal, // Font weight
               ),
         ),
       ),

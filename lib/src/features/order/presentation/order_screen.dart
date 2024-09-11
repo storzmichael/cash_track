@@ -20,20 +20,31 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  bool isTableSelect = false;
+  bool isTableSelect = false; // Bestimmt, ob ein Tisch ausgewählt wurde
+  final int _crossAxisCount = 2; // Anzahl der Spalten im GridView
+  final double _crossAxisSpacing = 24; // Abstand zwischen den Spalten
+  final double _mainAxisSpacing = 16; // Abstand zwischen den Zeilen
+  final double _aspectRatio = 2; // Verhältnis von Breite zu Höhe der Tische
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: isTableSelect
-            ? Text('${textFiles[language]![3]}: $deskNumber')
+            ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isTableSelect = false; // Setzt den Tischstatus zurück
+                  });
+                },
+                child: Text('${textFiles[language]![3]}: $deskNumber')) // Zeigt den ausgewählten Tisch an
             : Text(
-                textFiles[language]![46],
+                textFiles[language]![46], // Zeigt den Standardtitel an, wenn kein Tisch ausgewählt wurde
               ),
         actions: [
           IconButton(
-            onPressed: () => TableFunctions.showAddButtonDialog(context, language, setState),
+            onPressed: () =>
+                TableFunctions.showAddButtonDialog(context, language, setState), // Fügt einen neuen Tisch hinzu
             icon: const Icon(Icons.add),
           ),
           const SizedBox(width: 16),
@@ -41,41 +52,50 @@ class _OrderScreenState extends State<OrderScreen> {
       ),
       body: Stack(
         children: [
-          const ThemeContainer(),
+          const ThemeContainer(), // Hintergrundthema für den Bildschirm
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(sitesPadding),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const MonitorView(),
+                  const MonitorView(), // Zeigt den Bestellmonitor an
                   const SizedBox(height: 40),
                   isTableSelect
                       ? Expanded(
                           child: CategoryRow(
-                            category: categoryData,
+                            category: categoryData, // Zeigt die Produktkategorien an, wenn ein Tisch ausgewählt ist
                           ),
                         )
                       : Expanded(
-                          child: ListView.builder(
-                            itemCount: tables.length,
+                          child: GridView.builder(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: _crossAxisCount, // Anzahl der Spalten
+                              crossAxisSpacing: _crossAxisSpacing, // Abstand zwischen den Spalten
+                              mainAxisSpacing: _mainAxisSpacing, // Abstand zwischen den Zeilen
+                              mainAxisExtent: bigBttnHeight, // Höhe der Buttons
+                            ),
+                            itemCount: tables.length, // Anzahl der verfügbaren Tische
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                                child: GestureDetector(
-                                  onLongPress: () =>
-                                      TableFunctions.showDeleteConfirmDialog(context, index, language, setState),
-                                  child: SizedBox(
-                                    height: bigBttnHeight,
-                                    child: BigButton(
-                                      backgroundColor: primeryColorLow,
-                                      onPressed: () {
-                                        setState(() {
-                                          deskNumber = tables[index];
-                                          isTableSelect = true;
-                                        });
-                                      },
-                                      buttonName: tables[index],
+                              return AspectRatio(
+                                aspectRatio: _aspectRatio, // Verhältnis von Breite zu Höhe des Tisches
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: GestureDetector(
+                                    onLongPress: () => TableFunctions.showDeleteConfirmDialog(
+                                        context, index, language, setState), // Öffnet Dialog zum Löschen des Tisches
+                                    child: SizedBox(
+                                      height: bigBttnHeight, // Höhe des Containers für den Button
+                                      child: BigButton(
+                                        backgroundColor: primeryColorLow, // Hintergrundfarbe des Tisch-Buttons
+                                        onPressed: () {
+                                          setState(() {
+                                            deskNumber = tables[index]; // Setzt den ausgewählten Tisch
+                                            isTableSelect = true; // Aktiviert den Tisch
+                                          });
+                                        },
+                                        buttonName: tables[index], // Zeigt den Tischnamen an
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -84,17 +104,20 @@ class _OrderScreenState extends State<OrderScreen> {
                           ),
                         ),
                   SizedBox(
-                    height: bigBttnHeight,
+                    height: bigBttnHeight, // Höhe des unteren Buttons
                     child: BigButton(
-                        buttonName: textFiles[language]![45],
-                        backgroundColor: isTableSelect ? primeryColor : disabledBttnColor,
-                        textColor: isTableSelect ? blackColor : disabledTextColor,
+                        buttonName: textFiles[language]![45], // "Bezahlen"-Button
+                        backgroundColor: isTableSelect
+                            ? primeryColor
+                            : disabledBttnColor, // Farbe des Buttons abhängig von der Tischauswahl
+                        textColor:
+                            isTableSelect ? blackColor : disabledTextColor, // Textfarbe abhängig von der Tischauswahl
                         onPressed: isTableSelect
                             ? () {
                                 setState(() {
-                                  isTableSelect = false;
+                                  isTableSelect = false; // Setzt den Tischstatus zurück
                                 });
-                                navigateToCashoutScreen(context);
+                                navigateToCashoutScreen(context); // Navigiert zum Bezahlbildschirm
                               }
                             : null),
                   ),
