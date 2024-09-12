@@ -54,6 +54,7 @@ class _CategoryRowState extends State<CategoryRow> {
                   fontInBold: true, // Schrift fett
                   onPressed: () {
                     setCategory(keys[index]); // Kategorie auswählen
+                    // ignore: avoid_print
                     print('category gedrückt'); // Ausgabe beim Drücken eines Buttons
                   },
                 ),
