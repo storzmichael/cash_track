@@ -46,5 +46,6 @@ List<String> german = [
   'Erstelle neues Event', // 44
   'Bestellen', // 45
   'Tischnummer wählen', // 46
+  'Join als Gast', // 47
 ];
 // textFiles[language]![0]
