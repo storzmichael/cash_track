@@ -17,6 +17,7 @@ class EditEventScreen extends StatefulWidget {
   const EditEventScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _EditEventScreenState createState() => _EditEventScreenState();
 }
 
