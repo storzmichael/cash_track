@@ -38,8 +38,11 @@ class ProductGrid extends StatelessWidget {
                 productTitle: item.productTitle, // Titel des Produkts
                 productPrice: item.productPrice, // Preis des Produkts
                 productCategory: item.productCategory); // Kategorie des Produkts
-            print('${item.productPrice}'); // Ausgabe des Produktpreises zur Überprüfung
-            print('${item.productTitle}'); // Ausgabe des Produktnamens zur Überprüfung
+            // ignore: avoid_print
+            print(item.productPrice); // Ausgabe des Produktpreises zur Überprüfung
+            // ignore: avoid_print
+            print(item.productTitle); // Ausgabe des Produktnamens zur Überprüfung
+            // ignore: avoid_print
             print(orderData); // Ausgabe der gesamten Bestellung zur Überprüfung
           },
         );
