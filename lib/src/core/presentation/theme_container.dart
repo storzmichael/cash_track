@@ -14,7 +14,7 @@ class ThemeContainer extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           // If isDark is true, use dark theme colors; otherwise, use light theme colors
-          colors: isDark ? darkTheme : lightTheme,
+          colors: isDark ? darkThemeList : lightThemeList,
           begin: Alignment.topCenter, // Gradient starts from the top center
           end: Alignment.bottomCenter, // Gradient ends at the bottom center
         ),
