@@ -40,12 +40,35 @@ List<String> german = [
   'Produktpreis', // 38
   'Produktkategorie', // 39
   'Produktliste nach Kategorien', // 40
-  'Erstelle Event', // 41
+  'zum Event', // 41
   'Neues Event erstellen', // 42
   'Generiere neuen Code', // 43
   'Erstelle neues Event', // 44
   'Bestellen', // 45
   'Tischnummer wählen', // 46
   'Join als Gast', // 47
+  'Registrierung', // 48
+  'Einstellungen', // 49
+  'Bitte E-Mail und Passwort eingeben', // 50
+  'Ein Konto mit dieser E-Mail-Adresse existiert bereits.', // 51
+  'Ein unbekannter Fehler ist aufgetreten.', // 52
+  'Fehler aufgetreten', // 53
+  'Fehler', // 54
+  'OK', // 55
+  'Abmeldung fehlgeschlagen', // 56
+  'Datenschutz', // 57
+  'Sprache', // 58
+  'Verbunden Geräte', // 59
+  'Hilfe', // 60
+  'Abmelden', // 61
+  'deutsch', // 62
+  'englisch', // 63
+  'Neues Event', // 64
+  'Join Event', // 65
+  'Event Name', // 66
+  'Ersteller', // 67
+  'Code', // 68
+  'Bitte E-Mail und Passwort eingeben', // 69
+  'Ein unerwarteter Fehler ist aufgetreten', // 70
 ];
 // textFiles[language]![0]
