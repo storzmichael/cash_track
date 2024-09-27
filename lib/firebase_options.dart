@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'cash-track-9c818.appspot.com',
     iosBundleId: 'com.example.cashTrack',
   );
+
 }
