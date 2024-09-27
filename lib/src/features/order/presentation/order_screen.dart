@@ -25,11 +25,12 @@ class _OrderScreenState extends State<OrderScreen> {
   final double _crossAxisSpacing = 24; // Abstand zwischen den Spalten
   final double _mainAxisSpacing = 16; // Abstand zwischen den Zeilen
   final double _aspectRatio = 2; // Verhältnis von Breite zu Höhe der Tische
-
+  final double _gridheight = 379; // Höhe des Grids min. 379
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, // Entfernt das Chevron-Symbol
         title: isTableSelect
             ? GestureDetector(
                 onTap: () {
@@ -42,6 +43,12 @@ class _OrderScreenState extends State<OrderScreen> {
                 textFiles[language]![46], // Zeigt den Standardtitel an, wenn kein Tisch ausgewählt wurde
               ),
         actions: [
+          IconButton(
+            onPressed: () {
+              TableFunctions.showSettingButtonDialog(context, language, setState);
+            }, // Öffnet den Dialog zum Auswählen eines Tisches
+            icon: const Icon(Icons.settings),
+          ),
           IconButton(
             onPressed: () =>
                 TableFunctions.showAddButtonDialog(context, language, setState), // Fügt einen neuen Tisch hinzu
@@ -60,14 +67,17 @@ class _OrderScreenState extends State<OrderScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const MonitorView(), // Zeigt den Bestellmonitor an
-                  const SizedBox(height: 40),
+                  const Expanded(child: SizedBox()),
+
                   isTableSelect
-                      ? Expanded(
+                      ? SizedBox(
+                          height: _gridheight,
                           child: CategoryRow(
-                            category: categoryData, // Zeigt die Produktkategorien an, wenn ein Tisch ausgewählt ist
-                          ),
-                        )
-                      : Expanded(
+                              category: categoryData // Zeigt die Produktkategorien an, wenn ein Tisch ausgewählt ist
+                              ))
+                      // Gridview für Tische
+                      : SizedBox(
+                          height: _gridheight,
                           child: GridView.builder(
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: _crossAxisCount, // Anzahl der Spalten
@@ -103,10 +113,13 @@ class _OrderScreenState extends State<OrderScreen> {
                             },
                           ),
                         ),
+                  const SizedBox(
+                    height: 24,
+                  ),
                   SizedBox(
                     height: bigBttnHeight, // Höhe des unteren Buttons
                     child: BigButton(
-                        buttonName: textFiles[language]![45], // "Bezahlen"-Button
+                        buttonName: textFiles[language]![45], // "Bestellen"-Button
                         backgroundColor: isTableSelect
                             ? primeryColor
                             : disabledBttnColor, // Farbe des Buttons abhängig von der Tischauswahl
