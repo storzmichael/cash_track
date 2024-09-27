@@ -16,8 +16,8 @@ List<NavigationItem> navigationItemData = [
     label: textFiles[language]![1], // Label for the favorites screen, pulled from the language file
   ),
   NavigationItem(
-    activeIcon: Icons.person, // Active icon when the profile screen is selected
-    icon: Icons.person_outline, // Default icon for the profile screen
-    label: textFiles[language]![2], // Label for the profile screen, pulled from the language file
+    activeIcon: Icons.settings, // Active icon when the profile screen is selected
+    icon: Icons.settings, // Default icon for the profile screen
+    label: textFiles[language]![49], // Label for the profile screen, pulled from the language file
   ),
 ];

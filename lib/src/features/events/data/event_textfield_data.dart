@@ -1,17 +1,19 @@
+import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
 
 List<EventTextfieldItem> eventTextfieldDatas = [
   // collection of data
-  const EventTextfieldItem(
-    eventTextfieldHintText: 'Event Name',
+  EventTextfieldItem(
+    eventTextfieldHintText: textFiles[language]![66],
   ),
-  const EventTextfieldItem(
-    eventTextfieldHintText: 'Passwort',
+  EventTextfieldItem(
+    eventTextfieldHintText: textFiles[language]![23],
   ),
-  const EventTextfieldItem(
-    eventTextfieldHintText: 'Ersteller',
+  EventTextfieldItem(
+    eventTextfieldHintText: textFiles[language]![67],
   ),
-  const EventTextfieldItem(
-    eventTextfieldHintText: 'Code',
+  EventTextfieldItem(
+    eventTextfieldHintText: textFiles[language]![68],
   ),
 ];

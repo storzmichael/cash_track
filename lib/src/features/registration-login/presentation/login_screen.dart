@@ -1,14 +1,13 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
-import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
-import 'package:cash_track/src/features/registration-login/presentation/registration_screen.dart';
+import 'package:cash_track/src/features/registration-login/presentation/shimmer_logo.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shimmer/shimmer.dart';
-import 'login_text_form_field.dart';
+import 'login_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,137 +17,152 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController(); // Controller für das E-Mail-Feld
-  final TextEditingController passwordController = TextEditingController(); // Controller für das Passwortfeld
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Schlüssel für das Formular zur Validierung
+  String? _errorMassage = '';
 
-  bool rememberMe = false; // Status für die "Angemeldet bleiben"-Checkbox
-  final String correctPassword = '123'; // Korrektes Passwort für die Anmeldung
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _signInWithEmailandPassword() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      setState(() {
+        _errorMassage = textFiles[language]![69];
+      });
+      _errorAlert();
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      if (userCredential.user != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const AppHome()),
+          (route) => false, // Entfernt alle vorherigen Routen
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMassage = e.message;
+      });
+      _errorAlert();
+    } catch (e) {
+      setState(() {
+        _errorMassage = '${textFiles[language]![70]}: $e';
+      });
+      _errorAlert();
+    }
+  }
+
+  void _errorAlert() {
+    if (_errorMassage != null && _errorMassage!.isNotEmpty) {
+      print('${textFiles[language]![53]}: $_errorMassage');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(textFiles[language]![54]),
+            content: Text(
+              _errorMassage!,
+              style: const TextStyle(fontSize: 13, color: alertColor),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(textFiles[language]![55]),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  Widget _logo() {
+    return const ShimmerLogo();
+  }
+
+  Widget _emailTextField() {
+    return LoginTextField(
+      labelName: textFiles[language]![22],
+      controller: _emailController,
+      prefixIcon: const Icon(Icons.person_2_outlined),
+    );
+  }
+
+  Widget _passwordTextField() {
+    return LoginTextField(
+      labelName: textFiles[language]![23],
+      isPassword: true,
+      controller: _passwordController,
+      prefixIcon: const Icon(Icons.lock_outline_rounded),
+    );
+  }
+
+  Widget _loginButton() {
+    return BigButton(
+      onPressed: _signInWithEmailandPassword,
+      buttonName: textFiles[language]![20],
+    );
+  }
+
+  Widget _registerButton() {
+    return TextButton(
+      onPressed: () {
+        Navigator.pushNamed(context, "/registration");
+      },
+      child: Text(
+        textFiles[language]![27],
+        style: Theme.of(context).textTheme.labelLarge,
+      ),
+    );
+  }
+
+  Widget _testButton() {
+    return BigButton(
+      onPressed: () {
+        Navigator.pushReplacementNamed(context, "/appHome");
+      },
+      buttonName: 'test',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.dark, // Farbgebung der System-UI-Überlagerung
-        title: Text(
-          textFiles[language]![20], // Titel des AppBars aus der Sprachdatei
-          style: const TextStyle(fontWeight: FontWeight.bold), // Textstil für den Titel
-        ),
-      ),
       body: Stack(
         children: [
-          const ThemeContainer(), // Hintergrund-Themencontainer
+          const ThemeContainer(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(
-                bottomPadding, sitesPadding, bottomPadding, sitesPadding), // Padding um den Inhalt
-            child: Form(
-              key: _formKey, // Schlüssel zur Validierung des Formulars
+            padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
+            child: SafeArea(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: logoheight, // Höhe des Logos
-                          width: logowidth, // Breite des Logos
-                          child: Image(
-                            image: AssetImage(appImagePath), // Logo-Bild
-                            fit: BoxFit.fitHeight, // Bildanpassung
-                          ),
-                        ),
-                        SizedBox(
-                          child: Shimmer.fromColors(
-                            period: const Duration(milliseconds: 3000), // Dauer des Shimmers
-                            loop: 3, // Anzahl der Shimmer-Wiederholungen
-                            baseColor: Colors.black, // Grundfarbe des Shimmers
-                            highlightColor: Colors.grey, // Highlight-Farbe des Shimmers
-                            child: const Text(
-                              appName, // App-Name
-                              style: TextStyle(
-                                  fontFamily: 'RubikOne', fontSize: 24, fontWeight: FontWeight.bold), // Textstil
-                            ),
-                          ),
-                        ),
-                        Text(
-                          textFiles[language]![21], // Zusätzlicher Text aus der Sprachdatei
-                        ),
-                      ],
-                    ),
-                  ),
                   const SizedBox(
-                    height: 32, // Abstand zwischen Logo und Formularfeldern
+                    height: 100,
                   ),
-                  LoginTextFormField(
-                    labelName: textFiles[language]![22], // Label für das E-Mail-Feld
-                    controller: emailController, // Controller für das E-Mail-Feld
-                  ),
+                  _logo(),
                   const SizedBox(
-                    height: 12, // Abstand zwischen E-Mail- und Passwortfeld
+                    height: 124,
                   ),
-                  LoginTextFormField(
-                    labelName: textFiles[language]![23], // Label für das Passwortfeld
-                    isPassword: true, // Passwortfeld
-                    controller: passwordController, // Controller für das Passwortfeld
-                  ),
+                  _emailTextField(),
                   const SizedBox(
-                    height: 20, // Abstand zwischen Passwortfeld und Anmeldebutton
+                    height: 8,
                   ),
-                  BigButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Formularvalidierung
-                        if (passwordController.text == correctPassword) {
-                          // Passwortüberprüfung
-                          Navigator.pushNamed(context, "/apphome"); // Navigation zur Hauptseite
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(textFiles[language]![24])), // Fehlermeldung bei falschem Passwort
-                          );
-                        }
-                      }
-                    },
-                    buttonName: textFiles[language]![20], // Name des Anmeldebuttons aus der Sprachdatei
+                  _passwordTextField(),
+                  const SizedBox(
+                    height: 32,
                   ),
-                  Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween, // Abstand zwischen Checkbox und Passwort zurücksetzen
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: rememberMe, // Status der "Angemeldet bleiben"-Checkbox
-                            onChanged: (bool? value) {
-                              setState(() {
-                                rememberMe = value ?? false; // Status aktualisieren
-                              });
-                            },
-                          ),
-                          Text(
-                            textFiles[language]![25], // Text für die "Angemeldet bleiben"-Option
-                            style: Theme.of(context).textTheme.bodySmall, // Textstil
-                          ),
-                        ],
-                      ),
-                      Text(
-                        textFiles[language]![26], // Text für "Passwort zurücksetzen"
-                        style: Theme.of(context).textTheme.bodySmall, // Textstil
-                      ),
-                    ],
-                  ),
-                  const Expanded(
-                    child: SizedBox(), // Platzhalter, um die Schaltflächen nach unten zu verschieben
-                  ),
-                  OutlinedBigButton(
-                    buttonName: textFiles[language]![27], // Name des Buttons für die Registrierung aus der Sprachdatei
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegistrastionScreen()), // Navigation zur Registrierungsseite
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 32) // Abstand am unteren Rand
+                  _loginButton(),
+                  _registerButton(),
+                  const Expanded(child: SizedBox()),
+                  _testButton(),
                 ],
               ),
             ),

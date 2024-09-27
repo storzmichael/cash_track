@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289590429086",
+    "project_id": "cash-track-9c818",
+    "storage_bucket": "cash-track-9c818.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289590429086:android:5ddd64018d3c6fb791c28f",
+        "android_client_info": {
+          "package_name": "com.example.cash_track"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdZHMatzHwBJML4af8BGr0WG9hENtNNMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

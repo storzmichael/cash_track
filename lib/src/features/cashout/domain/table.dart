@@ -12,9 +12,4 @@ class Table {
   void productAddToOrderProducts(ProductItem produkt) {
     orderProducts.add(produkt); // Adds the product to the table's order list
   }
-  //TODO:
-  // Uncomment to calculate the total price of all products in the order
-  // double getGesamtPreis() {
-  //   return orderProducts.fold(0, (sum, item) => sum + item.productPrice);
-  // }
 }

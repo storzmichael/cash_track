@@ -1,5 +1,4 @@
 import 'package:cash_track/src/config/config.dart';
-import 'package:cash_track/src/core/application/navigation_functions.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/application/button_funktions.dart';
 import 'package:cash_track/src/features/events/data/event_textfield_data.dart';
@@ -16,7 +15,30 @@ class TextFieldEvent extends StatefulWidget {
 }
 
 class _TextFieldEventState extends State<TextFieldEvent> {
-  final TextEditingController _lastTextFieldController = TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
+  final TextEditingController _eventNameController = TextEditingController();
+  final TextEditingController _ceatorController = TextEditingController();
+
+  Widget _generateCodeButton() {
+    return BigButton(
+      buttonName: textFiles[language]![43],
+      onPressed: () {
+        setState(() {
+          String newCode = generateRandomCode(8);
+          _codeController.text = newCode;
+        });
+      },
+    );
+  }
+
+  Widget _createEventButton() {
+    return BigButton(
+      buttonName: textFiles[language]![44],
+      onPressed: () {
+        Navigator.pushReplacementNamed(context, "/createProducts");
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +48,17 @@ class _TextFieldEventState extends State<TextFieldEvent> {
           // Event Name:
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[0],
-            controller: null,
+            controller: _eventNameController,
             onChanged: (value) {},
           ),
           const SizedBox(
             height: 12,
           ),
 
-          // Passwort:
-          CustomTextField(
-            eventTextfieldItem: eventTextfieldDatas[1],
-            onChanged: (value) {},
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-
           // Ersteller
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[2],
+            controller: _ceatorController,
             onChanged: (value) {},
           ),
           const SizedBox(
@@ -54,7 +68,7 @@ class _TextFieldEventState extends State<TextFieldEvent> {
           // Code
           CustomTextField(
             eventTextfieldItem: eventTextfieldDatas[3],
-            controller: _lastTextFieldController,
+            controller: _codeController,
             onChanged: (value) {},
           ),
           const SizedBox(
@@ -62,24 +76,11 @@ class _TextFieldEventState extends State<TextFieldEvent> {
           ),
 
           //Generiere neuen Code
-          BigButton(
-            buttonName: textFiles[language]![43],
-            onPressed: () {
-              setState(() {
-                String newCode = generateRandomCode(8);
-                _lastTextFieldController.text = newCode;
-              });
-            },
-          ),
+          _generateCodeButton(),
           const Expanded(child: SizedBox()),
 
           // Erstelle neues Event
-          BigButton(
-            buttonName: textFiles[language]![44],
-            onPressed: () {
-              navigateToEditEventScreen(context);
-            },
-          ),
+          _createEventButton(),
         ],
       ),
     );
