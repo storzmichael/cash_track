@@ -2,6 +2,7 @@ import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/data/table_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TableFunctions {
@@ -55,6 +56,45 @@ class TableFunctions {
       onConfirm: (buttonName) {
         addNewButton(
             context, buttonName, language, setStateCallback); // Bearbeiten der Aktion zum Hinzufügen des Buttons
+      },
+    );
+  }
+
+  static void showSettingButtonDialog(BuildContext context, String language, Function setStateCallback) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Settings'), // Dialogtitel
+          content: const Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Text('Was wollen Sie tun?'), // Frage
+          ),
+          actions: [
+            // Erster Textbutton
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pushNamed(context, "/createProducts");
+              },
+              child: const Text('zum Produkt'), // Text für den ersten Button
+            ),
+            // Zweiter Textbutton
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pushNamed(context, "/appHome");
+              },
+              isDestructiveAction: true, // Roter Text für eine wichtige Option (z. B. löschen oder verlassen)
+              child: const Text('Event verlassen'), // Text für den zweiten Button
+            ),
+            // Abbrechen Button (optional)
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pop(context); // Schließt den Dialog
+              },
+              child: const Text('Abbrechen'), // Text für Abbrechen-Button
+            ),
+          ],
+        );
       },
     );
   }
