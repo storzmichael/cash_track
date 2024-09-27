@@ -16,6 +16,7 @@ class CreateEventScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: lightThemeColorLight,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
+        automaticallyImplyLeading: false, // Entfernt das Chevron-Symbol
         title: Text(
           textFiles[language]![42],
           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -23,7 +24,9 @@ class CreateEventScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "/settings");
+            },
           ),
         ],
       ),
