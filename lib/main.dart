@@ -1,4 +1,5 @@
 import 'package:cash_track/src/config/theme_data.dart';
+import 'package:cash_track/src/core/application/navigation_provider.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/features/cashout/presentation/cashout_screen.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_event_screen.dart';
@@ -11,11 +12,20 @@ import 'package:cash_track/src/features/settings/presentation/setting_screen.dar
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MainApp());
+  await Firebase.initializeApp(); // Firebase initialisieren
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => NavigationProvider()), // NavigationProvider bereitstellen
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
