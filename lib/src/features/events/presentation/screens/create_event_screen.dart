@@ -16,7 +16,6 @@ class CreateEventScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: lightThemeColorLight,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        automaticallyImplyLeading: false, // Entfernt das Chevron-Symbol
         title: Text(
           textFiles[language]![42],
           style: const TextStyle(fontWeight: FontWeight.bold),

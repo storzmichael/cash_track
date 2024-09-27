@@ -1,78 +1,60 @@
-import 'package:cash_track/src/config/config_colors.dart';
-import 'package:cash_track/src/data/nav_item_data.dart';
+import 'package:cash_track/src/core/application/navigation_provider.dart';
 import 'package:cash_track/src/features/events/presentation/screens/event_screen.dart';
 import 'package:cash_track/src/features/events/presentation/screens/favorites_screen.dart';
 import 'package:cash_track/src/features/settings/presentation/setting_screen.dart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AppHome extends StatefulWidget {
+class AppHome extends StatelessWidget {
   const AppHome({super.key});
 
-  @override
-  State<AppHome> createState() => _AppHomeState();
-}
-
-class _AppHomeState extends State<AppHome> {
-  int currentIndex = 0; // Current index of the bottom navigation bar
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // List of screens that the bottom navigation bar will switch between
-  final List<Widget> screens = [
-    const EventScreen(),
-    const FavoritesScreen(),
-    const SettingScreen(),
+  final List<Widget> screens = const [
+    EventScreen(),
+    FavoritesScreen(),
+    SettingScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final navigationProvider = Provider.of<NavigationProvider>(context);
+
     return Scaffold(
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(
-              color: blackColor, // Set the color of the border
-              width: 0.07, // Set the width of the border
+              color: Colors.black, // Farbe der oberen Border
+              width: 0.07, // Breite der Border
             ),
           ),
         ),
         child: BottomNavigationBar(
-          currentIndex: currentIndex, // Highlights the currently selected item
+          currentIndex: navigationProvider.currentIndex, // Verwendet den aktuellen Index aus dem Provider
           onTap: (index) {
-            setState(() {
-              currentIndex = index; // Updates the screen based on selected item
-            });
+            navigationProvider.setCurrentIndex(index); // Aktualisiert den Index über den Provider
           },
-          showSelectedLabels: true, // Shows label for the selected item
-          showUnselectedLabels: false, // Hides labels for unselected items
-          items: [
-            // Navigate to Event screen
+          showSelectedLabels: true, // Zeigt Labels für das ausgewählte Item
+          showUnselectedLabels: false, // Versteckt Labels für nicht ausgewählte Items
+          items: const [
             BottomNavigationBarItem(
-              activeIcon: Icon(navigationItemData[0].activeIcon), // Active icon for event screen
-              icon: Icon(navigationItemData[0].icon), // Default icon for event screen
-              label: navigationItemData[0].label, // Label for event screen
+              activeIcon: Icon(Icons.event), // Beispiel-Icon für den Event-Screen
+              icon: Icon(Icons.event_outlined), // Standard-Icon für den Event-Screen
+              label: 'Event', // Label für den Event-Screen
             ),
-
-            // Navigate to Favorites screen
             BottomNavigationBarItem(
-              activeIcon: Icon(navigationItemData[1].activeIcon), // Active icon for favorites screen
-              icon: Icon(navigationItemData[1].icon), // Default icon for favorites screen
-              label: navigationItemData[1].label, // Label for favorites screen
+              activeIcon: Icon(Icons.favorite), // Beispiel-Icon für den Favoriten-Screen
+              icon: Icon(Icons.favorite_outline), // Standard-Icon für den Favoriten-Screen
+              label: 'Favorites', // Label für den Favoriten-Screen
             ),
-
-            // Navigate to Profile screen
             BottomNavigationBarItem(
-              activeIcon: Icon(navigationItemData[2].activeIcon), // Active icon for profile screen
-              icon: Icon(navigationItemData[2].icon), // Default icon for profile screen
-              label: navigationItemData[2].label, // Label for profile screen
+              activeIcon: Icon(Icons.settings), // Beispiel-Icon für den Einstellungen-Screen
+              icon: Icon(Icons.settings_outlined), // Standard-Icon für den Einstellungen-Screen
+              label: 'Settings', // Label für den Einstellungen-Screen
             ),
           ],
         ),
       ),
-      body: screens[currentIndex], // Shows the currently selected screen from the list
+      body: screens[navigationProvider.currentIndex], // Zeigt den aktuell ausgewählten Screen
     );
   }
 }
