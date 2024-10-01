@@ -133,7 +133,7 @@ class OrderProvider with ChangeNotifier {
   }
 
   // Funktion zum Anzeigen eines Bestätigungsdialogs zum Löschen eines Tisches
-  void showDeleteConfirmDialog(
+  /*void showDeleteConfirmDialog(
     BuildContext context,
     int index,
     String language,
@@ -163,6 +163,24 @@ class OrderProvider with ChangeNotifier {
       },
     );
     notifyListeners();
+  }*/
+  void showDeleteConfirmDialog(
+    BuildContext context,
+    int index,
+    String language,
+  ) {
+    DialogHelper.showConfirmationDialog(
+      context: context,
+      title: textFiles[language]![16], // Titel des Bestätigungsdialogs
+      message: textFiles[language]![17], // Inhalt des Bestätigungsdialogs
+      cancelButtonText: textFiles[language]![14], // Text für Abbrechen-Button
+      confirmButtonText: textFiles[language]![18], // Text für Löschen-Button
+      onConfirm: () {
+        // Aktion zum Entfernen des Elements
+        tables.removeAt(index); // Entfernt den Tisch mit dem angegebenen Index
+        notifyListeners(); // Benachrichtige über die Änderung
+      },
+    );
   }
 
   // Funktion zum Hinzufügen eines Produkts zur Bestellung
