@@ -1,8 +1,10 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/features/order/application/order_provider.dart';
 import 'package:cash_track/src/features/order/data/order_data_map.dart';
 import 'package:cash_track/src/features/order/presentation/single_widgets/button_product_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
+import 'package:provider/provider.dart';
 
 class ProductGrid extends StatelessWidget {
   final List<ProductItem> productItemsList; // Liste der Produkte, die im Grid angezeigt werden
@@ -20,6 +22,8 @@ class ProductGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
+
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(), // Verhindert das Scrollen
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -33,7 +37,9 @@ class ProductGrid extends StatelessWidget {
         return ButtonProductCustom(
           productItem: item, // Übergabe des Produkts an das Button-Widget
           onPressed: () {
+            orderProvider.addToSelect(item, context);
             // Aktion bei Knopfdruck: Produkt wird der Bestellung hinzugefügt
+
             orderData[deskNumber] = ProductItem(
                 productTitle: item.productTitle, // Titel des Produkts
                 productPrice: item.productPrice, // Preis des Produkts
