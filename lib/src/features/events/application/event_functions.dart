@@ -7,13 +7,13 @@ class EventFunctions {
     required BuildContext context,
     required String category,
     required String productName,
-    required String productPrice,
+    required double productPrice,
     required TextEditingController nameController,
     required TextEditingController priceController,
     required TextEditingController categoryController,
     required Function setStateCallback,
   }) {
-    if (category.isEmpty || productName.isEmpty || productPrice.isEmpty) {
+    if (category.isEmpty || productName.isEmpty || productPrice == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Eines der Felder ist leer, bitte alle Felder ausfüllen."),
@@ -125,7 +125,7 @@ class EventFunctions {
         if (index != -1) {
           products[index] = ProductItem(
             productTitle: newName,
-            productPrice: newPrice!.toStringAsFixed(2),
+            productPrice: newPrice!,
             productCategory: category,
           );
         }
