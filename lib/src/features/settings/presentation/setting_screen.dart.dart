@@ -51,79 +51,92 @@ class SettingScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.labelLarge,
         ),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: ListView(
-              children: [
-                // Profil
-                _buildListTile(
-                  context,
-                  icon: Icons.person,
-                  title: textFiles[language]![2],
-                  onTap: () {
-                    // Hier kannst du die Navigationslogik zu deinem Profil-Screen hinzufügen
-                  },
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    lightThemeList[0],
+                    lightThemeList[1],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                _buildDivider(),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ListView(
+                  children: [
+                    // Profil
+                    _buildListTile(
+                      context,
+                      icon: Icons.person,
+                      title: textFiles[language]![2],
+                      onTap: () {
+                        // Hier kannst du die Navigationslogik zu deinem Profil-Screen hinzufügen
+                      },
+                    ),
+                    _buildDivider(),
 
-                // Datenschutz
-                _buildListTile(
-                  context,
-                  icon: Icons.lock,
-                  title: textFiles[language]![57],
-                  onTap: () {
-                    // Hier kannst du die Navigationslogik zu Datenschutz-Einstellungen hinzufügen
-                  },
-                ),
-                _buildDivider(),
+                    // Datenschutz
+                    _buildListTile(
+                      context,
+                      icon: Icons.lock,
+                      title: textFiles[language]![57],
+                      onTap: () {
+                        // Hier kannst du die Navigationslogik zu Datenschutz-Einstellungen hinzufügen
+                      },
+                    ),
+                    _buildDivider(),
 
-                // Benachrichtigungen
-                _buildListTile(
-                  context,
-                  icon: Icons.language,
-                  title: textFiles[language]![58],
-                  onTap: () {
-                    Navigator.pushNamed(context, "/language");
-                  },
-                ),
-                _buildDivider(),
+                    // Benachrichtigungen
+                    _buildListTile(
+                      context,
+                      icon: Icons.language,
+                      title: textFiles[language]![58],
+                      onTap: () {
+                        Navigator.pushNamed(context, "/language");
+                      },
+                    ),
+                    _buildDivider(),
 
-                // Chats
-                _buildListTile(
-                  context,
-                  icon: Icons.devices,
-                  title: textFiles[language]![59],
-                  onTap: () {
-                    // Hier kannst du die Navigationslogik zu Chat-Einstellungen hinzufügen
-                  },
-                ),
-                _buildDivider(),
+                    // Chats
+                    _buildListTile(
+                      context,
+                      icon: Icons.devices,
+                      title: textFiles[language]![59],
+                      onTap: () {
+                        // Hier kannst du die Navigationslogik zu Chat-Einstellungen hinzufügen
+                      },
+                    ),
+                    _buildDivider(),
 
-                // Hilfe
-                _buildListTile(
-                  context,
-                  icon: Icons.help,
-                  title: textFiles[language]![60],
-                  onTap: () {
-                    // Hier kannst du die Navigationslogik zu Hilfe-Seite hinzufügen
-                  },
-                ),
-                _buildDivider(),
+                    // Hilfe
+                    _buildListTile(
+                      context,
+                      icon: Icons.help,
+                      title: textFiles[language]![60],
+                      onTap: () {
+                        // Hier kannst du die Navigationslogik zu Hilfe-Seite hinzufügen
+                      },
+                    ),
+                    _buildDivider(),
 
-                // Abmelden
-                _buildListTile(
-                  context,
-                  icon: Icons.exit_to_app,
-                  title: textFiles[language]![61],
-                  onTap: () {
-                    _signOut(context);
-                  },
-                  color: alertColor,
+                    // Abmelden
+                    _buildListTile(
+                      context,
+                      icon: Icons.exit_to_app,
+                      title: textFiles[language]![61],
+                      onTap: () {
+                        _signOut(context);
+                      },
+                      color: alertColor,
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ],

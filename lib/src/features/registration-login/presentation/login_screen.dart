@@ -135,35 +135,47 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      resizeToAvoidBottomInset: true,
+      body: Column(
         children: [
-          const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 100,
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    lightThemeList[0],
+                    lightThemeList[1],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
-                  _logo(),
-                  const SizedBox(
-                    height: 124,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 100),
+                      _logo(),
+                      const SizedBox(height: 50),
+                      _emailTextField(),
+                      const SizedBox(height: 8),
+                      _passwordTextField(),
+                      const SizedBox(height: 16),
+                      _loginButton(),
+                      _registerButton(),
+                      Expanded(
+                        child: SizedBox(),
+                      ),
+                      _testButton(),
+                      const SizedBox(height: bottomSafeArea),
+                    ],
                   ),
-                  _emailTextField(),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  _passwordTextField(),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  _loginButton(),
-                  _registerButton(),
-                  const Expanded(child: SizedBox()),
-                  _testButton(),
-                ],
+                ),
               ),
             ),
           ),

@@ -1,3 +1,5 @@
+import 'package:cash_track/src/core/presentation/dialog_helper.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/features/order/data/category_data_map.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
@@ -68,28 +70,20 @@ class EventFunctions {
     ProductItem product,
     Function deleteCallback,
     Function editCallback,
+    String language,
   ) {
-    //TODO: Design muss noch geändert werden wie bei der Tischauswahl
-    showDialog(
+    // Nachricht für die Auswahl des Produkts
+    String message = 'Produkt: ${product.productTitle}';
+
+    DialogHelper.showConfirmationDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Aktionen für Produkt'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Produkt: ${product.productTitle}'),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  deleteCallback();
-                },
-                child: const Text('Löschen'),
-              ),
-            ],
-          ),
-        );
+      title: 'Aktionen für Produkt',
+      message: message, // Inhalt des Dialogs
+      cancelButtonText: textFiles[language]![13], // Text für Abbrechen-Button
+      confirmButtonText: textFiles[language]![18], // Text für Löschen-Button
+      onConfirm: () {
+        // Aufruf der Lösch-Funktion
+        deleteCallback();
       },
     );
   }

@@ -42,47 +42,48 @@ class _TextFieldEventState extends State<TextFieldEvent> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          // Event Name:
-          CustomTextField(
-            eventTextfieldItem: eventTextfieldDatas[0],
-            controller: _eventNameController,
-            onChanged: (value) {},
-          ),
-          const SizedBox(
-            height: 12,
-          ),
+    return Column(
+      children: [
+        // Event Name:
+        CustomTextField(
+          eventTextfieldItem: eventTextfieldDatas[0],
+          controller: _eventNameController,
+          onChanged: (value) {},
+        ),
+        const SizedBox(
+          height: 12,
+        ),
 
-          // Ersteller
-          CustomTextField(
-            eventTextfieldItem: eventTextfieldDatas[2],
-            controller: _ceatorController,
-            onChanged: (value) {},
-          ),
-          const SizedBox(
-            height: 32,
-          ),
+        // Ersteller
+        CustomTextField(
+          eventTextfieldItem: eventTextfieldDatas[2],
+          controller: _ceatorController,
+          onChanged: (value) {},
+        ),
+        const SizedBox(
+          height: 32,
+        ),
 
-          // Code
-          CustomTextField(
-            eventTextfieldItem: eventTextfieldDatas[3],
-            controller: _codeController,
-            onChanged: (value) {},
-          ),
-          const SizedBox(
-            height: 12,
-          ),
+        // Code
+        CustomTextField(
+          eventTextfieldItem: eventTextfieldDatas[3],
+          controller: _codeController,
+          onChanged: (value) {},
+        ),
+        const SizedBox(
+          height: 12,
+        ),
 
-          //Generiere neuen Code
-          _generateCodeButton(),
-          const Expanded(child: SizedBox()),
+        //Generiere neuen Code
+        _generateCodeButton(),
+        const Expanded(child: SizedBox()),
 
-          // Erstelle neues Event
-          _createEventButton(),
-        ],
-      ),
+        // Erstelle neues Event
+        _createEventButton(),
+        SizedBox(
+          height: bottomSafeArea,
+        ),
+      ],
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/txt_fields_event.dart';
 
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ class CreateEventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: lightThemeColorLight,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: Text(
           textFiles[language]![42],
@@ -29,14 +27,25 @@ class CreateEventScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Stack(
+      body: Column(
         children: [
-          ThemeContainer(),
-          SafeArea(
-            child: Padding(
-              padding: EdgeInsets.all(sitesPadding),
-              child: Center(
-                child: TextFieldEvent(),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    lightThemeList[0],
+                    lightThemeList[1],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(sitesPadding),
+                child: Center(
+                  child: TextFieldEvent(),
+                ),
               ),
             ),
           ),

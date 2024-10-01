@@ -16,13 +16,13 @@ ThemeData lightTheme = ThemeData(
       labelLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // for buttons
     ),
   ),
-  appBarTheme: const AppBarTheme(
-    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+  appBarTheme: AppBarTheme(
+    backgroundColor: lightThemeList[0],
   ),
-  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: Color.fromARGB(255, 153, 153, 153),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: lightThemeList[1],
     selectedItemColor: Colors.black,
-    unselectedItemColor: Colors.white,
+    unselectedItemColor: whiteColor,
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
