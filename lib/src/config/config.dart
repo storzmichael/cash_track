@@ -3,6 +3,7 @@ const double allSitesPadding = 16;
 const double bottomPadding = 16; // alter wert 32
 const double textPadding = 8;
 const double smallPadding = 4;
+const double bottomSafeArea = 32;
 
 const double textFieldheight = 40;
 
