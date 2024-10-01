@@ -70,5 +70,6 @@ List<String> german = [
   'Code', // 68
   'Bitte E-Mail und Passwort eingeben', // 69
   'Ein unerwarteter Fehler ist aufgetreten', // 70
+  'Bitte geben Sie einen gültigen Preis ein.', // 71
 ];
 // textFiles[language]![0]
