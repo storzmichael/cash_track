@@ -1,76 +1,60 @@
-import 'package:cash_track/src/config/config_colors.dart';
-import 'package:cash_track/src/core/data/nav_item_data.dart';
-import 'package:cash_track/src/features/events/presentation/event_screen.dart';
-import 'package:cash_track/src/features/events/presentation/favorites_screen.dart';
+import 'package:cash_track/src/core/application/navigation_provider.dart';
+import 'package:cash_track/src/features/events/presentation/screens/event_screen.dart';
+import 'package:cash_track/src/features/events/presentation/screens/favorites_screen.dart';
+import 'package:cash_track/src/features/settings/presentation/setting_screen.dart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
-class AppHome extends StatefulWidget {
-  static const routeName = '/';
+class AppHome extends StatelessWidget {
   const AppHome({super.key});
 
-  @override
-  State<AppHome> createState() => _AppHomeState();
-}
-
-class _AppHomeState extends State<AppHome> {
-  int currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  } //List of screen from navigation bar
-
-  final List<Widget> screens = [
-    const EventScreen(),
-    const FavoritesScreen(),
-    const Placeholder(),
+  final List<Widget> screens = const [
+    EventScreen(),
+    FavoritesScreen(),
+    SettingScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final navigationProvider = Provider.of<NavigationProvider>(context);
+
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-        title: Text(
-          navigationItemData[currentIndex].label,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.black, // Farbe der oberen Border
+              width: 0.07, // Breite der Border
+            ),
+          ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
-        ],
+        child: BottomNavigationBar(
+          currentIndex: navigationProvider.currentIndex, // Verwendet den aktuellen Index aus dem Provider
+          onTap: (index) {
+            navigationProvider.setCurrentIndex(index); // Aktualisiert den Index über den Provider
+          },
+          showSelectedLabels: true, // Zeigt Labels für das ausgewählte Item
+          showUnselectedLabels: false, // Versteckt Labels für nicht ausgewählte Items
+          items: const [
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.event), // Beispiel-Icon für den Event-Screen
+              icon: Icon(Icons.event_outlined), // Standard-Icon für den Event-Screen
+              label: 'Event', // Label für den Event-Screen
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.favorite), // Beispiel-Icon für den Favoriten-Screen
+              icon: Icon(Icons.favorite_outline), // Standard-Icon für den Favoriten-Screen
+              label: 'Favorites', // Label für den Favoriten-Screen
+            ),
+            BottomNavigationBarItem(
+              activeIcon: Icon(Icons.settings), // Beispiel-Icon für den Einstellungen-Screen
+              icon: Icon(Icons.settings_outlined), // Standard-Icon für den Einstellungen-Screen
+              label: 'Settings', // Label für den Einstellungen-Screen
+            ),
+          ],
+        ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            activeIcon: Icon(navigationItemData[0].activeIcon),
-            icon: Icon(navigationItemData[0].icon),
-            label: navigationItemData[0].label,
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(navigationItemData[1].activeIcon),
-            icon: Icon(navigationItemData[1].icon),
-            label: navigationItemData[1].label,
-          ),
-          BottomNavigationBarItem(
-            activeIcon: Icon(navigationItemData[2].activeIcon),
-            icon: Icon(navigationItemData[2].icon),
-            label: navigationItemData[2].label,
-          ),
-        ],
-      ),
-      body: screens[currentIndex],
+      body: screens[navigationProvider.currentIndex], // Zeigt den aktuell ausgewählten Screen
     );
   }
 }
