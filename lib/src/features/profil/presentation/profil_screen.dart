@@ -11,35 +11,30 @@ class ProfilScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const ThemeContainer(), // Hintergrund-Themencontainer
-        Padding(
-          padding: const EdgeInsets.all(sitesPadding), // Padding um den gesamten Inhalt
-          child: Column(
+    return Padding(
+      padding: const EdgeInsets.all(sitesPadding), // Padding um den gesamten Inhalt
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start, // Inhalt wird am Start (links) ausgerichtet
+        children: [
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start, // Inhalt wird am Start (links) ausgerichtet
             children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Inhalt wird am Start (links) ausgerichtet
-                children: [
-                  CircleAvatarWidget(), // Zeigt das Profilbild an
-                ],
-              ),
-              const Expanded(
-                child: SizedBox(
-                  height: 32, // Abstand nach oben für den Button
-                ),
-              ),
-              OutlinedBigButton(
-                buttonName: textFiles[language]![19], // Name des Buttons aus der Sprachdatei
-                onPressed: () {
-                  // Hier kann eine Funktion für das Drücken des Buttons eingefügt werden
-                },
-              ),
+              CircleAvatarWidget(), // Zeigt das Profilbild an
             ],
           ),
-        ),
-      ],
+          const Expanded(
+            child: SizedBox(
+              height: 32, // Abstand nach oben für den Button
+            ),
+          ),
+          OutlinedBigButton(
+            buttonName: textFiles[language]![19], // Name des Buttons aus der Sprachdatei
+            onPressed: () {
+              // Hier kann eine Funktion für das Drücken des Buttons eingefügt werden
+            },
+          ),
+        ],
+      ),
     );
   }
 }

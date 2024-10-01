@@ -1,9 +1,9 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/application/event_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/config/button_varibals.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
@@ -35,7 +35,11 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     super.dispose();
   }
 
-  void _showEditProductDialog(String category, ProductItem product) {
+  void _showEditProductDialog(
+    String category,
+    ProductItem product,
+    String language, // Füge hier den language-Parameter hinzu
+  ) {
     _nameController.text = product.productTitle;
     _priceController.text = product.productPrice.toString();
     _categoryController.text = category;
@@ -60,6 +64,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         categoryController: _categoryController,
         setStateCallback: setState,
       ),
+      language, // Übergib den language-Parameter hier
     );
   }
 
@@ -74,8 +79,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
             double? price = double.tryParse(_priceController.text.replaceAll(',', '.'));
             if (price == null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Bitte geben Sie einen gültigen Preis ein."),
+                SnackBar(
+                  content: Text(textFiles[language]![71]),
                   duration: Duration(seconds: 2),
                 ),
               );
@@ -133,7 +138,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                       product: product,
                                       setStateCallback: setState,
                                     ),
-                                    () => _showEditProductDialog(category, product),
+                                    () => _showEditProductDialog(category, product, language),
+                                    language,
                                   );
                                 },
                                 child: Row(
@@ -176,50 +182,63 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         automaticallyImplyLeading: false, // Entfernt das Chevron-Symbol
         title: Text(textFiles[language]![36]),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          const ThemeContainer(),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(sitesPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Produktname
-                  CustomTextField(
-                    controller: _nameController,
-                    eventTextfieldItem: EventTextfieldItem(
-                      eventTextfieldHintText: textFiles[language]![37],
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    lightThemeList[0],
+                    lightThemeList[1],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(sitesPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Produktname
+                    CustomTextField(
+                      controller: _nameController,
+                      eventTextfieldItem: EventTextfieldItem(
+                        eventTextfieldHintText: textFiles[language]![37],
+                      ),
+                      onChanged: (value) {},
                     ),
-                    onChanged: (value) {},
-                  ),
-                  const SizedBox(height: 10),
-                  // Produktpreis
-                  CustomTextField(
-                    controller: _priceController,
-                    onChanged: (value) {},
-                    eventTextfieldItem: EventTextfieldItem(
-                      eventTextfieldHintText: textFiles[language]![38],
+                    const SizedBox(height: 10),
+                    // Produktpreis
+                    CustomTextField(
+                      controller: _priceController,
+                      onChanged: (value) {},
+                      eventTextfieldItem: EventTextfieldItem(
+                        eventTextfieldHintText: textFiles[language]![38],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Produktkategorie
-                  CustomTextField(
-                    controller: _categoryController,
-                    eventTextfieldItem: EventTextfieldItem(
-                      eventTextfieldHintText: textFiles[language]![39],
+                    const SizedBox(height: 10),
+                    // Produktkategorie
+                    CustomTextField(
+                      controller: _categoryController,
+                      eventTextfieldItem: EventTextfieldItem(
+                        eventTextfieldHintText: textFiles[language]![39],
+                      ),
+                      onChanged: (value) {},
                     ),
-                    onChanged: (value) {},
-                  ),
-                  const SizedBox(height: 30),
-                  _addButton(),
-                  const SizedBox(height: 30),
-                  Text(textFiles[language]![40]),
-                  const SizedBox(height: 10),
-                  _cardCategory(),
-                  const SizedBox(height: bigBttnHeight),
-                  _createEventButton(),
-                ],
+                    const SizedBox(height: 30),
+                    _addButton(),
+                    const SizedBox(height: 30),
+                    Text(textFiles[language]![40]),
+                    const SizedBox(height: 10),
+                    _cardCategory(),
+                    const SizedBox(height: bigBttnHeight),
+                    _createEventButton(),
+                    const SizedBox(height: bottomSafeArea),
+                    // Hinweis
+                  ],
+                ),
               ),
             ),
           ),

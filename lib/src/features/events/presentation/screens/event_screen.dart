@@ -1,4 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/event_grid.dart';
@@ -44,24 +45,38 @@ class EventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           textFiles[language]![0],
           style: Theme.of(context).textTheme.labelLarge,
         ),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(40.0, sitesPadding, 40.0, sitesPadding),
-            child: Column(
-              children: [
-                _logo(),
-                const SizedBox(
-                  height: 32,
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    lightThemeList[0],
+                    lightThemeList[1],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                const EventGrid(),
-              ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(40.0, sitesPadding, 40.0, sitesPadding),
+                child: Column(
+                  children: [
+                    _logo(),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    const EventGrid(),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
