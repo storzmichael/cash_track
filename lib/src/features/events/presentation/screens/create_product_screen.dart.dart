@@ -37,7 +37,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   void _showEditProductDialog(String category, ProductItem product) {
     _nameController.text = product.productTitle;
-    _priceController.text = product.productPrice;
+    _priceController.text = product.productPrice.toString();
     _categoryController.text = category;
 
     EventFunctions.showProductOptionsDialog(
@@ -71,11 +71,21 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         child: OutlinedBigButton(
           buttonName: textFiles[language]![15],
           onPressed: () {
+            double? price = double.tryParse(_priceController.text.replaceAll(',', '.'));
+            if (price == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Bitte geben Sie einen gültigen Preis ein."),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+              return;
+            }
             EventFunctions.addProductToGrid(
               context: context,
               category: _categoryController.text,
               productName: _nameController.text,
-              productPrice: _priceController.text,
+              productPrice: price,
               nameController: _nameController,
               priceController: _priceController,
               categoryController: _categoryController,
@@ -130,7 +140,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(product.productTitle),
-                                    Text('${double.parse(product.productPrice).toStringAsFixed(2)} €'),
+                                    Text('${(product.productPrice).toStringAsFixed(2)} €'),
                                   ],
                                 ),
                               ),

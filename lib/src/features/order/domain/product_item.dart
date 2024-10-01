@@ -1,7 +1,15 @@
 class ProductItem {
   final String productTitle;
-  final String productPrice;
+  final double productPrice;
   final String productCategory;
+  double availability;
+  int quantity;
 
-  const ProductItem({required this.productTitle, required this.productPrice, required this.productCategory});
+  ProductItem({
+    required this.productTitle,
+    this.productPrice = 0,
+    required this.productCategory,
+    this.availability = double.infinity,
+    this.quantity = 1,
+  });
 }
