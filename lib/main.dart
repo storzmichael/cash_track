@@ -7,6 +7,7 @@ import 'package:cash_track/src/features/events/presentation/screens/create_produ
 import 'package:cash_track/src/features/order/application/order_provider.dart';
 import 'package:cash_track/src/features/order/presentation/order_screen.dart';
 import 'package:cash_track/src/features/registration-login/presentation/login_screen.dart';
+
 import 'package:cash_track/src/features/registration-login/presentation/registration_screen.dart';
 import 'package:cash_track/src/features/settings/presentation/language_screen.dart';
 import 'package:cash_track/src/features/settings/presentation/setting_screen.dart.dart';
@@ -40,8 +41,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       routes: {
-        "/": (context) => OrderScreen(),
-        //const LoginScreen(),
+        "/": (context) => const LoginScreen(),
         "/appHome": (context) => const AppHome(),
         "/order": (context) => OrderScreen(),
         "/cashout": (context) => const CashoutScreen(),
