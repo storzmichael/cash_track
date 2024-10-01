@@ -94,6 +94,7 @@ class MonitorView extends StatelessWidget {
                               leading: Text('Tisch:'),
                               title: Text('1'),
                               onTap: () {
+                                Navigator.pushNamed(context, "/cashout");
                                 print('Gehe zum Bezahlen-Screen');
                               },
                             );
