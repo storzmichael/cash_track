@@ -18,7 +18,11 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Firebase initialisieren
+  try {
+    await Firebase.initializeApp(); // Firebase initialisieren
+  } catch (e) {
+    print("Firebase Initialization Error: $e");
+  }
 
   runApp(
     MultiProvider(

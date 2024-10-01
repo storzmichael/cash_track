@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MonitorView extends StatelessWidget {
-  MonitorView({super.key});
+  const MonitorView({super.key});
 
   final double valueList = 2.50;
   // Beispielwert für eine Produktliste

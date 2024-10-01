@@ -9,7 +9,6 @@ import 'package:cash_track/src/features/order/application/order_provider.dart';
 
 import 'package:cash_track/src/features/order/data/category_data_map.dart';
 
-import 'package:cash_track/src/features/order/data/products_list.dart';
 import 'package:cash_track/src/features/order/data/table_list.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/monitor_view.dart';
