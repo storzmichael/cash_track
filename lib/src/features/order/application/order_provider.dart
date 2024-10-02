@@ -132,38 +132,6 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Funktion zum Anzeigen eines Bestätigungsdialogs zum Löschen eines Tisches
-  /*void showDeleteConfirmDialog(
-    BuildContext context,
-    int index,
-    String language,
-  ) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(textFiles[language]![16]), // Titel des Bestätigungsdialogs
-          content: Text(textFiles[language]![17]), // Inhalt des Bestätigungsdialogs
-          actions: <Widget>[
-            TextButton(
-              child: Text(textFiles[language]![13]), // Text für Abbrechen-Button
-              onPressed: () {
-                Navigator.of(context).pop(); // Schließt den Dialog, ohne zu löschen
-              },
-            ),
-            TextButton(
-              child: Text(textFiles[language]![18]), // Text für Bestätigen-Button
-              onPressed: () {
-                tables.removeAt(index); // Entfernt den Tisch mit dem angegebenen Index aus der Liste
-                Navigator.of(context).pop(); // Schließt den Dialog nach dem Löschen
-              },
-            ),
-          ],
-        );
-      },
-    );
-    notifyListeners();
-  }*/
   void showDeleteConfirmDialog(
     BuildContext context,
     int index,
