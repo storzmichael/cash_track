@@ -128,33 +128,43 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       appBar: AppBar(
         title: Text(textFiles[language]![48]),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 100 - 56,
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    lightThemeList[0],
+                    lightThemeList[1],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                _logo(),
-                const SizedBox(
-                  height: 124,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(bottomPadding, 0, bottomPadding, sitesPadding),
+                child: Column(
+                  children: [
+                    _logo(),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    _emailTextField(),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    _passwordTextField(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    _registerButton(),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                  ],
                 ),
-                _emailTextField(),
-                const SizedBox(
-                  height: 8,
-                ),
-                _passwordTextField(),
-                const SizedBox(
-                  height: 32,
-                ),
-                _registerButton(),
-                const SizedBox(
-                  height: 8,
-                ),
-              ],
+              ),
             ),
           ),
         ],
