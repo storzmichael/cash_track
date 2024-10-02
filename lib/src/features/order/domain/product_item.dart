@@ -12,4 +12,6 @@ class ProductItem {
     this.availability = double.infinity,
     this.quantity = 1,
   });
+
+  get keys => null;
 }
