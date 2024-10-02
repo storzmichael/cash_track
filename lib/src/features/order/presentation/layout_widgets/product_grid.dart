@@ -40,10 +40,12 @@ class ProductGrid extends StatelessWidget {
             orderProvider.addToSelect(item, context);
             // Aktion bei Knopfdruck: Produkt wird der Bestellung hinzugefügt
 
-            orderData[deskNumber] = ProductItem(
-                productTitle: item.productTitle, // Titel des Produkts
-                productPrice: item.productPrice, // Preis des Produkts
-                productCategory: item.productCategory); // Kategorie des Produkts
+            orderData[deskNumber] = [
+              ProductItem(
+                  productTitle: item.productTitle, // Titel des Produkts
+                  productPrice: item.productPrice, // Preis des Produkts
+                  productCategory: item.productCategory)
+            ]; // Kategorie des Produkts
             // ignore: avoid_print
             print(item.productPrice); // Ausgabe des Produktpreises zur Überprüfung
             // ignore: avoid_print
