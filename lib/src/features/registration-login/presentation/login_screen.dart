@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: () {
         Navigator.pushReplacementNamed(context, "/appHome");
       },
-      buttonName: 'test',
+      buttonName: 'Schnellzugriff (Test)',
     );
   }
 
