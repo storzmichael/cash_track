@@ -66,12 +66,12 @@ class EventScreen extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(40.0, sitesPadding, 40.0, sitesPadding),
+                padding: const EdgeInsets.fromLTRB(40.0, 0, 40.0, sitesPadding),
                 child: Column(
                   children: [
                     _logo(),
                     const SizedBox(
-                      height: 32,
+                      height: 50,
                     ),
                     const EventGrid(),
                   ],
