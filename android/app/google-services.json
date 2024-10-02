@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:289590429086:android:5ddd64018d3c6fb791c28f",
         "android_client_info": {
-          "package_name": "com.example.cash_track"
+          "package_name": "com.cash_track.app"
         }
       },
       "oauth_client": [],
