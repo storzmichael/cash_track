@@ -2,6 +2,7 @@ import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
+import 'package:cash_track/src/features/order/data/order_data_map.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,14 +10,8 @@ import 'package:provider/provider.dart';
 class MonitorView extends StatelessWidget {
   const MonitorView({super.key});
 
-  final double valueList = 2.50;
-  // Beispielwert für eine Produktliste
-  final String orderSum = '2,50 €';
-  // Beispiel für die Summe der Bestellung
-
-  // Liste der bestellten Produkte
-  final double _monitorHeight = 160;
   // Höhe des Monitors (Bildschirms) für die Anzeige
+  final double _monitorHeight = 160;
 
   @override
   Widget build(BuildContext context) {
@@ -41,35 +36,25 @@ class MonitorView extends StatelessWidget {
                         ),
                         color: monitorColor, // Hintergrundfarbe
                       ),
-                      child: ListView.builder(
-                        itemCount: orderProvider.selectedProducts.length, //, // Anzahl der bestellten Produkte
-                        itemBuilder: (context, index) {
-                          final product = orderProvider.selectedProducts[index];
-                          return SizedBox(
-                            height: 28,
-                            child: ListTile(
-                              leading: Text('${product.quantity.toString()} x'),
-                              title: Text(product.productTitle),
-                              trailing: Text('${(product.productPrice * product.quantity).toStringAsFixed(2)}€'),
-                              onTap: () {
-                                orderProvider.removeProduct(product, context);
-                                print('löschen eines des Produkts');
-                              },
-                            ),
-                          );
-
-                          /*Row(
-                          children: [
-                            const Text('1x'), // Beispiel für die Anzahl eines Produkts
-                            const SizedBox(
-                              width: 8, // Abstand zwischen Anzahl und Produktnamen
-                            ),
-                            Text(_orderItems[index].productTitle), // Anzeige des Produktnamens
-                            const Expanded(child: SizedBox()), // Füllt den verfügbaren Platz
-                            Text('${_orderItems[index].productPrice} €'), // Anzeige des Produktpreises
-                          ],
-                        );*/
-                        },
+                      child: Scrollbar(
+                        child: ListView.builder(
+                          itemCount: orderProvider.selectedProducts.length, //, // Anzahl der bestellten Produkte
+                          itemBuilder: (context, index) {
+                            final product = orderProvider.selectedProducts[index];
+                            return SizedBox(
+                              height: 28,
+                              child: ListTile(
+                                leading: Text('${product.quantity.toString()} x'),
+                                title: Text(product.productTitle),
+                                trailing: Text('${(product.productPrice * product.quantity).toStringAsFixed(2)}€'),
+                                onTap: () {
+                                  orderProvider.removeProduct(product, context);
+                                  print('löschen eines des Produkts');
+                                },
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -88,17 +73,18 @@ class MonitorView extends StatelessWidget {
                         color: monitorColor, // Hintergrundfarbe
                       ),
                       child: ListView.builder(
-                          itemCount: 1, //orderData.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              leading: Text('Tisch:'),
-                              title: Text('1'),
-                              onTap: () {
-                                Navigator.pushNamed(context, "/cashout");
-                                print('Gehe zum Bezahlen-Screen');
-                              },
-                            );
-                          }),
+                        itemCount: orderData.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: Text('Tisch:'),
+                            title: Text('1'),
+                            onTap: () {
+                              Navigator.pushNamed(context, "/cashout");
+                              print('Gehe zum Bezahlen-Screen für Tisch 1');
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
