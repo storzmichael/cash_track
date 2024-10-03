@@ -40,7 +40,7 @@ class ButtonCategoryCustom extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius), // Setzt die abgerundeten Ecken
           ),
-          padding: const EdgeInsets.all(5), // Innenabstand des Buttons
+          padding: const EdgeInsets.symmetric(horizontal: 5), // Innenabstand des Buttons
         ),
         child: Center(
           child: Text(
