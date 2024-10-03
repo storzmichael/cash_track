@@ -10,17 +10,17 @@ Map<String, List<ProductItem>> categoryData = {
     ProductItem(productTitle: 'Radler Süß', productPrice: 3.50, productCategory: 'Getränke'),
     ProductItem(productTitle: 'Radler Sauer', productPrice: 3.50, productCategory: 'Getränke'),
     ProductItem(productTitle: 'Weizen', productPrice: 4.00, productCategory: 'Getränke'),
-    ProductItem(productTitle: 'Weiswein', productPrice: 3.00, productCategory: 'Getränke'),
+    ProductItem(productTitle: 'Weis- wein', productPrice: 3.00, productCategory: 'Getränke'),
     ProductItem(productTitle: 'Weis Süß', productPrice: 3.00, productCategory: 'Getränke'),
     ProductItem(productTitle: 'Weis Sauer', productPrice: 3.00, productCategory: 'Getränke'),
     ProductItem(productTitle: 'Rotwein', productPrice: 3.50, productCategory: 'Getränke'),
   ],
   'Essen': [
-    ProductItem(productTitle: 'Pommes', productPrice: 3.50, productCategory: 'Essen'),
-    ProductItem(productTitle: 'Grillwurst', productPrice: 3.00, productCategory: 'Essen'),
-    ProductItem(productTitle: 'Currywurst', productPrice: 3.50, productCategory: 'Essen'),
-    ProductItem(productTitle: 'Wurstwecken', productPrice: 2.50, productCategory: 'Essen'),
-    ProductItem(productTitle: 'Käsewecken', productPrice: 2.50, productCategory: 'Essen'),
+    ProductItem(productTitle: 'Steak- wecken', productPrice: 3.50, productCategory: 'Essen'),
+    ProductItem(productTitle: 'Grill- wurst', productPrice: 3.00, productCategory: 'Essen'),
+    ProductItem(productTitle: 'Curry- wurst', productPrice: 3.50, productCategory: 'Essen'),
+    ProductItem(productTitle: 'Wurst- wecken', productPrice: 2.50, productCategory: 'Essen'),
+    ProductItem(productTitle: 'Käse- wecken', productPrice: 2.50, productCategory: 'Essen'),
   ]
 };
 
