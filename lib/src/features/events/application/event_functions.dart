@@ -1,3 +1,5 @@
+import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +19,8 @@ class EventFunctions {
   }) {
     if (category.isEmpty || productName.isEmpty || productPrice == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Eines der Felder ist leer, bitte alle Felder ausfüllen."),
+        SnackBar(
+          content: Text(textFiles[language]![75]),
           duration: Duration(seconds: 2),
         ),
       );
@@ -28,9 +30,8 @@ class EventFunctions {
     final List<ProductItem>? products = categoryData[category];
     if (products != null && products.length >= 12) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content:
-              Text("Es sind bereits 12 Produkte in dieser Kategorie. Kein weiteres Produkt kann hinzugefügt werden."),
+        SnackBar(
+          content: Text(textFiles[language]![76]),
           duration: Duration(seconds: 2),
         ),
       );
@@ -73,14 +74,15 @@ class EventFunctions {
     String language,
   ) {
     // Nachricht für die Auswahl des Produkts
-    String message = 'Produkt: ${product.productTitle}';
+    String message = '${textFiles[language]![74]} ${product.productTitle}';
 
     DialogHelper.showConfirmationDialog(
       context: context,
-      title: 'Aktionen für Produkt',
+      title: textFiles[language]![72],
       message: message, // Inhalt des Dialogs
-      cancelButtonText: textFiles[language]![13], // Text für Abbrechen-Button
-      confirmButtonText: textFiles[language]![18], // Text für Löschen-Button
+      cancelButtonText: textFiles[language]![14], // Text für Abbrechen-Button
+      confirmButtonText: textFiles[language]![18],
+      textColor: alertColor, // Text für Löschen-Button
       onConfirm: () {
         // Aufruf der Lösch-Funktion
         deleteCallback();
@@ -104,8 +106,8 @@ class EventFunctions {
       newPrice = double.parse(newPriceText.replaceAll(',', '.'));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Bitte geben Sie einen gültigen Preis ein."),
+        SnackBar(
+          content: Text(textFiles[language]![73]),
           duration: Duration(seconds: 2),
         ),
       );
