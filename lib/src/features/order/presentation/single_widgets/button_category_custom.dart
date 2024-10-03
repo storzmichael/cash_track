@@ -40,19 +40,16 @@ class ButtonCategoryCustom extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius), // Setzt die abgerundeten Ecken
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 5), // Innenabstand des Buttons
         ),
-        child: Center(
-          child: Text(
-            categoryTitle, // Zeigt den Titel der Kategorie an
-            textAlign: TextAlign.center, // Zentrierte Textausrichtung
-            maxLines: maxLines, // Maximale Anzahl der Zeilen
-            overflow: TextOverflow.ellipsis, // Textüberlauf wird mit Punkten angezeigt
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: textColor, // Setzt die Textfarbe
-                  fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal, // Setzt die Schriftstärke
-                ),
-          ),
+        child: Text(
+          categoryTitle, // Zeigt den Titel der Kategorie an
+          textAlign: TextAlign.center, // Zentrierte Textausrichtung
+          maxLines: maxLines, // Maximale Anzahl der Zeilen
+          overflow: TextOverflow.ellipsis, // Textüberlauf wird mit Punkten angezeigt
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: textColor, // Setzt die Textfarbe
+                fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal, // Setzt die Schriftstärke
+              ),
         ),
       ),
     );
