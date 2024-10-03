@@ -1,3 +1,4 @@
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
@@ -213,8 +214,8 @@ class OrderProvider with ChangeNotifier {
     } else {
       // Wenn das Produkt nicht verfügbar ist, zeige eine Nachricht
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Dieses Produkt ist nicht mehr verfügbar.'),
+        SnackBar(
+          content: Text(textFiles[language]![77]),
         ),
       );
     }
@@ -250,8 +251,8 @@ class OrderProvider with ChangeNotifier {
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Dieses Produkt ist nicht im Warenkorb.'),
+        SnackBar(
+          content: Text(textFiles[language]![78]),
         ),
       );
     }
