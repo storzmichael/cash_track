@@ -71,5 +71,12 @@ List<String> german = [
   'Bitte E-Mail und Passwort eingeben', // 69
   'Ein unerwarteter Fehler ist aufgetreten', // 70
   'Bitte geben Sie einen gültigen Preis ein.', // 71
+  'Produkt wirklich löschen?', // 72,
+  'Bitte geben Sie einen gültigen Preis ein.', // 73
+  'Produkt:', // 74
+  'Eines der Felder ist leer, bitte alle Felder ausfüllen.', // 75
+  'Es sind bereits 12 Produkte in dieser Kategorie. Kein weiteres Produkt kann hinzugefügt werden.', // 76
+  'Dieses Produkt ist nicht mehr verfügbar.', // 77
+  'Dieses Produkt ist nicht im Warenkorb.', // 78
 ];
 // textFiles[language]![0]
