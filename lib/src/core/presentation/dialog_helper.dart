@@ -59,6 +59,7 @@ class DialogHelper {
     required String message,
     required String cancelButtonText,
     required String confirmButtonText,
+    Color textColor = primeryColor,
     required Function() onConfirm,
   }) {
     showCupertinoDialog(
@@ -86,7 +87,7 @@ class DialogHelper {
               },
             ),
             CupertinoDialogAction(
-              child: Text(confirmButtonText, style: const TextStyle(color: primeryColor)), // Confirm button style
+              child: Text(confirmButtonText, style: TextStyle(color: textColor)), // Confirm button style
               onPressed: () {
                 onConfirm(); // Callback for confirmation action
                 Navigator.of(context).pop();
