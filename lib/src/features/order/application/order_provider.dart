@@ -2,15 +2,17 @@ import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:cash_track/src/features/order/data/table_list.dart';
+
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrderProvider with ChangeNotifier {
   bool _isTableSelect = false;
-
   bool get isTableSelect => _isTableSelect;
+
+  bool _isCategorySelect = false;
+  bool get isCategorySelect => _isCategorySelect;
 
   // Neue Methode zur Aktualisierung des Tischstatus
   void setTableSelect(bool value) {
@@ -18,13 +20,31 @@ class OrderProvider with ChangeNotifier {
     notifyListeners(); // Benachrichtigt die Listener über die Änderung
   }
 
-  String deskNumber = '';
+  void setCategorySelect(bool value) {
+    _isCategorySelect = value;
+    notifyListeners(); // Benachrichtigt die Listener über die Änderung
+  }
+
+  final List<String> _deskNumbers = [];
+  List<String> get deskNumbers => _deskNumbers;
+
+  void addDeskNumber(String deskNumber) {
+    if (!_deskNumbers.contains(deskNumber)) {
+      _deskNumbers.add(deskNumber);
+      _isTableSelect = true;
+      notifyListeners(); // Benachrichtigt die Listener über die Änderung
+    }
+  }
 
   // Liste der ausgewählten Produkte
-  List<ProductItem> _selectedProducts = [];
-
-  // Getter für die ausgewählten Produkte
+  final List<ProductItem> _selectedProducts = [];
   List<ProductItem> get selectedProducts => _selectedProducts;
+
+  final Map<String, List<ProductItem>> _orderData = {};
+  Map<String, List<ProductItem>> get orderData => _orderData;
+
+  final List<String> _tables = ['1', '2', '3', '4', '5', '6', '7', 'Theke'];
+  List<String> get tables => _tables;
 
   // Funktion zum Hinzufügen eines neuen Buttons (Tisch)
   void addNewButton(
@@ -256,5 +276,30 @@ class OrderProvider with ChangeNotifier {
         ),
       );
     }
+  }
+
+  void transferProductsToOrder() {
+    // Solange die Liste nicht leer ist, Produkte hinzufügen
+    while (selectedProducts.isNotEmpty) {
+      // Nimm das erste Produkt aus der Liste
+      ProductItem product = selectedProducts.removeAt(0); // Entferne das Produkt von der Liste
+
+      // Überprüfen, ob die Tischnummer bereits in der Map vorhanden ist
+      if (!orderData.containsKey(deskNumber)) {
+        orderData[deskNumber] = []; // Initialisiere die Liste, falls sie nicht existiert
+      }
+
+      // Füge das Produkt zur Liste in der Map hinzu
+      orderData[deskNumber]!.add(product);
+    }
+
+    // Benachrichtige die Listener über die Änderungen
+    notifyListeners();
+  }
+
+  String? selectedCategoryKey;
+  void setCategory(String categoryKey) {
+    selectedCategoryKey = categoryKey;
+    notifyListeners();
   }
 }
