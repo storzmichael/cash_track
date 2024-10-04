@@ -8,15 +8,13 @@ import 'package:cash_track/src/features/order/application/order_provider.dart';
 
 import 'package:cash_track/src/features/order/data/category_data_map.dart';
 
-import 'package:cash_track/src/features/order/data/table_list.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/monitor_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-//TODO: umbau zum provider
 class OrderScreen extends StatelessWidget {
-  OrderScreen({super.key});
+  const OrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +96,7 @@ class OrderScreen extends StatelessWidget {
                                     mainAxisSpacing: mainAxisSpacing, // Abstand zwischen den Zeilen
                                     mainAxisExtent: bigBttnHeight, // Höhe der Buttons
                                   ),
-                                  itemCount: tables.length, // Anzahl der verfügbaren Tische
+                                  itemCount: orderProvider.tables.length, // Anzahl der verfügbaren Tische
                                   itemBuilder: (context, index) {
                                     return AspectRatio(
                                       aspectRatio: aspectRatio, // Verhältnis von Breite zu Höhe des Tisches
@@ -115,10 +113,13 @@ class OrderScreen extends StatelessWidget {
                                             child: BigButton(
                                               backgroundColor: primeryColorLow, // Hintergrundfarbe des Tisch-Buttons
                                               onPressed: () {
-                                                deskNumber = tables[index]; // Setzt den ausgewählten Tisch
-                                                orderProvider.setTableSelect(true); // Aktiviert den Tisch
+                                                deskNumber =
+                                                    orderProvider.tables[index]; // Setzt den ausgewählten Tisch
+                                                // Aktiviert den Tisch
+                                                orderProvider.addDeskNumber(deskNumber); //
+                                                print(orderProvider.deskNumbers); // Fügt den Tisch hinzu
                                               },
-                                              buttonName: tables[index], // Zeigt den Tischnamen an
+                                              buttonName: orderProvider.tables[index], // Zeigt den Tischnamen an
                                             ),
                                           ),
                                         ),
@@ -146,9 +147,13 @@ class OrderScreen extends StatelessWidget {
                                   : disabledTextColor, // Textfarbe abhängig von der Tischauswahl
                               onPressed: orderProvider.isTableSelect
                                   ? () {
-                                      orderProvider.setTableSelect(false); // Setzt den Tischstatus zurück
+                                      orderProvider.setTableSelect(false);
+                                      orderProvider.setCategorySelect(false); // Setzt den Tischstatus zurück
+                                      orderProvider.transferProductsToOrder();
 
                                       orderProvider.clearMonitor();
+                                      print('Produkte in orderData: ${orderProvider.orderData}');
+                                      print('Produkte in selectedOroducts: ${orderProvider.selectedProducts}');
                                     }
                                   : null),
                         );
