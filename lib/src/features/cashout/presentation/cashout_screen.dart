@@ -2,62 +2,58 @@ import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/cashout/presentation/single_widgets/listview_unpaid.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
-import 'package:cash_track/src/features/order/data/table_list.dart';
-
 import 'package:flutter/material.dart';
 
-class CashoutScreen extends StatefulWidget {
-  const CashoutScreen({super.key});
+class CashoutScreen extends StatelessWidget {
+  final int? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
+  final String orderSum; // Dynamische Bestellsumme
+  final bool isContainerEmpty; // Dynamischer Containerstatus
+  final bool isSelect = true;
+  final double monitorHeight = 200;
 
-  @override
-  State<CashoutScreen> createState() => _CashoutScreenState();
-}
-
-class _CashoutScreenState extends State<CashoutScreen> {
-  final bool isSelect = true; // Indicates if an item is selected (currently unused)
-
-  final String _orderSum = '2,50 €'; // Total amount for the order, displayed in the UI
-
-  final bool _isContainerEmpty = true; // Indicates whether the container is empty, affects button state
-  final double _monitorHeight = 200; // Height of the container displaying the monitor
+  const CashoutScreen({
+    super.key,
+    this.selectedTable,
+    this.orderSum = '0.00', // Standardwert
+    this.isContainerEmpty = true, // Standardwert
+  });
 
   Widget _title() {
-    return Text('${textFiles[language]![3]}: $tables'); // TODO: Replace $tables with the dynamic table index
+    return Text('${textFiles[language]![3]}: $deskNumber'); // Dynamische Anzeige der ausgewählten Tischnummer
   }
 
   Widget _monitorScreen() {
     return Container(
-      height: _monitorHeight, // Sets the height of the monitor container
+      height: monitorHeight,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(monitorBorderRadius), // Rounded corners for the container
+          Radius.circular(monitorBorderRadius),
         ),
-        color: textFieldColor, // Background color of the monitor container
+        color: textFieldColor,
       ),
     );
   }
 
   Widget _orderSummary() {
     return SizedBox(
-      height: bigBttnHeight, // Height of the button container
-      width: double.infinity, // Full width of the button container
+      height: bigBttnHeight,
+      width: double.infinity,
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(
-            Radius.circular(monitorBorderRadius), // Rounded corners for the button container
+            Radius.circular(monitorBorderRadius),
           ),
-          color: textFieldColor, // Background color of the button container
+          color: textFieldColor,
         ),
         child: Padding(
           padding: const EdgeInsetsDirectional.symmetric(horizontal: textPadding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(textFiles[language]![4]), // Label text from the language file
-              Text(_orderSum), // Displays the total order sum
+              Text(textFiles[language]![4]), // Text aus der Sprachdatei
+              Text(orderSum),
             ],
           ),
         ),
@@ -67,22 +63,22 @@ class _CashoutScreenState extends State<CashoutScreen> {
 
   Widget _payButton() {
     return SizedBox(
-      height: bigBttnHeight, // Height of the button
+      height: bigBttnHeight,
       child: BigButton(
-        buttonName: textFiles[language]![5], // Button label from the language file
-        backgroundColor:
-            _isContainerEmpty ? Colors.grey.shade300 : primeryColor, // Changes color based on container state
-        textColor:
-            _isContainerEmpty ? Colors.grey.shade500 : Colors.black, // Changes text color based on container state
-        onPressed: _isContainerEmpty ? null : () {}, // Disables button if container is empty
+        buttonName: textFiles[language]![5], // Text aus der Sprachdatei
+        backgroundColor: (isContainerEmpty) // Standardwert auf true, wenn null
+            ? Colors.grey.shade300
+            : primeryColor,
+        textColor: (isContainerEmpty) ? Colors.grey.shade500 : Colors.black,
+        onPressed: (isContainerEmpty) ? null : () {}, // Button deaktiviert, wenn der Container leer ist
       ),
     );
   }
 
   Widget _pending() {
     return Text(
-      textFiles[language]![6], // Header text from the language file
-      style: Theme.of(context).textTheme.headlineLarge, // Large headline text style
+      textFiles[language]![6], // Text aus der Sprachdatei
+      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
     );
   }
 
@@ -90,8 +86,7 @@ class _CashoutScreenState extends State<CashoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Title of the app bar, includes a placeholder for the selected table index
-        title: _title(),
+        title: _title(), // Anzeige des dynamischen Titels
       ),
       body: Column(
         children: [
@@ -117,16 +112,15 @@ class _CashoutScreenState extends State<CashoutScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       _monitorScreen(),
-
-                      const SizedBox(height: 8), // Space between elements
+                      const SizedBox(height: 8),
                       _orderSummary(),
-                      const SizedBox(height: 24), // Space between elements
+                      const SizedBox(height: 24),
                       _payButton(),
-                      const SizedBox(height: 24), // Space between elements
+                      const SizedBox(height: 24),
                       _pending(),
-                      const SizedBox(height: 8), // Space between elements
+                      const SizedBox(height: 8),
                       const Expanded(
-                        child: ListViewUnpaid(), // Displays a list of unpaid items
+                        child: ListViewUnpaid(), // Anzeige der unbezahlten Positionen
                       ),
                     ],
                   ),
