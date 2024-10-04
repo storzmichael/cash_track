@@ -1,6 +1,5 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Importiere Firebase Auth
 import 'package:flutter/material.dart';
@@ -33,9 +32,11 @@ class SettingScreen extends StatelessWidget {
     try {
       await FirebaseAuth.instance.signOut();
       // Hier kannst du den Benutzer zur Anmeldeseite weiterleiten oder eine andere Aktion durchführen
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacementNamed("/"); // Beispiel
     } catch (e) {
       // Fehlerbehandlung
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${textFiles[language]![56]}: $e')),
       );
