@@ -1,6 +1,6 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
-import 'package:cash_track/src/features/order/data/order_data_map.dart';
+
 import 'package:cash_track/src/features/order/presentation/single_widgets/button_product_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
@@ -40,16 +40,12 @@ class ProductGrid extends StatelessWidget {
             orderProvider.addToSelect(item, context);
             // Aktion bei Knopfdruck: Produkt wird der Bestellung hinzugefügt
 
-            orderData[deskNumber] = ProductItem(
-                productTitle: item.productTitle, // Titel des Produkts
-                productPrice: item.productPrice, // Preis des Produkts
-                productCategory: item.productCategory); // Kategorie des Produkts
             // ignore: avoid_print
             print(item.productPrice); // Ausgabe des Produktpreises zur Überprüfung
             // ignore: avoid_print
             print(item.productTitle); // Ausgabe des Produktnamens zur Überprüfung
             // ignore: avoid_print
-            print(orderData); // Ausgabe der gesamten Bestellung zur Überprüfung
+            print(orderProvider.orderData); // Ausgabe der gesamten Bestellung zur Überprüfung
           },
         );
       },
