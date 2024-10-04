@@ -2,7 +2,7 @@ import 'package:cash_track/src/features/order/domain/product_item.dart';
 
 Map<String, List<ProductItem>> categoryData = {
   'Getränke': [
-    ProductItem(productTitle: 'Cola', productPrice: 2.50, productCategory: 'Getränke'),
+    ProductItem(productTitle: 'Cola', productPrice: 2.50, productCategory: 'Getränke', quantity: 2),
     ProductItem(productTitle: 'Fanta', productPrice: 2.50, productCategory: 'Getränke'),
     ProductItem(productTitle: 'Med. Wasser', productPrice: 2.50, productCategory: 'Getränke'),
     ProductItem(productTitle: 'Mineral Wasser', productPrice: 2.50, productCategory: 'Getränke'),
