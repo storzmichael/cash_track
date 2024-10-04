@@ -1,74 +1,22 @@
+import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
-import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:cash_track/src/features/events/application/event_functions.dart';
-import 'package:flutter/material.dart';
-import 'package:cash_track/src/config/button_varibals.dart';
+import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
-import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
-import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
-import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:cash_track/src/features/order/data/category_data_map.dart';
+import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
+import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
+import 'package:cash_track/src/features/events/application/event_functions.dart';
 
-class CreateProductScreen extends StatefulWidget {
+class CreateProductScreen extends StatelessWidget {
   const CreateProductScreen({super.key});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _CreateProductScreenState createState() => _CreateProductScreenState();
-}
-
-class _CreateProductScreenState extends State<CreateProductScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
-
-  final double cardHeight = 200;
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _priceController.dispose();
-    _categoryController.dispose();
-    super.dispose();
-  }
-
-  void _showEditProductDialog(
-    String category,
-    ProductItem product,
-    String language, // Füge hier den language-Parameter hinzu
-  ) {
-    _nameController.text = product.productTitle;
-    _priceController.text = product.productPrice.toString();
-    _categoryController.text = category;
-
-    EventFunctions.showProductOptionsDialog(
-      context,
-      category,
-      product,
-      () => EventFunctions.deleteProduct(
-        category: category,
-        product: product,
-        setStateCallback: setState,
-      ),
-      () => EventFunctions.updateProduct(
-        context: context,
-        category: category,
-        oldProduct: product,
-        newName: _nameController.text,
-        newPriceText: _priceController.text,
-        nameController: _nameController,
-        priceController: _priceController,
-        categoryController: _categoryController,
-        setStateCallback: setState,
-      ),
-      language, // Übergib den language-Parameter hier
-    );
-  }
-
-  Widget _addButton() {
+  Widget _addButton(BuildContext context, ProductProvider productProvider) {
     return Center(
       child: SizedBox(
         width: 200,
@@ -76,7 +24,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         child: OutlinedBigButton(
           buttonName: textFiles[language]![15],
           onPressed: () {
-            double? price = double.tryParse(_priceController.text.replaceAll(',', '.'));
+            double? price = double.tryParse(productProvider.priceController.text.replaceAll(',', '.'));
             if (price == null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -88,13 +36,13 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
             }
             EventFunctions.addProductToGrid(
               context: context,
-              category: _categoryController.text,
-              productName: _nameController.text,
+              category: productProvider.categoryController.text,
+              productName: productProvider.nameController.text,
               productPrice: price,
-              nameController: _nameController,
-              priceController: _priceController,
-              categoryController: _categoryController,
-              setStateCallback: setState,
+              nameController: productProvider.nameController,
+              priceController: productProvider.priceController,
+              categoryController: productProvider.categoryController,
+              setStateCallback: productProvider.notify,
             );
           },
         ),
@@ -102,7 +50,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     );
   }
 
-  Widget _cardCategory() {
+  Widget _cardCategory(ProductProvider productProvider) {
     return Expanded(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -115,7 +63,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Container(
-                  width: cardHeight,
+                  width: 200,
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
@@ -136,9 +84,24 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                     () => EventFunctions.deleteProduct(
                                       category: category,
                                       product: product,
-                                      setStateCallback: setState,
+                                      setStateCallback: productProvider.notify,
                                     ),
-                                    () => _showEditProductDialog(category, product, language),
+                                    () {
+                                      productProvider.nameController.text = product.productTitle;
+                                      productProvider.priceController.text = product.productPrice.toString();
+                                      productProvider.categoryController.text = category;
+                                      EventFunctions.updateProduct(
+                                        context: context,
+                                        category: category,
+                                        oldProduct: product,
+                                        newName: productProvider.nameController.text,
+                                        newPriceText: productProvider.priceController.text,
+                                        nameController: productProvider.nameController,
+                                        priceController: productProvider.priceController,
+                                        categoryController: productProvider.categoryController,
+                                        setStateCallback: productProvider.notify,
+                                      );
+                                    },
                                     language,
                                   );
                                 },
@@ -165,85 +128,83 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
     );
   }
 
-  Widget _createEventButton() {
-    return BigButton(
-      buttonName: textFiles[language]![41],
-      onPressed: () {
-        CategoryRow.setCategory;
-        Navigator.pushReplacementNamed(context, "/order");
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // Entfernt das Chevron-Symbol
-        title: Text(textFiles[language]![36]),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    lightThemeList[0],
-                    lightThemeList[1],
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(sitesPadding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Produktname
-                    CustomTextField(
-                      controller: _nameController,
-                      eventTextfieldItem: EventTextfieldItem(
-                        eventTextfieldHintText: textFiles[language]![37],
-                      ),
-                      onChanged: (value) {},
-                    ),
-                    const SizedBox(height: 10),
-                    // Produktpreis
-                    CustomTextField(
-                      controller: _priceController,
-                      onChanged: (value) {},
-                      eventTextfieldItem: EventTextfieldItem(
-                        eventTextfieldHintText: textFiles[language]![38],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    // Produktkategorie
-                    CustomTextField(
-                      controller: _categoryController,
-                      eventTextfieldItem: EventTextfieldItem(
-                        eventTextfieldHintText: textFiles[language]![39],
-                      ),
-                      onChanged: (value) {},
-                    ),
-                    const SizedBox(height: 30),
-                    _addButton(),
-                    const SizedBox(height: 30),
-                    Text(textFiles[language]![40]),
-                    const SizedBox(height: 10),
-                    _cardCategory(),
-                    const SizedBox(height: bigBttnHeight),
-                    _createEventButton(),
-                    const SizedBox(height: bottomSafeArea),
-                    // Hinweis
-                  ],
-                ),
-              ),
-            ),
+    return Consumer<ProductProvider>(
+      builder: (context, productProvider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(textFiles[language]![36]),
           ),
-        ],
-      ),
+          body: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        lightThemeList[0],
+                        lightThemeList[1],
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(sitesPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Produktname
+                        CustomTextField(
+                          controller: productProvider.nameController,
+                          eventTextfieldItem: EventTextfieldItem(
+                            eventTextfieldHintText: textFiles[language]![37],
+                          ),
+                          onChanged: (value) {},
+                        ),
+                        const SizedBox(height: 10),
+                        // Produktpreis
+                        CustomTextField(
+                          controller: productProvider.priceController,
+                          onChanged: (value) {},
+                          eventTextfieldItem: EventTextfieldItem(
+                            eventTextfieldHintText: textFiles[language]![38],
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        // Produktkategorie
+                        CustomTextField(
+                          controller: productProvider.categoryController,
+                          eventTextfieldItem: EventTextfieldItem(
+                            eventTextfieldHintText: textFiles[language]![39],
+                          ),
+                          onChanged: (value) {},
+                        ),
+                        const SizedBox(height: 30),
+                        _addButton(context, productProvider),
+                        const SizedBox(height: 30),
+                        Text(textFiles[language]![40]),
+                        const SizedBox(height: 10),
+                        _cardCategory(productProvider),
+                        const SizedBox(height: bigBttnHeight),
+                        BigButton(
+                          buttonName: textFiles[language]![41],
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, "/order");
+                          },
+                        ),
+                        const SizedBox(height: bottomSafeArea),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
