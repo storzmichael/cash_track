@@ -20,7 +20,7 @@ class BigButton extends StatelessWidget {
     this.textColor = Colors.black, // Text color (default: black)
     this.borderRadius = borderRadiusLargeButton, // Rounded corners (default: borderRadiusLargeButton)
     this.fontInBold = true, // Font weight (default: bold)
-    this.padding = const EdgeInsets.all(5.0), // Button padding (default: EdgeInsets.all(5.0))
+    this.padding = const EdgeInsets.symmetric(horizontal: 5.0), // Button padding (default: EdgeInsets.all(5.0))
     this.maxLines = 1, // Max number of text lines (default: 1)
   });
 
