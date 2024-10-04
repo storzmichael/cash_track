@@ -22,10 +22,10 @@ class ButtonCategoryCustom extends StatelessWidget {
     this.textColor = Colors.white, // Standard-Textfarbe ist weiß
     this.borderRadius = borderRadiusSmallButton, // Standardradius für abgerundete Ecken
     this.height = double.infinity, // Standardmäßig die volle verfügbare Höhe
-    this.width = 104, // Standardbreite des Buttons
+    this.width = 120, // Standardbreite des Buttons
     this.fontInBold = false, // Standardmäßig ist der Text nicht fett
     this.child, // Optionales Kind-Widget, Standard ist null
-    this.maxLines = 2, // Standardmäßig maximal 2 Textzeilen
+    this.maxLines = 1, // Standardmäßig maximal 2 Textzeilen
   });
 
   @override
