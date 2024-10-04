@@ -18,7 +18,6 @@ class Auth {
       );
     } catch (e) {
       // Fehler bei der Anmeldung
-      print('Error signing in: $e');
     }
   }
 
@@ -34,7 +33,6 @@ class Auth {
       );
     } catch (e) {
       // Fehler bei der Benutzererstellung
-      print('Error creating user: $e');
     }
   }
 
@@ -44,7 +42,6 @@ class Auth {
       await _firebaseAuth.signOut();
     } catch (e) {
       // Fehler bei der Abmeldung
-      print('Error signing out: $e');
     }
   }
 
@@ -53,12 +50,9 @@ class Auth {
     try {
       if (currentUser != null) {
         await currentUser!.delete();
-      } else {
-        print('No user currently signed in.');
-      }
+      } else {}
     } catch (e) {
       // Fehler beim Löschen des Accounts
-      print('Error deleting account: $e');
     }
   }
 
