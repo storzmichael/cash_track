@@ -1,6 +1,7 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
+import 'package:cash_track/src/features/cashout/presentation/cashout_screen.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
 
 import 'package:flutter/material.dart';
@@ -9,12 +10,6 @@ import 'package:provider/provider.dart';
 class MonitorView extends StatelessWidget {
   const MonitorView({super.key});
 
-  final double valueList = 2.50;
-  // Beispielwert für eine Produktliste
-  final String orderSum = '2,50 €';
-  // Beispiel für die Summe der Bestellung
-
-  // Liste der bestellten Produkte
   final double _monitorHeight = 160;
   // Höhe des Monitors (Bildschirms) für die Anzeige
 
@@ -53,7 +48,6 @@ class MonitorView extends StatelessWidget {
                               trailing: Text('${(product.productPrice * product.quantity).toStringAsFixed(2)}€'),
                               onTap: () {
                                 orderProvider.removeProduct(product, context);
-                                print('löschen eines des Produkts');
                               },
                             ),
                           );
@@ -87,18 +81,22 @@ class MonitorView extends StatelessWidget {
                         ),
                         color: monitorColor, // Hintergrundfarbe
                       ),
-                      child: ListView.builder(
-                          itemCount: 1, //orderData.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              leading: Text('Tisch:'),
-                              title: Text('1'),
-                              onTap: () {
-                                Navigator.pushNamed(context, "/cashout");
-                                print('Gehe zum Bezahlen-Screen');
-                              },
-                            );
-                          }),
+                      child: Consumer<OrderProvider>(
+                        builder: (context, orderProvider, child) {
+                          final orderData = orderProvider.orderData;
+                          return ListView.builder(
+                              itemCount: orderData.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Text('Tisch:'),
+                                  title: Text(orderProvider.deskNumbers[index]),
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => CashoutScreen()));
+                                  },
+                                );
+                              });
+                        },
+                      ),
                     ),
                   ),
                 ),
