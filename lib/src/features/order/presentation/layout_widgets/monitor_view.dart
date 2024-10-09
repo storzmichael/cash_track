@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
@@ -91,7 +93,14 @@ class MonitorView extends StatelessWidget {
                                   leading: Text('Tisch:'),
                                   title: Text(orderProvider.deskNumbers[index]),
                                   onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => CashoutScreen()));
+                                    orderProvider.setDeskNumber(orderProvider.deskNumbers[index]);
+                                    log('Produkte in orderData: ${orderProvider.orderData.map((key, value) => MapEntry(key, value.toString()))}');
+                                    log('Aktuelle Auswahl ${orderProvider.deskNumber}: ${orderProvider.orderData[orderProvider.deskNumber]}');
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CashoutScreen(selectedTable: orderProvider.deskNumbers[index])));
                                   },
                                 );
                               });
