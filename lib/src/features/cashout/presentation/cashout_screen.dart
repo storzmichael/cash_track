@@ -4,7 +4,9 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/cashout/presentation/single_widgets/listview_unpaid.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
+import 'package:cash_track/src/features/order/application/order_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CashoutScreen extends StatelessWidget {
   final int? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
@@ -13,16 +15,12 @@ class CashoutScreen extends StatelessWidget {
   final bool isSelect = true;
   final double monitorHeight = 200;
 
-  const CashoutScreen({
+  CashoutScreen({
     super.key,
     this.selectedTable,
     this.orderSum = '0.00', // Standardwert
     this.isContainerEmpty = true, // Standardwert
   });
-
-  Widget _title() {
-    return Text('${textFiles[language]![3]}: $deskNumber'); // Dynamische Anzeige der ausgewählten Tischnummer
-  }
 
   Widget _monitorScreen() {
     return Container(
@@ -84,9 +82,10 @@ class CashoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: _title(), // Anzeige des dynamischen Titels
+        title: Text('${textFiles[language]![3]}: ${orderProvider.deskNumber}'), // Anzeige des dynamischen Titels
       ),
       body: Column(
         children: [
