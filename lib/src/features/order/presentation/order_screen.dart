@@ -36,7 +36,8 @@ class OrderScreen extends StatelessWidget {
                   onTap: () {
                     orderProvider.setTableSelect(true); // Setzt den Tischstatus zurück
                   },
-                  child: Text('${textFiles[language]![3]}: $deskNumber')) // Zeigt den ausgewählten Tisch an
+                  child: Text(
+                      '${textFiles[language]![3]}: ${orderProvider.deskNumber}')) // Zeigt den ausgewählten Tisch an
               : Text(
                   textFiles[language]![46], // Zeigt den Standardtitel an, wenn kein Tisch ausgewählt wurde
                 );
@@ -113,11 +114,11 @@ class OrderScreen extends StatelessWidget {
                                             child: BigButton(
                                               backgroundColor: primeryColorLow, // Hintergrundfarbe des Tisch-Buttons
                                               onPressed: () {
-                                                deskNumber =
-                                                    orderProvider.tables[index]; // Setzt den ausgewählten Tisch
-                                                // Aktiviert den Tisch
-                                                orderProvider.addDeskNumber(deskNumber); //
-                                                print(orderProvider.deskNumbers); // Fügt den Tisch hinzu
+                                                orderProvider.setDeskNumber(
+                                                    orderProvider.tables[index]); // Setze den ausgewählten Tisch
+                                                orderProvider.addDeskNumber(orderProvider
+                                                    .deskNumber); // Füge die Produkte zur Liste des Tisches hinzu
+                                                print(orderProvider.deskNumber); // Gibt die aktuelle Tischnummer aus
                                               },
                                               buttonName: orderProvider.tables[index], // Zeigt den Tischnamen an
                                             ),
