@@ -27,10 +27,10 @@ class ListViewUnpaid extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(allSitesPadding),
           child: ListView.builder(
-            itemCount: orderData[deskNumber]?.length ?? 0, // Anzahl der Produkte für den Tisch
+            itemCount: orderData[orderProvider.deskNumber]?.length ?? 0, // Anzahl der Produkte für den Tisch
             itemBuilder: (context, index) {
               // Hole das Produkt für den aktuellen Index
-              final product = orderData[deskNumber]?[index];
+              final product = orderData[orderProvider.deskNumber]?[index];
 
               // Überprüfen, ob product null ist
               if (product == null) {
