@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CashoutScreen extends StatelessWidget {
-  final int? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
+  final String? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
   final String orderSum; // Dynamische Bestellsumme
   final bool isContainerEmpty; // Dynamischer Containerstatus
   final bool isSelect = true;
@@ -82,10 +82,9 @@ class CashoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderProvider = Provider.of<OrderProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('${textFiles[language]![3]}: ${orderProvider.deskNumber}'), // Anzeige des dynamischen Titels
+        title: Text('${textFiles[language]![3]}: $selectedTable'), // Anzeige des dynamischen Titels
       ),
       body: Column(
         children: [
@@ -118,8 +117,10 @@ class CashoutScreen extends StatelessWidget {
                       const SizedBox(height: 24),
                       _pending(),
                       const SizedBox(height: 8),
-                      const Expanded(
-                        child: ListViewUnpaid(), // Anzeige der unbezahlten Positionen
+                      Expanded(
+                        child: ListViewUnpaid(
+                          selectedTable: selectedTable,
+                        ), // Anzeige der unbezahlten Positionen
                       ),
                     ],
                   ),
