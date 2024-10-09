@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
@@ -149,12 +151,12 @@ class OrderScreen extends StatelessWidget {
                               onPressed: orderProvider.isTableSelect
                                   ? () {
                                       orderProvider.setTableSelect(false);
-                                      orderProvider.setCategorySelect(false); // Setzt den Tischstatus zurück
+                                      orderProvider.setCategorySelect(false);
                                       orderProvider.transferProductsToOrder();
 
                                       orderProvider.clearMonitor();
-                                      print('Produkte in orderData: ${orderProvider.orderData}');
-                                      print('Produkte in selectedOroducts: ${orderProvider.selectedProducts}');
+
+                                      log('Produkte in selectedOroducts: ${orderProvider.selectedProducts}');
                                     }
                                   : null),
                         );
