@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ListViewUnpaid extends StatelessWidget {
-  const ListViewUnpaid({super.key});
+  final String? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
 
+  const ListViewUnpaid({
+    super.key,
+    required this.selectedTable,
+  });
   final double _containerHeight = 300;
 
   @override
@@ -43,7 +47,8 @@ class ListViewUnpaid extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                 leading: Text('${product.quantity} x'), // Menge
                 title: Text(product.productTitle), // Produktname
-                trailing: Text('${product.productPrice.toStringAsFixed(2)} €'), // Kategorie oder Preis
+                trailing:
+                    Text('${(product.productPrice * product.quantity).toStringAsFixed(2)} €'), // Kategorie oder Preis
               );
             },
           ),
