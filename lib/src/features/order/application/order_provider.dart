@@ -25,6 +25,20 @@ class OrderProvider with ChangeNotifier {
     notifyListeners(); // Benachrichtigt die Listener über die Änderung
   }
 
+  String _deskNumber = '';
+
+  String get deskNumber => _deskNumber;
+
+  // Setter für deskNumber
+  void setDeskNumber(String deskNumber) {
+    _deskNumber = deskNumber;
+    // Optional: Initialisiere die orderData für diesen Tisch, falls nicht bereits vorhanden
+    if (!_orderData.containsKey(deskNumber)) {
+      _orderData[deskNumber] = [];
+    }
+    notifyListeners(); // Notify listeners about the change
+  }
+
   final List<String> _deskNumbers = [];
   List<String> get deskNumbers => _deskNumbers;
 
@@ -153,38 +167,6 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // Funktion zum Anzeigen eines Bestätigungsdialogs zum Löschen eines Tisches
-  /*void showDeleteConfirmDialog(
-    BuildContext context,
-    int index,
-    String language,
-  ) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(textFiles[language]![16]), // Titel des Bestätigungsdialogs
-          content: Text(textFiles[language]![17]), // Inhalt des Bestätigungsdialogs
-          actions: <Widget>[
-            TextButton(
-              child: Text(textFiles[language]![13]), // Text für Abbrechen-Button
-              onPressed: () {
-                Navigator.of(context).pop(); // Schließt den Dialog, ohne zu löschen
-              },
-            ),
-            TextButton(
-              child: Text(textFiles[language]![18]), // Text für Bestätigen-Button
-              onPressed: () {
-                tables.removeAt(index); // Entfernt den Tisch mit dem angegebenen Index aus der Liste
-                Navigator.of(context).pop(); // Schließt den Dialog nach dem Löschen
-              },
-            ),
-          ],
-        );
-      },
-    );
-    notifyListeners();
-  }*/
   void showDeleteConfirmDialog(
     BuildContext context,
     int index,
@@ -285,12 +267,12 @@ class OrderProvider with ChangeNotifier {
       ProductItem product = selectedProducts.removeAt(0); // Entferne das Produkt von der Liste
 
       // Überprüfen, ob die Tischnummer bereits in der Map vorhanden ist
-      if (!orderData.containsKey(deskNumber)) {
-        orderData[deskNumber] = []; // Initialisiere die Liste, falls sie nicht existiert
+      if (!orderData.containsKey(_deskNumber)) {
+        orderData[_deskNumber] = []; // Initialisiere die Liste, falls sie nicht existiert
       }
 
       // Füge das Produkt zur Liste in der Map hinzu
-      orderData[deskNumber]!.add(product);
+      orderData[_deskNumber]!.add(product);
     }
 
     // Benachrichtige die Listener über die Änderungen
