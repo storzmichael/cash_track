@@ -1,7 +1,7 @@
 import 'package:cash_track/src/config/theme_data.dart';
 import 'package:cash_track/src/core/application/navigation_provider.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
-import 'package:cash_track/src/features/cashout/presentation/cashout_screen.dart';
+import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_event_screen.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_product_screen.dart.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
@@ -29,7 +29,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => NavigationProvider()),
         // NavigationProvider bereitstellen
-        ChangeNotifierProvider(create: (context) => OrderProvider())
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider())
       ],
       child: const MainApp(),
     ),
@@ -48,7 +49,6 @@ class MainApp extends StatelessWidget {
         "/": (context) => const LoginScreen(),
         "/appHome": (context) => const AppHome(),
         "/order": (context) => OrderScreen(),
-        "/cashout": (context) => const CashoutScreen(),
         "/createProducts": (context) => const CreateProductScreen(),
         "/createEvent": (context) => const CreateEventScreen(),
         "/registration": (context) => const RegistrationScreen(),

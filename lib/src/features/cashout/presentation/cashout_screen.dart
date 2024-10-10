@@ -1,141 +1,185 @@
+import 'dart:developer';
+
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/cashout/presentation/single_widgets/listview_unpaid.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
-import 'package:cash_track/src/features/order/data/table_list.dart';
+import 'package:cash_track/src/features/order/application/order_provider.dart';
+import 'package:cash_track/src/features/order/presentation/order_screen.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CashoutScreen extends StatefulWidget {
-  const CashoutScreen({super.key});
+class CashoutScreen extends StatelessWidget {
+  final String? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
+  final String orderSum; // Dynamische Bestellsumme
+  final bool isContainerEmpty; // Dynamischer Containerstatus
+  final bool isSelect = true;
+  final double monitorHeight = 200;
 
-  @override
-  State<CashoutScreen> createState() => _CashoutScreenState();
-}
-
-class _CashoutScreenState extends State<CashoutScreen> {
-  final bool isSelect = true; // Indicates if an item is selected (currently unused)
-
-  final String _orderSum = '2,50 €'; // Total amount for the order, displayed in the UI
-
-  final bool _isContainerEmpty = true; // Indicates whether the container is empty, affects button state
-  final double _monitorHeight = 200; // Height of the container displaying the monitor
-
-  Widget _title() {
-    return Text('${textFiles[language]![3]}: $tables'); // TODO: Replace $tables with the dynamic table index
-  }
+  CashoutScreen({
+    super.key,
+    this.selectedTable,
+    this.orderSum = '0.00', // Standardwert
+    this.isContainerEmpty = true, // Standardwert
+  });
 
   Widget _monitorScreen() {
     return Container(
-      height: _monitorHeight, // Sets the height of the monitor container
+      height: monitorHeight,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(monitorBorderRadius), // Rounded corners for the container
+          Radius.circular(monitorBorderRadius),
         ),
-        color: textFieldColor, // Background color of the monitor container
+        color: textFieldColor,
+      ),
+      child: Consumer<OrderProvider>(
+        builder: (context, orderProvider, child) {
+          return ListView.builder(
+            itemCount: orderProvider.cashoutProducts.length, // Anzahl der Produkte für den Cashout
+            itemBuilder: (context, index) {
+              final product = orderProvider.cashoutProducts[index]; // Hole das Produkt für den aktuellen Index
+
+              return ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                leading: Text('${product.quantity} x'), // Menge des Produkts
+                title: Text(product.productTitle), // Produktname
+                trailing:
+                    Text('${(product.productPrice * product.quantity).toStringAsFixed(2)} €'), // Preis für die Menge
+                onTap: () {
+                  orderProvider.returnProductToOrder(product, context);
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
 
   Widget _orderSummary() {
-    return SizedBox(
-      height: bigBttnHeight, // Height of the button container
-      width: double.infinity, // Full width of the button container
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(monitorBorderRadius), // Rounded corners for the button container
+    return Consumer<OrderProvider>(builder: (context, orderProvider, child) {
+      return SizedBox(
+        height: bigBttnHeight,
+        width: double.infinity,
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(monitorBorderRadius),
+            ),
+            color: textFieldColor,
           ),
-          color: textFieldColor, // Background color of the button container
-        ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: textPadding),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(textFiles[language]![4]), // Label text from the language file
-              Text(_orderSum), // Displays the total order sum
-            ],
+          child: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: textPadding),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(textFiles[language]![4]), // Text aus der Sprachdatei
+                Text('${orderProvider.totalPriceToPay.toStringAsFixed(2)}€'),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _payButton() {
-    return SizedBox(
-      height: bigBttnHeight, // Height of the button
-      child: BigButton(
-        buttonName: textFiles[language]![5], // Button label from the language file
-        backgroundColor:
-            _isContainerEmpty ? Colors.grey.shade300 : primeryColor, // Changes color based on container state
-        textColor:
-            _isContainerEmpty ? Colors.grey.shade500 : Colors.black, // Changes text color based on container state
-        onPressed: _isContainerEmpty ? null : () {}, // Disables button if container is empty
-      ),
-    );
+    return Consumer<OrderProvider>(builder: (context, orderProvider, child) {
+      return SizedBox(
+        height: bigBttnHeight,
+        child: BigButton(
+            buttonName: textFiles[language]![5], // Text aus der Sprachdatei
+            backgroundColor: (orderProvider.cashoutProducts.isEmpty) // Standardwert auf true, wenn null
+                ? Colors.grey.shade300
+                : primeryColor,
+            textColor: (orderProvider.cashoutProducts.isEmpty) ? Colors.grey.shade500 : Colors.black,
+            onPressed: (orderProvider.cashoutProducts.isEmpty)
+                ? null
+                : () => orderProvider.addToPaidProducts() // Button deaktiviert, wenn der Container leer ist
+
+            ),
+      );
+    });
   }
 
   Widget _pending() {
     return Text(
-      textFiles[language]![6], // Header text from the language file
-      style: Theme.of(context).textTheme.headlineLarge, // Large headline text style
+      textFiles[language]![6], // Text aus der Sprachdatei
+      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // Title of the app bar, includes a placeholder for the selected table index
-        title: _title(),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    lightThemeList[0],
-                    lightThemeList[1],
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _monitorScreen(),
-
-                      const SizedBox(height: 8), // Space between elements
-                      _orderSummary(),
-                      const SizedBox(height: 24), // Space between elements
-                      _payButton(),
-                      const SizedBox(height: 24), // Space between elements
-                      _pending(),
-                      const SizedBox(height: 8), // Space between elements
-                      const Expanded(
-                        child: ListViewUnpaid(), // Displays a list of unpaid items
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+    return Consumer<OrderProvider>(
+      builder: (context, orderProvider, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('${textFiles[language]![3]}: $selectedTable'), // Anzeige des dynamischen Titels
+            automaticallyImplyLeading: false,
+            leading: orderProvider.cashoutProducts.isEmpty
+                ? IconButton(
+                    onPressed: () {
+                      Provider.of<OrderProvider>(context, listen: false)
+                          .setTableSelect(false); // Setze isTableSelect auf false
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrderScreen()),
+                      );
+                    },
+                    icon: const Icon(Icons.arrow_back_ios),
+                  )
+                : null, // Kein Chevron anzeigen, wenn cashoutProducts nicht leer ist
           ),
-        ],
-      ),
+          body: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        lightThemeList[0],
+                        lightThemeList[1],
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          _monitorScreen(),
+                          const SizedBox(height: 8),
+                          _orderSummary(),
+                          const SizedBox(height: 24),
+                          _payButton(),
+                          const SizedBox(height: 24),
+                          _pending(),
+                          const SizedBox(height: 8),
+                          Expanded(
+                            child: ListViewUnpaid(
+                              selectedTable: selectedTable,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

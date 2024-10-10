@@ -2,7 +2,6 @@ import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/registration-login/presentation/shimmer_logo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,7 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _errorAlert() {
     if (_errorMassage != null && _errorMassage!.isNotEmpty) {
-      print('${textFiles[language]![53]}: $_errorMassage');
       showDialog(
         context: context,
         builder: (BuildContext context) {

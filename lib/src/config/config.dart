@@ -15,8 +15,6 @@ const double monitorBorderRadius = 8;
 
 bool isTableSelect = false;
 
-String deskNumber = '';
-
 String language = 'Deutsch';
 
 const String appName = 'CashTrack';

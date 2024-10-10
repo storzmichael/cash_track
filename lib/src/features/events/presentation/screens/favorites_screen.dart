@@ -1,6 +1,4 @@
 import 'package:cash_track/src/config/config.dart';
-import 'package:cash_track/src/config/config_colors.dart';
-import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/event_list.dart';
 

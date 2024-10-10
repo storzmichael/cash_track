@@ -1,63 +1,65 @@
+import 'dart:developer';
+
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/features/order/application/order_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-// A ListView widget to display unpaid items
-class ListViewUnpaid extends StatefulWidget {
-  const ListViewUnpaid({super.key});
+class ListViewUnpaid extends StatelessWidget {
+  final String? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
 
-  @override
-  State<ListViewUnpaid> createState() => _ListViewUnpaidState();
-}
-
-class _ListViewUnpaidState extends State<ListViewUnpaid> {
-  final double _containerHeight = 300; // Set height of the container
+  const ListViewUnpaid({
+    super.key,
+    required this.selectedTable,
+  });
+  final double _containerHeight = 300;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(borderRadius), // Rounded corners for the top left
-          topRight: Radius.circular(borderRadius), // Rounded corners for the top right
+    return Consumer<OrderProvider>(builder: (context, orderProvider, child) {
+      // Zugriff auf orderData Map
+      final orderDeskProducts = orderProvider.orderDeskProducts;
+
+      return Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(borderRadius),
+            topRight: Radius.circular(borderRadius),
+          ),
+          color: textFieldColor,
         ),
-        color: textFieldColor, // Background color for the container
-      ),
-      height: _containerHeight, // Apply the defined height
-      child: Padding(
-        padding: const EdgeInsets.all(allSitesPadding), // Padding for the inner content
-        child: ListView.builder(
-          itemCount: 5 /*desksItems.length*/, // Number of items in the list (dummy value for now)
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Row(
-                    children: [
-                      // TODO: variable for the quantity
-                      Text('1x'), // Static quantity, replace with dynamic value
-                      SizedBox(
-                        width: 8,
-                      ),
-                      // TODO: variable for the item name
-                      Text('Cola'), // Static item name, replace with dynamic value
-                      Expanded(child: SizedBox()), // Expands the space between item name and price
-                      // TODO: variable for the price
-                      Text('2,50 €'), // Static price, replace with dynamic value
-                    ],
-                  ),
-                ),
-                if (index <= 100 /*desksItems.length*/) // Limit condition for displaying the divider
-                  const Divider(
-                    thickness: 0.3, // Thickness of the divider
-                    color: blackColor, // Color of the divider
-                  ),
-              ],
-            );
-          },
+        height: _containerHeight,
+        child: Padding(
+          padding: const EdgeInsets.all(allSitesPadding),
+          child: ListView.builder(
+            itemCount: orderDeskProducts[orderProvider.deskNumber]?.length ?? 0, // Anzahl der Produkte für den Tisch
+            itemBuilder: (context, index) {
+              // Hole das Produkt für den aktuellen Index
+              final product = orderDeskProducts[orderProvider.deskNumber]?[index];
+
+              // Überprüfen, ob product null ist
+              if (product == null) {
+                return const ListTile(
+                  title: Text('Produkt nicht gefunden'),
+                );
+              }
+
+              return ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                leading: Text('${product.quantity} x'), // Menge
+                title: Text(product.productTitle), // Produktname
+                trailing:
+                    Text('${(product.productPrice * product.quantity).toStringAsFixed(2)} €'), // Kategorie oder Preis
+                onTap: () {
+                  orderProvider.addProductToCashout(orderProvider.deskNumber, product);
+                  log('Liste zubezahlenden Produkte: ${orderProvider.cashoutProducts}');
+                },
+              );
+            },
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
