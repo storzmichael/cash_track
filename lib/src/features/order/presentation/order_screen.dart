@@ -114,6 +114,7 @@ class OrderScreen extends StatelessWidget {
                                           ), // Öffnet Dialog zum Löschen des Tisches
                                           child: SizedBox(
                                             height: bigBttnHeight, // Höhe des Containers für den Button
+
                                             child: BigButton(
                                               backgroundColor: primeryColorLow, // Hintergrundfarbe des Tisch-Buttons
                                               onPressed: () {
@@ -147,6 +148,8 @@ class OrderScreen extends StatelessWidget {
                       builder: (context, orderProvider, child) {
                         return SizedBox(
                           height: bigBttnHeight, // Höhe des unteren Buttons
+
+                          // Button Bestellen
                           child: BigButton(
                               buttonName: textFiles[language]![45], // "Bestellen"-Button
                               backgroundColor: orderProvider.selectedProducts.isNotEmpty
