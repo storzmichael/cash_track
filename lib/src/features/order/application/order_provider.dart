@@ -31,6 +31,7 @@ class OrderProvider with ChangeNotifier {
 
   // Setter für deskNumber
   void setDeskNumber(String deskNumber) {
+    _isTableSelect = true;
     _deskNumber = deskNumber;
     // Optional: Initialisiere die orderData für diesen Tisch, falls nicht bereits vorhanden
     if (!_orderData.containsKey(deskNumber)) {
@@ -39,12 +40,12 @@ class OrderProvider with ChangeNotifier {
     notifyListeners(); // Notify listeners about the change
   }
 
-  final List<String> _deskNumbers = [];
-  List<String> get deskNumbers => _deskNumbers;
+  final List<String> _orderDeskNumbers = [];
+  List<String> get orderDeskNumbers => _orderDeskNumbers;
 
   void addDeskNumber(String deskNumber) {
-    if (!_deskNumbers.contains(deskNumber)) {
-      _deskNumbers.add(deskNumber);
+    if (!_orderDeskNumbers.contains(deskNumber)) {
+      _orderDeskNumbers.add(deskNumber);
       _isTableSelect = true;
       notifyListeners(); // Benachrichtigt die Listener über die Änderung
     }
