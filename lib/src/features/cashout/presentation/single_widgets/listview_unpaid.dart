@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
@@ -49,6 +51,10 @@ class ListViewUnpaid extends StatelessWidget {
                 title: Text(product.productTitle), // Produktname
                 trailing:
                     Text('${(product.productPrice * product.quantity).toStringAsFixed(2)} €'), // Kategorie oder Preis
+                onTap: () {
+                  orderProvider.addProductToCashout(orderProvider.deskNumber, product);
+                  log('Liste zubezahlenden Produkte: ${orderProvider.cashoutProducts}');
+                },
               );
             },
           ),
