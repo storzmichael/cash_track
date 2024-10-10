@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/dialog_helper.dart';
@@ -187,7 +189,7 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
-//  Funktion zum Hinzufügen eines Produkts zur Bestellung
+//  Funktion zum Hinzufügen eines Produkts zur Bestellung (orderDeskProducts)
   void addToSelect(ProductItem product, BuildContext context) {
     if (product.availability > 0) {
       // Überprüfen, ob das Produkt bereits ausgewählt wurde
@@ -237,7 +239,7 @@ class OrderProvider with ChangeNotifier {
     return total;
   }
 
-  void removeProduct(ProductItem product, BuildContext context) {
+  void removeProductfromSelect(ProductItem product, BuildContext context) {
     final existingProduct = _selectedProducts.firstWhere(
       (prod) => prod.productTitle == product.productTitle,
       orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''), // Platzhalter
@@ -261,10 +263,9 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
+  // fügt die Produkt von der Liste selectedProducts der Map orderDeskProducts hinzu
   void transferProductsToOrder() {
-    // Solange die Liste nicht leer ist, Produkte hinzufügen
     while (selectedProducts.isNotEmpty) {
-      // Nimm das erste Produkt aus der Liste
       ProductItem product = selectedProducts.removeAt(0); // Entferne das Produkt von der Liste
 
       // Überprüfen, ob die Tischnummer bereits in der Map vorhanden ist
@@ -272,8 +273,26 @@ class OrderProvider with ChangeNotifier {
         orderDeskProducts[_deskNumber] = []; // Initialisiere die Liste, falls sie nicht existiert
       }
 
-      // Füge das Produkt zur Liste in der Map hinzu
-      orderDeskProducts[_deskNumber]!.add(product);
+      // Zugriff auf die Produktliste am aktuellen Tisch
+      List<ProductItem> productsAtDesk = orderDeskProducts[_deskNumber]!;
+
+      // Überprüfe, ob ein Produkt mit dem gleichen Titel bereits vorhanden ist
+      final existingProductIndex = productsAtDesk.indexWhere(
+        (p) => p.productTitle == product.productTitle,
+      );
+
+      if (existingProductIndex != -1) {
+        // Wenn das Produkt bereits vorhanden ist, erhöhe die Menge um die Menge des neuen Produkts
+        productsAtDesk[existingProductIndex].quantity += product.quantity;
+      } else {
+        // Andernfalls füge das Produkt zur Liste in der Map hinzu
+        productsAtDesk.add(ProductItem(
+          productTitle: product.productTitle,
+          productPrice: product.productPrice,
+          productCategory: product.productCategory,
+          quantity: product.quantity, // Setze die Menge des neuen Produkts
+        ));
+      }
     }
 
     // Benachrichtige die Listener über die Änderungen
@@ -329,5 +348,74 @@ class OrderProvider with ChangeNotifier {
         notifyListeners();
       }
     }
+  }
+
+  //----------------------------------------------------------------
+
+  final List<ProductItem> _paidProducts = [];
+  List<ProductItem> get paidProducts => _paidProducts;
+
+  void addToPaidProducts() {
+    // Übertrage Produkte von cashoutProducts nach paidProducts
+    paidProducts.addAll(cashoutProducts);
+
+    // Leere die cashoutProducts Liste
+    cashoutProducts.clear();
+
+    // Protokolliere die Produkte in der Konsole (optional)
+    log(paidProducts.toString());
+
+    // Benachrichtige die Listener über die Änderungen
+    notifyListeners();
+  }
+
+  void returnProductToOrder(ProductItem product, BuildContext context) {
+    final existingProduct = cashoutProducts.firstWhere(
+      (prod) => prod.productTitle == product.productTitle,
+      orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''), // Platzhalter
+    );
+
+    if (existingProduct.productTitle != '') {
+      // Entferne das Produkt aus cashoutProducts
+      if (existingProduct.quantity > 1) {
+        existingProduct.quantity--;
+      } else {
+        cashoutProducts.remove(existingProduct);
+      }
+
+      // Füge das Produkt zurück in die Map orderDeskProducts
+      if (orderDeskProducts.containsKey(_deskNumber)) {
+        final orderProducts = orderDeskProducts[_deskNumber]!;
+        final orderProduct = orderProducts.firstWhere(
+          (prod) => prod.productTitle == product.productTitle,
+          orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''), // Platzhalter
+        );
+
+        if (orderProduct.productTitle != '') {
+          orderProduct.quantity++; // Erhöhe die Menge im order
+        } else {
+          // Wenn das Produkt nicht gefunden wurde, füge es als neues Produkt hinzu
+          product.quantity = 1; // Setze die Menge auf 1
+          orderProducts.add(product); // Füge das Produkt zur Bestellliste hinzu
+        }
+      }
+
+      // Benachrichtige die Listener über die Änderungen
+      notifyListeners();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(textFiles[language]![78]), // Nachricht für nicht vorhandenes Produkt
+        ),
+      );
+    }
+  }
+
+  double get totalPriceToPay {
+    double total = 0.0;
+    for (var product in cashoutProducts) {
+      total += product.productPrice * product.quantity;
+    }
+    return total;
   }
 }
