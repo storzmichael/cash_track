@@ -9,6 +9,7 @@ import 'package:cash_track/src/features/general_widgets/presentation/big_button.
 import 'package:cash_track/src/features/order/application/order_provider.dart';
 
 import 'package:cash_track/src/features/order/data/category_data_map.dart';
+import 'package:cash_track/src/features/order/domain/product_item.dart';
 
 import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/monitor_view.dart';
@@ -116,13 +117,17 @@ class OrderScreen extends StatelessWidget {
                                             child: BigButton(
                                               backgroundColor: primeryColorLow, // Hintergrundfarbe des Tisch-Buttons
                                               onPressed: () {
-                                                orderProvider.setDeskNumber(
-                                                    orderProvider.tables[index]); // Setze den ausgewählten Tisch
-                                                orderProvider.addDeskNumber(orderProvider
-                                                    .deskNumber); // Füge die Produkte zur Liste des Tisches hinzu
+                                                // Setze den ausgewählten Tisch
+                                                orderProvider.setDeskNumber(orderProvider.tables[index]);
+
+                                                // Füge das Produkt zum ausgewählten Tisch hinzu
+                                                orderProvider.addDeskNumber(
+                                                  orderProvider.deskNumber,
+                                                );
+
                                                 print(orderProvider.deskNumber); // Gibt die aktuelle Tischnummer aus
-                                                log('zustand Tisch: ${orderProvider.isTableSelect}');
-                                                log('Verfügbare tische: ${orderProvider.tables}');
+                                                log('Zustand Tisch: ${orderProvider.isTableSelect}');
+                                                log('Verfügbare Tische: ${orderProvider.tables}');
                                               },
                                               buttonName: orderProvider.tables[index], // Zeigt den Tischnamen an
                                             ),
