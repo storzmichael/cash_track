@@ -17,7 +17,7 @@ class ListViewUnpaid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<OrderProvider>(builder: (context, orderProvider, child) {
       // Zugriff auf orderData Map
-      final orderData = orderProvider.orderData;
+      final orderData = orderProvider.orderDeskProducts;
 
       return Container(
         decoration: const BoxDecoration(
