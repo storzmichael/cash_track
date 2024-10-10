@@ -285,4 +285,49 @@ class OrderProvider with ChangeNotifier {
     selectedCategoryKey = categoryKey;
     notifyListeners();
   }
+
+  //----------------------------------------------------------------
+
+  final List<ProductItem> _cashoutProducts = []; // Liste für entfernte Produkte
+
+  List<ProductItem> get cashoutProducts => _cashoutProducts; // Getter für entfernte Produkte
+
+  // Funktion zum Entfernen eines Produkts von einem Tisch und Speichern in einer neuen Liste
+  void addProductToCashout(String deskNumber, ProductItem product) {
+    if (_orderDeskProducts.containsKey(deskNumber)) {
+      // Finde die Produktliste für den Tisch
+      List<ProductItem> products = _orderDeskProducts[deskNumber] ?? [];
+
+      // Überprüfen, ob das Produkt vorhanden ist
+      final existingProduct = products.firstWhere(
+        (p) => p.productTitle == product.productTitle,
+        orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''),
+      );
+
+      // Wenn das Produkt gefunden wurde und seine Verfügbarkeit > 0 ist
+      if (existingProduct.productTitle.isNotEmpty && existingProduct.quantity > 0) {
+        // Füge das Produkt zur Liste der Cashout-Produkte hinzu, aber mit Menge 1
+        _cashoutProducts.add(ProductItem(
+          productTitle: existingProduct.productTitle,
+          productPrice: existingProduct.productPrice,
+          productCategory: existingProduct.productCategory,
+          quantity: 1, // Füge nur 1 Stück hinzu
+        ));
+
+        // Reduziere die Menge des vorhandenen Produkts in der Tischliste
+        existingProduct.quantity--;
+
+        // Wenn die Menge auf 0 fällt, entferne das Produkt aus der Liste für den Tisch
+        if (existingProduct.quantity == 0) {
+          products.removeWhere((p) => p.productTitle == product.productTitle);
+        }
+
+        // Aktualisiere die Liste für den Tisch
+        _orderDeskProducts[deskNumber] = products;
+
+        // Benachrichtige alle Listener über die Änderung
+        notifyListeners();
+      }
+    }
+  }
 }
