@@ -37,7 +37,7 @@ class OrderScreen extends StatelessWidget {
           return orderProvider.isTableSelect
               ? GestureDetector(
                   onTap: () {
-                    orderProvider.setTableSelect(true); // Setzt den Tischstatus zurück
+                    orderProvider.setTableSelect(false); // Setzt den Tischstatus zurück
                   },
                   child: Text(
                       '${textFiles[language]![3]}: ${orderProvider.deskNumber}')) // Zeigt den ausgewählten Tisch an
@@ -149,13 +149,13 @@ class OrderScreen extends StatelessWidget {
                           height: bigBttnHeight, // Höhe des unteren Buttons
                           child: BigButton(
                               buttonName: textFiles[language]![45], // "Bestellen"-Button
-                              backgroundColor: orderProvider.isTableSelect
+                              backgroundColor: orderProvider.selectedProducts.isNotEmpty
                                   ? primeryColor
                                   : disabledBttnColor, // Farbe des Buttons abhängig von der Tischauswahl
-                              textColor: orderProvider.isTableSelect
+                              textColor: orderProvider.selectedProducts.isNotEmpty
                                   ? blackColor
                                   : disabledTextColor, // Textfarbe abhängig von der Tischauswahl
-                              onPressed: orderProvider.isTableSelect
+                              onPressed: orderProvider.selectedProducts.isNotEmpty
                                   ? () {
                                       orderProvider.setTableSelect(false);
                                       orderProvider.setCategorySelect(false);
