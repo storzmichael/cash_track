@@ -4,8 +4,10 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/cashout/presentation/single_widgets/listview_unpaid.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
+import 'package:cash_track/src/features/order/application/order_provider.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CashoutScreen extends StatelessWidget {
   final String? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
@@ -29,6 +31,27 @@ class CashoutScreen extends StatelessWidget {
           Radius.circular(monitorBorderRadius),
         ),
         color: textFieldColor,
+      ),
+      child: Consumer<OrderProvider>(
+        builder: (context, orderProvider, child) {
+          return ListView.builder(
+            itemCount: orderProvider.cashoutProducts.length, // Anzahl der Produkte für den Cashout
+            itemBuilder: (context, index) {
+              final product = orderProvider.cashoutProducts[index]; // Hole das Produkt für den aktuellen Index
+
+              return ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                leading: Text('${product.quantity} x'), // Menge des Produkts
+                title: Text(product.productTitle), // Produktname
+                trailing:
+                    Text('${(product.productPrice * product.quantity).toStringAsFixed(2)} €'), // Preis für die Menge
+                onTap: () {
+                  // Hier kannst du eine Funktion hinzufügen, um das Produkt zu bearbeiten oder weitere Aktionen auszuführen
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
