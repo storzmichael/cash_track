@@ -121,6 +121,8 @@ class OrderScreen extends StatelessWidget {
                                                 orderProvider.addDeskNumber(orderProvider
                                                     .deskNumber); // Füge die Produkte zur Liste des Tisches hinzu
                                                 print(orderProvider.deskNumber); // Gibt die aktuelle Tischnummer aus
+                                                log('zustand Tisch: ${orderProvider.isTableSelect}');
+                                                log('Verfügbare tische: ${orderProvider.tables}');
                                               },
                                               buttonName: orderProvider.tables[index], // Zeigt den Tischnamen an
                                             ),
@@ -155,7 +157,7 @@ class OrderScreen extends StatelessWidget {
                                       orderProvider.transferProductsToOrder();
 
                                       orderProvider.clearMonitor();
-
+                                      log('zustand Tisch: ${orderProvider.isTableSelect}');
                                       log('Produkte in selectedOroducts: ${orderProvider.selectedProducts}');
                                     }
                                   : null),
