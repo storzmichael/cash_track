@@ -85,25 +85,42 @@ class MonitorView extends StatelessWidget {
                       ),
                       child: Consumer<OrderProvider>(
                         builder: (context, orderProvider, child) {
-                          final orderData = orderProvider.orderData;
                           return ListView.builder(
-                              itemCount: orderData.length,
-                              itemBuilder: (context, index) {
+                            itemCount: orderProvider.orderDeskNumbers.length,
+                            itemBuilder: (context, index) {
+                              final deskNumber = orderProvider.orderDeskNumbers[index];
+
+                              // Überprüfen, ob es für den Tisch Produkte gibt
+                              if (orderProvider.orderData.containsKey(deskNumber) &&
+                                  orderProvider.orderData[deskNumber]!.isNotEmpty) {
                                 return ListTile(
                                   leading: Text('Tisch:'),
-                                  title: Text(orderProvider.deskNumbers[index]),
+                                  title: Text(deskNumber),
                                   onTap: () {
-                                    orderProvider.setDeskNumber(orderProvider.deskNumbers[index]);
+                                    // Setze die aktuelle Tisch-Nummer auf den ausgewählten Tisch
+                                    orderProvider.setDeskNumber(deskNumber);
+
+                                    // Logs zum Überprüfen der Produkte in der orderData
                                     log('Produkte in orderData: ${orderProvider.orderData.map((key, value) => MapEntry(key, value.toString()))}');
-                                    log('Aktuelle Auswahl ${orderProvider.deskNumber}: ${orderProvider.orderData[orderProvider.deskNumber]}');
+                                    log('Aktuelle Auswahl $deskNumber: ${orderProvider.orderData[deskNumber]}');
+                                    log('zustand des tisch: ${orderProvider.isTableSelect}');
+                                    log('Verfügbare tische: ${orderProvider.tables}');
+
+                                    // Navigiere zum Cashout-Screen
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CashoutScreen(selectedTable: orderProvider.deskNumbers[index])));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CashoutScreen(selectedTable: deskNumber),
+                                      ),
+                                    );
                                   },
                                 );
-                              });
+                              } else {
+                                // Falls der Tisch keine Produkte enthält, wird kein ListTile angezeigt
+                                return const SizedBox.shrink(); // Rückgabe eines leeren Containers
+                              }
+                            },
+                          );
                         },
                       ),
                     ),
