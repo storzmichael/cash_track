@@ -4,9 +4,8 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/cashout/presentation/single_widgets/listview_unpaid.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
-import 'package:cash_track/src/features/order/application/order_provider.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CashoutScreen extends StatelessWidget {
   final String? selectedTable; // Ausgewählte Tischnummer, als Parameter übergeben
