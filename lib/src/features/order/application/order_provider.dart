@@ -34,8 +34,8 @@ class OrderProvider with ChangeNotifier {
     _isTableSelect = true;
     _deskNumber = deskNumber;
     // Optional: Initialisiere die orderData für diesen Tisch, falls nicht bereits vorhanden
-    if (!_orderData.containsKey(deskNumber)) {
-      _orderData[deskNumber] = [];
+    if (!orderDeskProducts.containsKey(deskNumber)) {
+      _orderDeskProducts[deskNumber] = [];
     }
     notifyListeners(); // Notify listeners about the change
   }
@@ -55,8 +55,8 @@ class OrderProvider with ChangeNotifier {
   final List<ProductItem> _selectedProducts = [];
   List<ProductItem> get selectedProducts => _selectedProducts;
 
-  final Map<String, List<ProductItem>> _orderData = {};
-  Map<String, List<ProductItem>> get orderData => _orderData;
+  final Map<String, List<ProductItem>> _orderDeskProducts = {};
+  Map<String, List<ProductItem>> get orderDeskProducts => _orderDeskProducts;
 
   final List<String> _tables = ['1', '2', '3', '4', '5', '6', '7', 'Theke'];
   List<String> get tables => _tables;
@@ -187,7 +187,7 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
-  // Funktion zum Hinzufügen eines Produkts zur Bestellung
+//  Funktion zum Hinzufügen eines Produkts zur Bestellung
   void addToSelect(ProductItem product, BuildContext context) {
     if (product.availability > 0) {
       // Überprüfen, ob das Produkt bereits ausgewählt wurde
@@ -268,12 +268,12 @@ class OrderProvider with ChangeNotifier {
       ProductItem product = selectedProducts.removeAt(0); // Entferne das Produkt von der Liste
 
       // Überprüfen, ob die Tischnummer bereits in der Map vorhanden ist
-      if (!orderData.containsKey(_deskNumber)) {
-        orderData[_deskNumber] = []; // Initialisiere die Liste, falls sie nicht existiert
+      if (!orderDeskProducts.containsKey(_deskNumber)) {
+        orderDeskProducts[_deskNumber] = []; // Initialisiere die Liste, falls sie nicht existiert
       }
 
       // Füge das Produkt zur Liste in der Map hinzu
-      orderData[_deskNumber]!.add(product);
+      orderDeskProducts[_deskNumber]!.add(product);
     }
 
     // Benachrichtige die Listener über die Änderungen

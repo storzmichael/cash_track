@@ -91,8 +91,8 @@ class MonitorView extends StatelessWidget {
                               final deskNumber = orderProvider.orderDeskNumbers[index];
 
                               // Überprüfen, ob es für den Tisch Produkte gibt
-                              if (orderProvider.orderData.containsKey(deskNumber) &&
-                                  orderProvider.orderData[deskNumber]!.isNotEmpty) {
+                              if (orderProvider.orderDeskProducts.containsKey(deskNumber) &&
+                                  orderProvider.orderDeskProducts[deskNumber]!.isNotEmpty) {
                                 return ListTile(
                                   leading: Text('Tisch:'),
                                   title: Text(deskNumber),
@@ -101,8 +101,8 @@ class MonitorView extends StatelessWidget {
                                     orderProvider.setDeskNumber(deskNumber);
 
                                     // Logs zum Überprüfen der Produkte in der orderData
-                                    log('Produkte in orderData: ${orderProvider.orderData.map((key, value) => MapEntry(key, value.toString()))}');
-                                    log('Aktuelle Auswahl $deskNumber: ${orderProvider.orderData[deskNumber]}');
+                                    log('Produkte in orderData: ${orderProvider.orderDeskProducts.map((key, value) => MapEntry(key, value.toString()))}');
+                                    log('Aktuelle Auswahl $deskNumber: ${orderProvider.orderDeskProducts[deskNumber]}');
                                     log('zustand des tisch: ${orderProvider.isTableSelect}');
                                     log('Verfügbare tische: ${orderProvider.tables}');
 

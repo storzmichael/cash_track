@@ -44,7 +44,7 @@ class ProductGrid extends StatelessWidget {
             // ignore: avoid_print
             print(item.productTitle); // Ausgabe des Produktnamens zur Überprüfung
             // ignore: avoid_print
-            print(orderProvider.orderData); // Ausgabe der gesamten Bestellung zur Überprüfung
+            print(orderProvider.orderDeskProducts); // Ausgabe der gesamten Bestellung zur Überprüfung
           },
         );
       },
