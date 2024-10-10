@@ -19,7 +19,7 @@ class ListViewUnpaid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<OrderProvider>(builder: (context, orderProvider, child) {
       // Zugriff auf orderData Map
-      final orderData = orderProvider.orderDeskProducts;
+      final orderDeskProducts = orderProvider.orderDeskProducts;
 
       return Container(
         decoration: const BoxDecoration(
@@ -33,10 +33,10 @@ class ListViewUnpaid extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(allSitesPadding),
           child: ListView.builder(
-            itemCount: orderData[orderProvider.deskNumber]?.length ?? 0, // Anzahl der Produkte für den Tisch
+            itemCount: orderDeskProducts[orderProvider.deskNumber]?.length ?? 0, // Anzahl der Produkte für den Tisch
             itemBuilder: (context, index) {
               // Hole das Produkt für den aktuellen Index
-              final product = orderData[orderProvider.deskNumber]?[index];
+              final product = orderDeskProducts[orderProvider.deskNumber]?[index];
 
               // Überprüfen, ob product null ist
               if (product == null) {
