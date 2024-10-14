@@ -23,14 +23,3 @@ Map<String, List<ProductItem>> categoryData = {
     ProductItem(productTitle: 'Käse- wecken', productPrice: 2.50, productCategory: 'Essen'),
   ]
 };
-
-Map<String, List<ProductItem>> orderData = {};
-
-//test
-void addProductToOrder(ProductItem productItem) {
-  if (!orderData.containsKey(productItem.productCategory)) {
-    orderData[productItem.productCategory] = [];
-  }
-
-  orderData[productItem.productCategory]!.add(productItem);
-}
