@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/features/events/data/event_button_data.dart';
 import 'package:cash_track/src/features/events/presentation/single_widgets/event_button.dart';
+import 'package:provider/provider.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class EventGrid extends StatelessWidget {
   final int crossAxisCount;
@@ -18,12 +20,15 @@ class EventGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Hole die aktuelle Liste von EventButtonItem
+    final eventButtonDatas = getEventButtonDatas(context);
+
     return SizedBox(
       height: 312,
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: eventButtonDatas.length,
+        itemCount: eventButtonDatas.length, // Auf die Länge der Liste zugreifen
         padding: EdgeInsets.zero,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,

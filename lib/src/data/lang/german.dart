@@ -1,6 +1,6 @@
 List<String> german = [
   'Event', // 0
-  'Favoriten', // 1
+  'meine Events', // 1
   'Profil', // 2
   'Tischnummer', //3
   'Gesamt', // 4
@@ -78,5 +78,10 @@ List<String> german = [
   'Es sind bereits 12 Produkte in dieser Kategorie. Kein weiteres Produkt kann hinzugefügt werden.', // 76
   'Dieses Produkt ist nicht mehr verfügbar.', // 77
   'Dieses Produkt ist nicht im Warenkorb.', // 78
+  'Produkt nicht gefunden', // 79
+  'Was wollen Sie tun?', // 80
+  'zum Produkt', // 81
+  'Event verlassen', // 82
+  'Tisch:', // 83
 ];
 // textFiles[language]![0]

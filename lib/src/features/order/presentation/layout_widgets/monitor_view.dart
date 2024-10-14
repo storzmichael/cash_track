@@ -6,6 +6,7 @@ import 'package:cash_track/src/features/cashout/presentation/cashout_screen.dart
 import 'package:cash_track/src/features/order/application/order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
 
 class MonitorView extends StatelessWidget {
   const MonitorView({super.key});
@@ -14,6 +15,8 @@ class MonitorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+
     return Consumer<OrderProvider>(
       builder: (context, orderProvider, child) {
         return Column(
@@ -76,7 +79,8 @@ class MonitorView extends StatelessWidget {
                           if (orderProvider.orderDeskProducts.containsKey(deskNumber) &&
                               orderProvider.orderDeskProducts[deskNumber]!.isNotEmpty) {
                             return ListTile(
-                              leading: Text('Tisch:'),
+                              leading: Text(textFiles[languageProvider.language]![
+                                  83]), // Text dynamisch basierend auf der Sprache
                               title: Text(deskNumber),
                               onTap: () {
                                 // Setze die aktuelle Tisch-Nummer auf den ausgewählten Tisch
@@ -125,7 +129,7 @@ class MonitorView extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween, // Verteilung von Texten am Rand
                     children: [
-                      Text(textFiles[language]![4]), // Text für "Gesamtsumme" oder ähnliches
+                      Text(textFiles[languageProvider.language]![4]), // Text für "Gesamtsumme" oder ähnliches
                       Text('${orderProvider.totalPrice.toStringAsFixed(2)}€'), // Anzeige der Gesamtsumme
                     ],
                   ),

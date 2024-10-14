@@ -5,84 +5,68 @@ import 'package:cash_track/src/features/events/data/event_textfield_data.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
-class TextFieldEvent extends StatefulWidget {
+class TextFieldEvent extends StatelessWidget {
   const TextFieldEvent({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _TextFieldEventState createState() => _TextFieldEventState();
-}
-
-class _TextFieldEventState extends State<TextFieldEvent> {
-  final TextEditingController _codeController = TextEditingController();
-  final TextEditingController _eventNameController = TextEditingController();
-  final TextEditingController _ceatorController = TextEditingController();
-
-  Widget _generateCodeButton() {
-    return BigButton(
-      buttonName: textFiles[language]![43],
-      onPressed: () {
-        setState(() {
-          String newCode = generateRandomCode(8);
-          _codeController.text = newCode;
-        });
-      },
-    );
-  }
-
-  Widget _createEventButton() {
-    return BigButton(
-      buttonName: textFiles[language]![44],
-      onPressed: () {
-        Navigator.pushReplacementNamed(context, "/createProducts");
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+    final String language = languageProvider.language; // Aktuelle Sprache abrufen
+
+    final TextEditingController codeController = TextEditingController();
+    final TextEditingController eventNameController = TextEditingController();
+    final TextEditingController creatorController = TextEditingController();
+
+    // Hier rufst du die eventTextfieldDatas-Funktion auf
+    final eventTextfieldDatas = getEventTextfieldDatas(context);
+
     return Column(
       children: [
         // Event Name:
         CustomTextField(
           eventTextfieldItem: eventTextfieldDatas[0],
-          controller: _eventNameController,
+          controller: eventNameController,
           onChanged: (value) {},
         ),
-        const SizedBox(
-          height: 12,
-        ),
+        const SizedBox(height: 12),
 
         // Ersteller
         CustomTextField(
           eventTextfieldItem: eventTextfieldDatas[2],
-          controller: _ceatorController,
+          controller: creatorController,
           onChanged: (value) {},
         ),
-        const SizedBox(
-          height: 32,
-        ),
+        const SizedBox(height: 32),
 
         // Code
         CustomTextField(
           eventTextfieldItem: eventTextfieldDatas[3],
-          controller: _codeController,
+          controller: codeController,
           onChanged: (value) {},
         ),
-        const SizedBox(
-          height: 12,
-        ),
+        const SizedBox(height: 12),
 
-        //Generiere neuen Code
-        _generateCodeButton(),
+        // Generiere neuen Code
+        BigButton(
+          buttonName: textFiles[language]![43],
+          onPressed: () {
+            String newCode = generateRandomCode(8);
+            codeController.text = newCode;
+          },
+        ),
         const Expanded(child: SizedBox()),
 
         // Erstelle neues Event
-        _createEventButton(),
-        SizedBox(
-          height: bottomSafeArea,
+        BigButton(
+          buttonName: textFiles[language]![44],
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, "/createProducts");
+          },
         ),
+        SizedBox(height: bottomSafeArea),
       ],
     );
   }

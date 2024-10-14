@@ -12,11 +12,12 @@ import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/application/event_functions.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
 
 class CreateProductScreen extends StatelessWidget {
   const CreateProductScreen({super.key});
 
-  Widget _addButton(BuildContext context, ProductProvider productProvider) {
+  Widget _addButton(BuildContext context, ProductProvider productProvider, String language) {
     return Center(
       child: SizedBox(
         width: 200,
@@ -29,7 +30,7 @@ class CreateProductScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(textFiles[language]![71]),
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                 ),
               );
               return;
@@ -50,7 +51,7 @@ class CreateProductScreen extends StatelessWidget {
     );
   }
 
-  Widget _cardCategory(ProductProvider productProvider) {
+  Widget _cardCategory(ProductProvider productProvider, String language) {
     return Expanded(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -102,7 +103,6 @@ class CreateProductScreen extends StatelessWidget {
                                         setStateCallback: productProvider.notify,
                                       );
                                     },
-                                    language,
                                   );
                                 },
                                 child: Row(
@@ -132,6 +132,9 @@ class CreateProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(
       builder: (context, productProvider, child) {
+        final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+        final String language = languageProvider.language; // Aktuelle Sprache abrufen
+
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -183,11 +186,11 @@ class CreateProductScreen extends StatelessWidget {
                           onChanged: (value) {},
                         ),
                         const SizedBox(height: 30),
-                        _addButton(context, productProvider),
+                        _addButton(context, productProvider, language),
                         const SizedBox(height: 30),
                         Text(textFiles[language]![40]),
                         const SizedBox(height: 10),
-                        _cardCategory(productProvider),
+                        _cardCategory(productProvider, language),
                         const SizedBox(height: bigBttnHeight),
                         BigButton(
                           buttonName: textFiles[language]![41],

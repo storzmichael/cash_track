@@ -7,11 +7,12 @@ import 'package:cash_track/src/features/order/presentation/layout_widgets/produc
 import 'package:cash_track/src/features/order/presentation/single_widgets/button_category_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
 
 class CategoryRow extends StatelessWidget {
   final Map<String, List<ProductItem>> category;
 
-  CategoryRow({
+  const CategoryRow({
     super.key,
     required this.category,
   });
@@ -22,6 +23,8 @@ class CategoryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+
     List<String> keys = category.keys.toList(); // Liste der Kategorienamen
     return Column(
       children: [
@@ -63,7 +66,8 @@ class CategoryRow extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(4.0), // Innenabstand des Grids
                 child: Consumer<OrderProvider>(builder: (context, orderProvider, child) {
-                  return selectCategory(orderProvider.selectedCategoryKey);
+                  return selectCategory(
+                      orderProvider.selectedCategoryKey, languageProvider); // Übergibt den LanguageProvider
                 }), // Anzeige der Produkte basierend auf der ausgewählten Kategorie
               ),
             ),
@@ -74,17 +78,17 @@ class CategoryRow extends StatelessWidget {
   }
 
   // Methode zum Auswählen der Kategorie und Anzeige der entsprechenden Produkte
-  Widget selectCategory(String? categoryKey) {
+  Widget selectCategory(String? categoryKey, LanguageProvider languageProvider) {
     // Wenn keine Kategorie ausgewählt wurde
     if (categoryKey == null) {
-      return Text(textFiles[language]![7]); // Zeigt einen Standardtext an
+      return Text(textFiles[languageProvider.language]![7]); // Zeigt einen Standardtext an
     }
 
     List<ProductItem>? items = category[categoryKey]; // Produkte der ausgewählten Kategorie
 
     // Wenn die Kategorie leer oder nicht vorhanden ist
     if (items == null || items.isEmpty) {
-      return Text(textFiles[language]![8]); // Zeigt an, dass keine Produkte vorhanden sind
+      return Text(textFiles[languageProvider.language]![8]); // Zeigt an, dass keine Produkte vorhanden sind
     }
 
     // Anzeige des Produktgrids mit den ausgewählten Produkten

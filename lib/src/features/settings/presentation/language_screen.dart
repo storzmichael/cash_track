@@ -1,17 +1,13 @@
-import 'package:cash_track/src/config/config.dart';
-import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:flutter/material.dart';
 
-class LanguageScreen extends StatefulWidget {
+class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
 
-  @override
-  State<LanguageScreen> createState() => _LanguageScreenState();
-}
-
-class _LanguageScreenState extends State<LanguageScreen> {
   Widget _buildListTile(
     BuildContext context, {
     required IconData icon,
@@ -29,16 +25,18 @@ class _LanguageScreenState extends State<LanguageScreen> {
   Widget _buildDivider() {
     return const Divider(
       height: 0.1,
-      color: whiteColor,
+      color: Colors.white,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          textFiles[language]![58],
+          textFiles[languageProvider.language]![58], // Titel für die Spracheinstellungen
         ),
       ),
       body: Stack(
@@ -48,28 +46,29 @@ class _LanguageScreenState extends State<LanguageScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ListView(
               children: [
-                // Profil
+                // Sprache: Deutsch
                 _buildListTile(
                   context,
                   icon: Icons.language,
-                  title: textFiles[language]![62],
+                  title: 'Deutsch',
                   onTap: () {
-                    setState(() {
-                      language = 'Deutsch';
-                    });
+                    languageProvider.setLanguage('Deutsch');
                   },
                 ),
                 _buildDivider(),
 
-                // Datenschutz
-                _buildListTile(context, icon: Icons.lock, title: textFiles[language]![63], onTap: () {
-                  setState(() {
-                    language = 'English';
-                  });
-                }),
+                // Sprache: Englisch
+                _buildListTile(
+                  context,
+                  icon: Icons.language,
+                  title: 'English',
+                  onTap: () {
+                    languageProvider.setLanguage('English');
+                  },
+                ),
                 _buildDivider(),
 
-                // Benachrichtigungen
+                // Weitere Einstellungen...
               ],
             ),
           ),
