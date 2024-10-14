@@ -307,7 +307,7 @@ class OrderProvider with ChangeNotifier {
 
   //----------------------------------------------------------------
 
-  final List<ProductItem> _cashoutProducts = []; // Liste für entfernte Produkte
+  final List<ProductItem> _cashoutProducts = []; // Zwischenspeichern der zu bezahlenden Produkte
 
   List<ProductItem> get cashoutProducts => _cashoutProducts; // Getter für entfernte Produkte
 
@@ -352,7 +352,7 @@ class OrderProvider with ChangeNotifier {
 
   //----------------------------------------------------------------
 
-  final List<ProductItem> _paidProducts = [];
+  final List<ProductItem> _paidProducts = []; // Alle bezahlten Produkte speichern
   List<ProductItem> get paidProducts => _paidProducts;
 
   void addToPaidProducts() {
