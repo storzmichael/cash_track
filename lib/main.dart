@@ -1,3 +1,4 @@
+import 'package:cash_track/firebase_options.dart';
 import 'package:cash_track/src/config/theme_data.dart';
 import 'package:cash_track/src/core/application/navigation_provider.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
@@ -20,7 +21,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    await Firebase.initializeApp(); // Firebase initialisieren
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // Firebase initialisieren
   } catch (e) {
     print("Firebase Initialization Error: $e");
   }
