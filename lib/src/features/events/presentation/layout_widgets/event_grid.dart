@@ -18,12 +18,15 @@ class EventGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Hole die aktuelle Liste von EventButtonItem
+    final eventButtonDatas = getEventButtonDatas(context);
+
     return SizedBox(
       height: 312,
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: eventButtonDatas.length,
+        itemCount: eventButtonDatas.length, // Auf die Länge der Liste zugreifen
         padding: EdgeInsets.zero,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,

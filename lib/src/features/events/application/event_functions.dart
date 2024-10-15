@@ -1,10 +1,11 @@
-import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/order/data/category_data_map.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class EventFunctions {
   static void addProductToGrid({
@@ -17,6 +18,9 @@ class EventFunctions {
     required TextEditingController categoryController,
     required Function setStateCallback,
   }) {
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+    final String language = languageProvider.language;
+
     if (category.isEmpty || productName.isEmpty || productPrice == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -71,20 +75,20 @@ class EventFunctions {
     ProductItem product,
     Function deleteCallback,
     Function editCallback,
-    String language,
   ) {
-    // Nachricht für die Auswahl des Produkts
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+    final String language = languageProvider.language;
+
     String message = '${textFiles[language]![74]} ${product.productTitle}';
 
     DialogHelper.showConfirmationDialog(
       context: context,
       title: textFiles[language]![72],
-      message: message, // Inhalt des Dialogs
-      cancelButtonText: textFiles[language]![14], // Text für Abbrechen-Button
+      message: message,
+      cancelButtonText: textFiles[language]![14],
       confirmButtonText: textFiles[language]![18],
-      textColor: alertColor, // Text für Löschen-Button
+      textColor: alertColor,
       onConfirm: () {
-        // Aufruf der Lösch-Funktion
         deleteCallback();
       },
     );
@@ -101,6 +105,9 @@ class EventFunctions {
     required TextEditingController categoryController,
     required Function setStateCallback,
   }) {
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+    final String language = languageProvider.language;
+
     double? newPrice;
     try {
       newPrice = double.parse(newPriceText.replaceAll(',', '.'));

@@ -1,4 +1,6 @@
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/core/application/navigation_provider.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/presentation/screens/event_screen.dart';
 import 'package:cash_track/src/features/events/presentation/screens/favorites_screen.dart';
 import 'package:cash_track/src/features/settings/presentation/setting_screen.dart.dart';
@@ -35,21 +37,21 @@ class AppHome extends StatelessWidget {
           },
           showSelectedLabels: true, // Zeigt Labels für das ausgewählte Item
           showUnselectedLabels: false, // Versteckt Labels für nicht ausgewählte Items
-          items: const [
+          items: [
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.event), // Beispiel-Icon für den Event-Screen
               icon: Icon(Icons.event_outlined), // Standard-Icon für den Event-Screen
-              label: 'Event', // Label für den Event-Screen
+              label: textFiles[language]![0], // Label für den Event-Screen
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.favorite), // Beispiel-Icon für den Favoriten-Screen
               icon: Icon(Icons.favorite_outline), // Standard-Icon für den Favoriten-Screen
-              label: 'Favorites', // Label für den Favoriten-Screen
+              label: textFiles[language]![1], // Label für den Favoriten-Screen
             ),
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.settings), // Beispiel-Icon für den Einstellungen-Screen
               icon: Icon(Icons.settings_outlined), // Standard-Icon für den Einstellungen-Screen
-              label: 'Settings', // Label für den Einstellungen-Screen
+              label: textFiles[language]![49], // Label für den Einstellungen-Screen
             ),
           ],
         ),
