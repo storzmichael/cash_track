@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cash_track/src/features/events/data/event_button_data.dart';
 import 'package:cash_track/src/features/events/presentation/single_widgets/event_button.dart';
-import 'package:provider/provider.dart';
-import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class EventGrid extends StatelessWidget {
   final int crossAxisCount;

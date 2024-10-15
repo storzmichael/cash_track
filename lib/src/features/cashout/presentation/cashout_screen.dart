@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
