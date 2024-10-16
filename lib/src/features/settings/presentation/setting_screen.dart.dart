@@ -47,6 +47,7 @@ class SettingScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           textFiles[languageProvider.language]![49], // Titel für die Einstellungen
           style: Theme.of(context).textTheme.labelLarge,

@@ -27,6 +27,7 @@ class FavoritesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           textFiles[languageProvider.language]![1], // Dynamischer Text
           style: Theme.of(context).textTheme.labelLarge,

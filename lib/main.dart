@@ -30,11 +30,9 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => NavigationProvider()),
-        // NavigationProvider bereitstellen
         ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => LanguageProvider()),
-        // ThemeDataProvider bereitstellen
       ],
       child: const MainApp(),
     ),

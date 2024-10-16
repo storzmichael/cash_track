@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageProvider with ChangeNotifier {
-  String _language = 'English';
+  String _language = 'Deutsch';
 
   String get language => _language;
 

@@ -175,7 +175,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       Expanded(
                         child: SizedBox(),
                       ),
-                      _testButton(),
                       const SizedBox(height: bottomSafeArea),
                     ],
                   ),
