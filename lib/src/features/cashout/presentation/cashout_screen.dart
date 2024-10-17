@@ -16,7 +16,7 @@ class CashoutScreen extends StatelessWidget {
   final bool isContainerEmpty; // Dynamischer Containerstatus
   final double monitorHeight = 200;
 
-  CashoutScreen({
+  const CashoutScreen({
     super.key,
     this.selectedTable,
     this.orderSum = '0.00', // Standardwert

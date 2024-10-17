@@ -23,6 +23,7 @@ void main() async {
   try {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); // Firebase initialisieren
   } catch (e) {
+    // ignore: avoid_print
     print("Firebase Initialization Error: $e");
   }
 

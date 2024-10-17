@@ -1,6 +1,7 @@
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/data/firebase_functions.dart';
 import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
@@ -33,6 +34,7 @@ class CreateProductScreen extends StatelessWidget {
               );
               return;
             }
+
             EventFunctions.addProductToGrid(
               context: context,
               category: productProvider.categoryController.text,
@@ -42,6 +44,7 @@ class CreateProductScreen extends StatelessWidget {
               priceController: productProvider.priceController,
               categoryController: productProvider.categoryController,
             );
+            //addProductsToCategory(productProvider.categoryController.text,);
           },
         ),
       ),

@@ -126,7 +126,7 @@ class EventFunctions {
       if (index != -1) {
         products[index] = ProductItem(
           productTitle: newName,
-          productPrice: newPrice!,
+          productPrice: newPrice,
           productCategory: category,
         );
       }
