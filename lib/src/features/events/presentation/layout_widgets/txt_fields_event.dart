@@ -1,9 +1,13 @@
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/data/firebase_functions.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/application/button_funktions.dart';
+import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/data/event_textfield_data.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
+import 'package:cash_track/src/features/order/application/order_provider.dart';
+import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart';
@@ -29,9 +33,12 @@ class TextFieldEvent extends StatelessWidget {
       isButtonEnabled.value = eventNameController.text.isNotEmpty && codeController.text.isNotEmpty;
     }
 
-    // Füge Listener zu den TextEditingController hinzu
     eventNameController.addListener(_updateButtonState);
     codeController.addListener(_updateButtonState);
+
+    // Zugriff auf den ProductProvider
+    final productProvider = Provider.of<ProductProvider>(context);
+    final orderProvider = Provider.of<OrderProvider>(context);
 
     return Column(
       children: [
@@ -40,7 +47,7 @@ class TextFieldEvent extends StatelessWidget {
           eventTextfieldItem: eventTextfieldDatas[0],
           controller: eventNameController,
           onChanged: (value) {
-            _updateButtonState(); // Status aktualisieren
+            _updateButtonState();
           },
         ),
         const SizedBox(height: 12),
@@ -50,7 +57,7 @@ class TextFieldEvent extends StatelessWidget {
           eventTextfieldItem: eventTextfieldDatas[3],
           controller: codeController,
           onChanged: (value) {
-            _updateButtonState(); // Status aktualisieren
+            _updateButtonState();
           },
         ),
         const SizedBox(height: 32),
@@ -59,9 +66,9 @@ class TextFieldEvent extends StatelessWidget {
         BigButton(
           buttonName: textFiles[language]![43],
           onPressed: () {
-            String newCode = generateRandomCode(8);
+            String newCode = generateRandomCode(15);
             codeController.text = newCode;
-            _updateButtonState(); // Button-Status nach Code-Generierung aktualisieren
+            _updateButtonState();
           },
         ),
         const Expanded(child: SizedBox()),
@@ -73,11 +80,33 @@ class TextFieldEvent extends StatelessWidget {
             return BigButton(
               buttonName: textFiles[language]![44],
               onPressed: isEnabled
-                  ? () {
-                      Navigator.pushReplacementNamed(context, "/createProducts");
-                      //speichern in event liste (als dokument)
+                  ? () async {
+                      try {
+                        Map<String, List> categoryData = productProvider.categoryData;
+                        List<String> orderDeskNumbers = orderProvider.orderDeskNumbers;
+                        Map<String, List<ProductItem>> orderDeskProducts = orderProvider.orderDeskProducts;
+                        List<ProductItem> paidProducts = orderProvider.cashoutProducts;
+                        List<String> tables = orderProvider.tables;
+
+                        await setNewEvent(
+                          eventNameController.text,
+                          codeController.text,
+                          categoryData,
+                          orderDeskNumbers,
+                          orderDeskProducts,
+                          paidProducts,
+                          tables,
+                        );
+
+                        Navigator.pushReplacementNamed(context, "/createProducts");
+                      } catch (e) {
+                        print(e);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Fehler beim Erstellen des Events: $e')),
+                        );
+                      }
                     }
-                  : null, // Button deaktiviert
+                  : null,
             );
           },
         ),

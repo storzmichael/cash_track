@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
 
 class CategoryRow extends StatelessWidget {
-  final Map<String, List<ProductItem>> category;
+  final Map<String, List> category;
 
   const CategoryRow({
     super.key,
@@ -84,7 +84,7 @@ class CategoryRow extends StatelessWidget {
       return Text(textFiles[languageProvider.language]![7]); // Zeigt einen Standardtext an
     }
 
-    List<ProductItem>? items = category[categoryKey]; // Produkte der ausgewählten Kategorie
+    List? items = category[categoryKey]; // Produkte der ausgewählten Kategorie
 
     // Wenn die Kategorie leer oder nicht vorhanden ist
     if (items == null || items.isEmpty) {

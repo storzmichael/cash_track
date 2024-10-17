@@ -6,7 +6,7 @@ import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:provider/provider.dart';
 
 class ProductGrid extends StatelessWidget {
-  final List<ProductItem> productItemsList; // Liste der Produkte, die im Grid angezeigt werden
+  final List productItemsList; // Liste der Produkte, die im Grid angezeigt werden
   final int crossAxisCount; // Anzahl der Spalten im Grid
   final double crossAxisSpacing; // Abstand zwischen den Spalten
   final double mainAxisSpacing; // Abstand zwischen den Reihen

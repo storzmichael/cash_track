@@ -1,9 +1,9 @@
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
+import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cash_track/src/features/order/data/category_data_map.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
@@ -16,47 +16,45 @@ class EventFunctions {
     required TextEditingController nameController,
     required TextEditingController priceController,
     required TextEditingController categoryController,
-    required Function setStateCallback,
   }) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
     final String language = languageProvider.language;
 
-    if (category.isEmpty || productName.isEmpty || productPrice == 0) {
+    // Validierung der Eingaben
+    if (category.isEmpty || productName.isEmpty || productPrice <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(textFiles[language]![75]),
+          content: Text(textFiles[language]![75]), // Ungültige Eingabe
           duration: Duration(seconds: 2),
         ),
       );
       return;
     }
 
-    final List<ProductItem>? products = categoryData[category];
+    // Zugriff auf den ProductProvider
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
+    final List? products = productProvider.categoryData[category];
+
     if (products != null && products.length >= 12) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(textFiles[language]![76]),
+          content: Text(textFiles[language]![76]), // Maximale Anzahl erreicht
           duration: Duration(seconds: 2),
         ),
       );
       return;
     }
 
+    // Produkt erstellen
     ProductItem product = ProductItem(
       productTitle: productName,
       productPrice: productPrice,
       productCategory: category,
     );
 
-    setStateCallback(() {
-      if (categoryData.containsKey(category)) {
-        categoryData[category]!.add(product);
-      } else {
-        categoryData[category] = [product];
-      }
-
-      clearAllControllers(nameController, priceController, categoryController);
-    });
+    // Produkt hinzufügen
+    productProvider.addProduct(category, product);
+    clearAllControllers(nameController, priceController, categoryController);
   }
 
   static void clearAllControllers(
@@ -73,8 +71,8 @@ class EventFunctions {
     BuildContext context,
     String category,
     ProductItem product,
-    Function deleteCallback,
-    Function editCallback,
+    VoidCallback deleteCallback,
+    VoidCallback editCallback,
   ) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
     final String language = languageProvider.language;
@@ -103,7 +101,6 @@ class EventFunctions {
     required TextEditingController nameController,
     required TextEditingController priceController,
     required TextEditingController categoryController,
-    required Function setStateCallback,
   }) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
     final String language = languageProvider.language;
@@ -114,43 +111,36 @@ class EventFunctions {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(textFiles[language]![73]),
+          content: Text(textFiles[language]![73]), // Ungültiger Preis
           duration: Duration(seconds: 2),
         ),
       );
       return;
     }
 
-    setStateCallback(() {
-      final products = categoryData[category];
-      if (products != null) {
-        final index = products.indexOf(oldProduct);
-        if (index != -1) {
-          products[index] = ProductItem(
-            productTitle: newName,
-            productPrice: newPrice!,
-            productCategory: category,
-          );
-        }
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
+
+    final products = productProvider.categoryData[category];
+    if (products != null) {
+      final index = products.indexOf(oldProduct);
+      if (index != -1) {
+        products[index] = ProductItem(
+          productTitle: newName,
+          productPrice: newPrice!,
+          productCategory: category,
+        );
       }
-    });
+    }
 
     clearAllControllers(nameController, priceController, categoryController);
   }
 
   static void deleteProduct({
+    required BuildContext context,
     required String category,
     required ProductItem product,
-    required Function setStateCallback,
   }) {
-    setStateCallback(() {
-      final products = categoryData[category];
-      if (products != null) {
-        products.remove(product);
-        if (products.isEmpty) {
-          categoryData.remove(category);
-        }
-      }
-    });
+    final productProvider = Provider.of<ProductProvider>(context, listen: false);
+    productProvider.removeProduct(category, product); // Methode zum Entfernen verwenden
   }
 }

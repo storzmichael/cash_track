@@ -18,14 +18,6 @@ class CreateEventScreen extends StatelessWidget {
           textFiles[language]![42],
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, "/settings");
-            },
-          ),
-        ],
       ),
       body: Column(
         children: [

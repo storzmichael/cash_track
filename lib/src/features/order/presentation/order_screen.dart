@@ -3,14 +3,14 @@ import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
+import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
-import 'package:cash_track/src/features/order/data/category_data_map.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/monitor_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
@@ -24,25 +24,26 @@ class OrderScreen extends StatelessWidget {
     const double gridheight = 379; // Höhe des Grids min. 379
 
     final orderProvider = Provider.of<OrderProvider>(context);
-    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context); // Zugriff auf den ProductProvider
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Entfernt das Chevron-Symbol
+        automaticallyImplyLeading: false,
         title: Consumer<OrderProvider>(
           builder: (context, orderProvider, child) {
             return orderProvider.isTableSelect
                 ? GestureDetector(
                     onTap: () {
-                      orderProvider.setTableSelect(false); // Setzt den Tischstatus zurück
+                      orderProvider.setTableSelect(false);
                     },
                     child: Text(
-                      '${textFiles[languageProvider.language]![3]}: ${orderProvider.deskNumber}', // Zeigt den ausgewählten Tisch an
+                      '${textFiles[languageProvider.language]![3]}: ${orderProvider.deskNumber}',
                     ),
                   )
                 : Text(
-                    textFiles[languageProvider.language]![46], // Zeigt den Standardtitel an
+                    textFiles[languageProvider.language]![46],
                   );
           },
         ),
@@ -54,8 +55,7 @@ class OrderScreen extends StatelessWidget {
             icon: const Icon(Icons.settings),
           ),
           IconButton(
-            onPressed: () =>
-                orderProvider.showAddButtonDialog(context, languageProvider.language), // Fügt einen neuen Tisch hinzu
+            onPressed: () => orderProvider.showAddButtonDialog(context, languageProvider.language),
             icon: const Icon(Icons.add),
           ),
           const SizedBox(width: 16),
@@ -80,31 +80,31 @@ class OrderScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    MonitorView(), // Zeigt den Bestellmonitor an
+                    MonitorView(),
                     const Expanded(child: SizedBox()),
-
                     Consumer<OrderProvider>(
                       builder: (context, orderProvider, child) {
                         return orderProvider.isTableSelect
                             ? SizedBox(
                                 height: gridheight,
                                 child: CategoryRow(
-                                  category: categoryData, // Zeigt die Produktkategorien an
+                                  category:
+                                      productProvider.categoryData, // Zugriff auf categoryData vom ProductProvider
                                 ),
                               )
                             : SizedBox(
                                 height: gridheight,
                                 child: GridView.builder(
                                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: crossAxisCount, // Anzahl der Spalten
-                                    crossAxisSpacing: crossAxisSpacing, // Abstand zwischen den Spalten
-                                    mainAxisSpacing: mainAxisSpacing, // Abstand zwischen den Zeilen
-                                    mainAxisExtent: bigBttnHeight, // Höhe der Buttons
+                                    crossAxisCount: crossAxisCount,
+                                    crossAxisSpacing: crossAxisSpacing,
+                                    mainAxisSpacing: mainAxisSpacing,
+                                    mainAxisExtent: bigBttnHeight,
                                   ),
-                                  itemCount: orderProvider.tables.length, // Anzahl der verfügbaren Tische
+                                  itemCount: orderProvider.tables.length,
                                   itemBuilder: (context, index) {
                                     return AspectRatio(
-                                      aspectRatio: aspectRatio, // Verhältnis von Breite zu Höhe des Tisches
+                                      aspectRatio: aspectRatio,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 4.0),
                                         child: GestureDetector(
@@ -112,21 +112,20 @@ class OrderScreen extends StatelessWidget {
                                             context,
                                             index,
                                             languageProvider.language,
-                                          ), // Öffnet Dialog zum Löschen des Tisches
+                                          ),
                                           child: SizedBox(
-                                            height: bigBttnHeight, // Höhe des Containers für den Button
+                                            height: bigBttnHeight,
                                             child: BigButton(
-                                              backgroundColor: primeryColorLow, // Hintergrundfarbe des Tisch-Buttons
+                                              backgroundColor: primeryColorLow,
                                               onPressed: () {
-                                                // Setze den ausgewählten Tisch
                                                 orderProvider.setDeskNumber(orderProvider.tables[index]);
                                                 orderProvider.addDeskNumber(orderProvider.deskNumber);
 
-                                                print(orderProvider.deskNumber); // Gibt die aktuelle Tischnummer aus
+                                                print(orderProvider.deskNumber);
                                                 log('Zustand Tisch: ${orderProvider.isTableSelect}');
                                                 log('Verfügbare Tische: ${orderProvider.tables}');
                                               },
-                                              buttonName: orderProvider.tables[index], // Zeigt den Tischnamen an
+                                              buttonName: orderProvider.tables[index],
                                             ),
                                           ),
                                         ),
@@ -141,23 +140,20 @@ class OrderScreen extends StatelessWidget {
                     Consumer<OrderProvider>(
                       builder: (context, orderProvider, child) {
                         return SizedBox(
-                          height: bigBttnHeight, // Höhe des unteren Buttons
+                          height: bigBttnHeight,
                           child: BigButton(
                             buttonName: textFiles[languageProvider.language]![45], // "Bestellen"-Button
-                            backgroundColor: orderProvider.selectedProducts.isNotEmpty
-                                ? primeryColor
-                                : disabledBttnColor, // Farbe des Buttons abhängig von der Tischauswahl
-                            textColor: orderProvider.selectedProducts.isNotEmpty
-                                ? blackColor
-                                : disabledTextColor, // Textfarbe abhängig von der Tischauswahl
+                            backgroundColor:
+                                orderProvider.selectedProducts.isNotEmpty ? primeryColor : disabledBttnColor,
+                            textColor: orderProvider.selectedProducts.isNotEmpty ? blackColor : disabledTextColor,
                             onPressed: orderProvider.selectedProducts.isNotEmpty
                                 ? () {
                                     orderProvider.setTableSelect(false);
                                     orderProvider.setCategorySelect(false);
                                     orderProvider.transferProductsToOrder();
                                     orderProvider.clearMonitor();
-                                    log('zustand Tisch: ${orderProvider.isTableSelect}');
-                                    log('Produkte in selectedOroducts: ${orderProvider.selectedProducts}');
+                                    log('Zustand Tisch: ${orderProvider.isTableSelect}');
+                                    log('Produkte in selectedProducts: ${orderProvider.selectedProducts}');
                                   }
                                 : null,
                           ),

@@ -55,7 +55,7 @@ class OrderProvider with ChangeNotifier {
   final Map<String, List<ProductItem>> _orderDeskProducts = {};
   Map<String, List<ProductItem>> get orderDeskProducts => _orderDeskProducts;
 
-  final List<String> _tables = ['1', '2', '3', '4', '5', '6', '7', 'Theke'];
+  final List<String> _tables = [];
   List<String> get tables => _tables;
 
   void addNewButton(BuildContext context, String buttonName, String language) {
@@ -355,4 +355,6 @@ class OrderProvider with ChangeNotifier {
     }
     return total;
   }
+
+  //----------------------------------------------------------------
 }

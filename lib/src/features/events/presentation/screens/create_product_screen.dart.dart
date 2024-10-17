@@ -6,8 +6,6 @@ import 'package:cash_track/src/features/events/domain/event_textfield_item.dart'
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cash_track/src/features/order/domain/product_item.dart';
-import 'package:cash_track/src/features/order/data/category_data_map.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
@@ -43,7 +41,6 @@ class CreateProductScreen extends StatelessWidget {
               nameController: productProvider.nameController,
               priceController: productProvider.priceController,
               categoryController: productProvider.categoryController,
-              setStateCallback: productProvider.notify,
             );
           },
         ),
@@ -56,10 +53,10 @@ class CreateProductScreen extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: categoryData.entries.map(
+          children: productProvider.categoryData.entries.map(
             (entry) {
               final String category = entry.key;
-              final List<ProductItem> products = entry.value;
+              final List products = entry.value;
 
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -83,9 +80,9 @@ class CreateProductScreen extends StatelessWidget {
                                     category,
                                     product,
                                     () => EventFunctions.deleteProduct(
+                                      context: context,
                                       category: category,
                                       product: product,
-                                      setStateCallback: productProvider.notify,
                                     ),
                                     () {
                                       productProvider.nameController.text = product.productTitle;
@@ -100,7 +97,6 @@ class CreateProductScreen extends StatelessWidget {
                                         nameController: productProvider.nameController,
                                         priceController: productProvider.priceController,
                                         categoryController: productProvider.categoryController,
-                                        setStateCallback: productProvider.notify,
                                       );
                                     },
                                   );
