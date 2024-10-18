@@ -33,6 +33,7 @@ class CreateProductScreen extends StatelessWidget {
               );
               return;
             }
+
             EventFunctions.addProductToGrid(
               context: context,
               category: productProvider.categoryController.text,

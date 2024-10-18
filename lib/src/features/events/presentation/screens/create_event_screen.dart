@@ -1,7 +1,7 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:cash_track/src/features/events/presentation/layout_widgets/txt_fields_event.dart';
+import 'package:cash_track/src/features/events/presentation/layout_widgets/text_field_event.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
