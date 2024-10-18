@@ -8,9 +8,8 @@ List<Map<String, dynamic>> convertProductItemsToMaps(List<ProductItem> products)
   return products.map((product) => product.toMap()).toList();
 }
 
-Future<void> setNewEvent(
+Future<String> setNewEvent(
   String eventTitle,
-  String eventCode,
   Map<String, List<dynamic>> categoryData,
   List<String> orderDeskNumbers,
   Map<String, List<dynamic>> orderDeskProducts,
@@ -20,21 +19,19 @@ Future<void> setNewEvent(
   final eventCollectionRef = _firestore.collection('events');
 
   final convertedCategoryData = categoryData.map((key, value) {
-    // Sicherstellen, dass der Wert eine List<ProductItem> ist
     List<ProductItem> productItems = value.cast<ProductItem>();
     return MapEntry(key, convertProductItemsToMaps(productItems));
   });
 
   final convertedOrderDeskProducts = orderDeskProducts.map((key, value) {
-    // Sicherstellen, dass der Wert eine List<ProductItem> ist
     List<ProductItem> productItems = value.cast<ProductItem>();
     return MapEntry(key, convertProductItemsToMaps(productItems));
   });
 
   final convertedPaidProducts = convertProductItemsToMaps(paidProducts);
 
-  await eventCollectionRef.add({
-    'code': eventCode,
+  // Dokument hinzufügen und die Referenz erhalten
+  DocumentReference docRef = await eventCollectionRef.add({
     'eventTitle': eventTitle,
     'categoryData': convertedCategoryData,
     'orderDeskNumber': orderDeskNumbers,
@@ -42,4 +39,12 @@ Future<void> setNewEvent(
     'paidProducts': convertedPaidProducts,
     'tables': tables,
   });
+
+  // Dokumenten-ID abrufen und als eventCode speichern
+  String eventCode = docRef.id;
+
+  // eventCode im Dokument speichern
+  await docRef.update({'eventCode': eventCode});
+
+  return eventCode; // Rückgabe der eventCode
 }

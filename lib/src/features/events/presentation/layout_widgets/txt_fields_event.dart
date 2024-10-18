@@ -20,7 +20,6 @@ class TextFieldEvent extends StatelessWidget {
     final languageProvider = Provider.of<LanguageProvider>(context);
     final String language = languageProvider.language;
 
-    final TextEditingController codeController = TextEditingController();
     final TextEditingController eventNameController = TextEditingController();
 
     final eventTextfieldDatas = getEventTextfieldDatas(context);
@@ -30,11 +29,10 @@ class TextFieldEvent extends StatelessWidget {
 
     // Listener für die Textfelder
     void _updateButtonState() {
-      isButtonEnabled.value = eventNameController.text.isNotEmpty && codeController.text.isNotEmpty;
+      isButtonEnabled.value = eventNameController.text.isNotEmpty;
     }
 
     eventNameController.addListener(_updateButtonState);
-    codeController.addListener(_updateButtonState);
 
     // Zugriff auf den ProductProvider
     final productProvider = Provider.of<ProductProvider>(context);
@@ -51,27 +49,6 @@ class TextFieldEvent extends StatelessWidget {
           },
         ),
         const SizedBox(height: 12),
-
-        // Code
-        CustomTextField(
-          eventTextfieldItem: eventTextfieldDatas[3],
-          controller: codeController,
-          onChanged: (value) {
-            _updateButtonState();
-          },
-        ),
-        const SizedBox(height: 32),
-
-        // Generiere neuen Code
-        BigButton(
-          buttonName: textFiles[language]![43],
-          onPressed: () {
-            String newCode = generateRandomCode(15);
-            codeController.text = newCode;
-            _updateButtonState();
-          },
-        ),
-        const Expanded(child: SizedBox()),
 
         // Erstelle neues Event
         ValueListenableBuilder<bool>(
@@ -90,7 +67,6 @@ class TextFieldEvent extends StatelessWidget {
 
                         await setNewEvent(
                           eventNameController.text,
-                          codeController.text,
                           categoryData,
                           orderDeskNumbers,
                           orderDeskProducts,
