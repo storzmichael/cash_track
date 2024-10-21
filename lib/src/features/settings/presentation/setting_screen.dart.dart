@@ -30,17 +30,6 @@ class SettingScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _signOut(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      Navigator.of(context).pushReplacementNamed("/"); // Beispiel
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${textFiles[language]![56]}: $e')),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
@@ -125,17 +114,6 @@ class SettingScreen extends StatelessWidget {
                       },
                     ),
                     _buildDivider(),
-
-                    // Abmelden
-                    _buildListTile(
-                      context,
-                      icon: Icons.exit_to_app,
-                      title: textFiles[languageProvider.language]![61], // Abmelden
-                      onTap: () {
-                        _signOut(context);
-                      },
-                      color: alertColor,
-                    ),
                   ],
                 ),
               ),
