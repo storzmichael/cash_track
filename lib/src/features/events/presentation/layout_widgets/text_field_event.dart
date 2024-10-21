@@ -58,7 +58,7 @@ class TextFieldEvent extends StatelessWidget {
               onPressed: isEnabled
                   ? () async {
                       try {
-                        Map<String, List> categoryData = productProvider.categoryData;
+                        Map<String, List> categoryData = productProvider.categoryData1;
                         List<String> orderDeskNumbers = orderProvider.orderDeskNumbers;
                         Map<String, List<ProductItem>> orderDeskProducts = orderProvider.orderDeskProducts;
                         List<ProductItem> paidProducts = orderProvider.cashoutProducts;

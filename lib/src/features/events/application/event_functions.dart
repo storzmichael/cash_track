@@ -33,7 +33,7 @@ class EventFunctions {
 
     // Zugriff auf den ProductProvider
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
-    final List? products = productProvider.categoryData[category];
+    final List? products = productProvider.categoryData1[category];
 
     if (products != null && products.length >= 12) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -120,7 +120,7 @@ class EventFunctions {
 
     final productProvider = Provider.of<ProductProvider>(context, listen: false);
 
-    final products = productProvider.categoryData[category];
+    final products = productProvider.categoryData1[category];
     if (products != null) {
       final index = products.indexOf(oldProduct);
       if (index != -1) {

@@ -89,7 +89,7 @@ class OrderScreen extends StatelessWidget {
                                 height: gridheight,
                                 child: CategoryRow(
                                   category:
-                                      productProvider.categoryData, // Zugriff auf categoryData vom ProductProvider
+                                      productProvider.categoryData1, // Zugriff auf categoryData vom ProductProvider
                                 ),
                               )
                             : SizedBox(

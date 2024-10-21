@@ -1,9 +1,11 @@
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/data/firebase_function.dart';
 import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
+import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
@@ -33,7 +35,11 @@ class CreateProductScreen extends StatelessWidget {
               );
               return;
             }
-
+            print("HAAAAAAAAAAAAAAALLLLLOOOOOOOOOOOO");
+            addProductToMap(ProductItem(
+                productTitle: productProvider.nameController.text,
+                productPrice: 4.23,
+                productCategory: productProvider.categoryController.text));
             EventFunctions.addProductToGrid(
               context: context,
               category: productProvider.categoryController.text,
@@ -54,7 +60,7 @@ class CreateProductScreen extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: productProvider.categoryData.entries.map(
+          children: productProvider.categoryData1.entries.map(
             (entry) {
               final String category = entry.key;
               final List products = entry.value;
