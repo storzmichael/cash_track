@@ -83,4 +83,6 @@ List<String> english = [
   'to the product', // 81
   'Leave Event', // 82
   'Table:', // 83
+  'Forgot your password?', // 84
+  'Please provide email address', // 85
 ];

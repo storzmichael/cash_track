@@ -125,26 +125,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(textFiles[languageProvider.language]![48]), // Dynamischer Titel
-      ),
+      appBar: AppBar(),
       body: Stack(
         children: [
           const ThemeContainer(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(bottomPadding, sitesPadding, bottomPadding, sitesPadding),
+            padding: const EdgeInsets.fromLTRB(bottomPadding, 0, bottomPadding, sitesPadding),
             child: Column(
               children: [
-                const SizedBox(height: 44), // 100 - 56
+                const SizedBox(height: 0),
                 _logo(),
-                const SizedBox(height: 124),
+                const SizedBox(height: 50),
                 _emailTextField(),
                 const SizedBox(height: 8),
                 _passwordTextField(),
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
                 _registerButton(),
                 const SizedBox(height: 8),
               ],

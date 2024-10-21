@@ -2,7 +2,6 @@ import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
-import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:cash_track/src/features/order/presentation/layout_widgets/product_grid.dart';
 import 'package:cash_track/src/features/order/presentation/single_widgets/button_category_custom.dart';
 import 'package:flutter/material.dart';

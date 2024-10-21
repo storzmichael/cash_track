@@ -2,6 +2,7 @@ import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/event_grid.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
@@ -9,6 +10,16 @@ import 'package:shimmer/shimmer.dart';
 
 class EventScreen extends StatelessWidget {
   const EventScreen({super.key});
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacementNamed("/"); // Beispiel
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${textFiles[language]![56]}: $e')),
+      );
+    }
+  }
 
   Widget _logo() {
     return Center(
@@ -52,6 +63,16 @@ class EventScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                _signOut(context);
+              },
+              icon: Icon(
+                Icons.logout_outlined,
+                color: Colors.red,
+              ))
+        ],
         automaticallyImplyLeading: false,
         title: Text(
           textFiles[languageProvider.language]![0], // Dynamischer Titel

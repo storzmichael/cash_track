@@ -3,6 +3,7 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
+import 'package:cash_track/src/features/registration-login/domain/password_reset_service.dart';
 import 'package:cash_track/src/features/registration-login/presentation/shimmer_logo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,22 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Text(
         textFiles[languageProvider.language]![27], // Registrierung-Button-Text
-        style: Theme.of(context).textTheme.labelLarge,
+        style: Theme.of(context).textTheme.labelMedium,
+      ),
+    );
+  }
+
+  Widget _passwordForgotButton() {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+    return TextButton(
+      onPressed: () {
+        showPasswordResetDialog(
+          context,
+        );
+      },
+      child: Text(
+        textFiles[languageProvider.language]![84], // Registrierung-Button-Text
+        style: Theme.of(context).textTheme.labelMedium,
       ),
     );
   }
@@ -171,7 +187,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       _passwordTextField(),
                       const SizedBox(height: 16),
                       _loginButton(),
-                      _registerButton(),
+                      Row(
+                        children: [
+                          _passwordForgotButton(),
+                          Expanded(child: SizedBox()),
+                          _registerButton(),
+                        ],
+                      ),
                       Expanded(
                         child: SizedBox(),
                       ),

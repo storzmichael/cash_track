@@ -26,7 +26,7 @@ List<String> german = [
   'Passwort falsch', // 24
   'angemeldet bleiben', // 25
   'Passwort vergessen?', // 26
-  'Neuen Account erstellen', // 27
+  'Registrieren', // 27
   'Bitte gib ein', // 28
   'ein', // 29
   'Bitte gib eine gültige Email ein', // 30
@@ -78,10 +78,14 @@ List<String> german = [
   'Es sind bereits 12 Produkte in dieser Kategorie. Kein weiteres Produkt kann hinzugefügt werden.', // 76
   'Dieses Produkt ist nicht mehr verfügbar.', // 77
   'Dieses Produkt ist nicht im Warenkorb.', // 78
-  'Produkt nicht gefunden', // 79
+  'Produkt nicht gefunden', // 79q
   'Was wollen Sie tun?', // 80
   'zum Produkt', // 81
   'Event verlassen', // 82
   'Tisch:', // 83
+  'Passwort vergessen?', // 84
+  'Bitte Email Adresse abgeben', // 85
+  'Wir senden Ihnen eine Email um ihr Passwort zurückzusetzten', // 86
+  'Senden', // 87
 ];
 // textFiles[language]![0]
