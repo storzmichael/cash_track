@@ -55,7 +55,14 @@ class OrderProvider with ChangeNotifier {
   final Map<String, List<ProductItem>> _orderDeskProducts = {};
   Map<String, List<ProductItem>> get orderDeskProducts => _orderDeskProducts;
 
-  final List<String> _tables = [];
+  final List<String> _tables = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+  ];
   List<String> get tables => _tables;
 
   void addNewButton(BuildContext context, String buttonName, String language) {
@@ -123,7 +130,13 @@ class OrderProvider with ChangeNotifier {
               onPressed: () {
                 Navigator.pushNamed(context, "/createProducts");
               },
-              child: Text(textFiles[languageProvider.language]![81]),
+              child: Text(textFiles[languageProvider.language]![36]),
+            ),
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pushNamed(context, "/paid");
+              },
+              child: Text(textFiles[languageProvider.language]![89]),
             ),
             CupertinoDialogAction(
               onPressed: () {
@@ -303,9 +316,27 @@ class OrderProvider with ChangeNotifier {
   List<ProductItem> get paidProducts => _paidProducts;
 
   void addToPaidProducts() {
-    paidProducts.addAll(cashoutProducts);
+    for (var newProduct in cashoutProducts) {
+      // Überprüfe, ob das Produkt bereits in paidProducts existiert
+      final existingProductIndex =
+          paidProducts.indexWhere((product) => product.productTitle == newProduct.productTitle);
+
+      if (existingProductIndex != -1) {
+        // Produkt existiert bereits, erhöhe die Menge
+        paidProducts[existingProductIndex].increaseQuantity();
+      } else {
+        // Produkt existiert nicht, füge es hinzu
+        paidProducts.add(newProduct);
+      }
+    }
+
+    // Leere die cashoutProducts-Liste
     cashoutProducts.clear();
+
+    // Log die aktualisierte Liste der bezahlten Produkte
     log(paidProducts.toString());
+
+    // Benachrichtige die Listener über Änderungen
     notifyListeners();
   }
 

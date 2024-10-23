@@ -58,4 +58,12 @@ class ProductItem {
   String toString() {
     return 'ProductItem(title: $productTitle, price: $productPrice, category: $productCategory, quantity: $quantity, availability: $availability)';
   }
+
+  void increaseQuantity() {
+    quantity++;
+  }
+
+  double get totalPrice => productPrice * quantity;
+
+  String get formattedTotalPrice => totalPrice.toStringAsFixed(2);
 }

@@ -2,6 +2,7 @@ import 'package:cash_track/firebase_options.dart';
 import 'package:cash_track/src/config/theme_data.dart';
 import 'package:cash_track/src/core/application/navigation_provider.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
+import 'package:cash_track/src/features/cashout/presentation/paid_product_screen.dart';
 import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_event_screen.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_product_screen.dart.dart';
@@ -55,7 +56,8 @@ class MainApp extends StatelessWidget {
         "/createEvent": (context) => const CreateEventScreen(),
         "/registration": (context) => const RegistrationScreen(),
         "/language": (context) => const LanguageScreen(),
-        "/settings": (context) => const SettingScreen()
+        "/settings": (context) => const SettingScreen(),
+        "/paid": (context) => PaidProductsScreen(),
       },
     );
   }
