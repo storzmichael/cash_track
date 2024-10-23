@@ -87,5 +87,7 @@ List<String> german = [
   'Bitte Email Adresse abgeben', // 85
   'Wir senden Ihnen eine Email um ihr Passwort zurückzusetzten', // 86
   'Senden', // 87
+  'Alle verkauften Produkte', // 88
+  'Auswertung Events', // 89
 ];
 // textFiles[language]![0]
