@@ -89,5 +89,7 @@ List<String> german = [
   'Senden', // 87
   'Alle verkauften Produkte', // 88
   'Auswertung Events', // 89
+  'Kategorien erstellen', // 90
+  'Kategorie:', // 91
 ];
 // textFiles[language]![0]

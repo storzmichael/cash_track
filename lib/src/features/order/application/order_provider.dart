@@ -49,9 +49,6 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
-  final List<ProductItem> _selectedProducts = [];
-  List<ProductItem> get selectedProducts => _selectedProducts;
-
   final Map<String, List<ProductItem>> _orderDeskProducts = {};
   Map<String, List<ProductItem>> get orderDeskProducts => _orderDeskProducts;
 
@@ -172,33 +169,34 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
+  final List<ProductItem> _selectedProducts = [];
+  List<ProductItem> get selectedProducts => _selectedProducts;
+
   void addToSelect(ProductItem product, BuildContext context) {
-    if (product.availability > 0) {
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+
+    if (product.productTitle.isNotEmpty && product.productPrice > 0) {
+      print('Found existing product: existingProduct');
       final existingProduct = _selectedProducts.firstWhere(
         (prod) => prod.productTitle == product.productTitle,
-        orElse: () => ProductItem(
-          productTitle: '',
-          productPrice: 0,
-          productCategory: '',
-        ),
+        orElse: () => ProductItem(productTitle: '', productPrice: 0, quantity: 1),
       );
 
       if (existingProduct.productTitle != '') {
+        print('Menge erhöhen');
         existingProduct.quantity++;
       } else {
+        print('Produkt hinzufügen');
         _selectedProducts.add(ProductItem(
           productTitle: product.productTitle,
           productPrice: product.productPrice,
-          productCategory: product.productCategory,
-          availability: product.availability,
           quantity: 1,
         ));
       }
 
-      product.availability--;
       notifyListeners();
     } else {
-      final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+      // Snackbar anzeigen, wenn das Produkt ungültig ist
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(textFiles[languageProvider.language]![77]),
@@ -223,7 +221,10 @@ class OrderProvider with ChangeNotifier {
   void removeProductfromSelect(ProductItem product, BuildContext context) {
     final existingProduct = _selectedProducts.firstWhere(
       (prod) => prod.productTitle == product.productTitle,
-      orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''),
+      orElse: () => ProductItem(
+        productTitle: '',
+        productPrice: 0,
+      ),
     );
 
     if (existingProduct.productTitle != '') {
@@ -233,7 +234,6 @@ class OrderProvider with ChangeNotifier {
         _selectedProducts.remove(existingProduct);
       }
 
-      product.availability++;
       notifyListeners();
     } else {
       final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
@@ -265,7 +265,6 @@ class OrderProvider with ChangeNotifier {
         productsAtDesk.add(ProductItem(
           productTitle: product.productTitle,
           productPrice: product.productPrice,
-          productCategory: product.productCategory,
           quantity: product.quantity,
         ));
       }
@@ -289,14 +288,16 @@ class OrderProvider with ChangeNotifier {
 
       final existingProduct = products.firstWhere(
         (p) => p.productTitle == product.productTitle,
-        orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''),
+        orElse: () => ProductItem(
+          productTitle: '',
+          productPrice: 0,
+        ),
       );
 
       if (existingProduct.productTitle.isNotEmpty && existingProduct.quantity > 0) {
         _cashoutProducts.add(ProductItem(
           productTitle: existingProduct.productTitle,
           productPrice: existingProduct.productPrice,
-          productCategory: existingProduct.productCategory,
           quantity: 1,
         ));
 
@@ -343,7 +344,10 @@ class OrderProvider with ChangeNotifier {
   void returnProductToOrder(ProductItem product, BuildContext context) {
     final existingProduct = cashoutProducts.firstWhere(
       (prod) => prod.productTitle == product.productTitle,
-      orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''),
+      orElse: () => ProductItem(
+        productTitle: '',
+        productPrice: 0,
+      ),
     );
 
     if (existingProduct.productTitle != '') {
@@ -357,7 +361,10 @@ class OrderProvider with ChangeNotifier {
         final orderProducts = orderDeskProducts[_deskNumber]!;
         final orderProduct = orderProducts.firstWhere(
           (prod) => prod.productTitle == product.productTitle,
-          orElse: () => ProductItem(productTitle: '', productPrice: 0, productCategory: ''),
+          orElse: () => ProductItem(
+            productTitle: '',
+            productPrice: 0,
+          ),
         );
 
         if (orderProduct.productTitle != '') {
