@@ -8,7 +8,7 @@
 - **Benutzerfreundliche Oberfläche**: Intuitiv und leicht zu bedienen, ideal für Vereinsmitglieder und Eventhelfer.
 - **Firebase Authentication**: Sichere Authentifizierung und Verwaltung der Benutzerkonten, sodass nur berechtigte Personen Zugriff auf die App haben.
 - **Provider**: State Management für eine reaktive und dynamische Benutzererfahrung, ohne unnötige Rebuilds.
-- **Shimmer-Effekte**: Anzeige von Ladeanimationen für eine ansprechende User Experience beim Laden von Inhalten.
+
 
 ## Genutzte Technologien
 
