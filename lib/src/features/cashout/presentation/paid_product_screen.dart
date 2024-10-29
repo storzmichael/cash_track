@@ -22,10 +22,14 @@ class PaidProductsScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             leading: IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/order");
-                },
-                icon: Icon(Icons.chevron_left)),
+              onPressed: () {
+                Navigator.pushNamed(context, "/order");
+              },
+              icon: Icon(
+                Icons.chevron_left,
+                size: 30, // Hier kannst du die gewünschte Größe angeben
+              ),
+            ),
             title: Text(textFiles[language]![88]),
           ),
           body: Column(

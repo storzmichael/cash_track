@@ -19,7 +19,7 @@ void navigateToCashoutScreen(BuildContext context) {
 }
 
 // Function to navigate to the edit event screen
-void navigateToCreateProductScreen(BuildContext context) {
+void navigateToCreateProductScreen(BuildContext context, index) {
   // Use the Navigator to push to the "/editEvent" route
   Navigator.pushNamed(context, "/createProducts");
 }

@@ -13,9 +13,15 @@ const double logowidth = 320;
 const double borderRadius = 16;
 const double monitorBorderRadius = 8;
 
-bool isTableSelect = false;
+bool isInEditing = true;
 
 String language = 'Deutsch';
 
 const String appName = 'CashTrack';
 const String appImagePath = 'assets/logo/logo.png';
+
+const int crossAxisCount = 2; // Anzahl der Spalten im GridView
+const double crossAxisSpacing = 24; // Abstand zwischen den Spalten
+const double mainAxisSpacing = 16; // Abstand zwischen den Zeilen
+const double aspectRatio = 2; // Verhältnis von Breite zu Höhe der Tische
+const double gridheight = 379; // Höhe des Grids min. 379

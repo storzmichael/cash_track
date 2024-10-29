@@ -17,12 +17,6 @@ class OrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const int crossAxisCount = 2; // Anzahl der Spalten im GridView
-    const double crossAxisSpacing = 24; // Abstand zwischen den Spalten
-    const double mainAxisSpacing = 16; // Abstand zwischen den Zeilen
-    const double aspectRatio = 2; // Verhältnis von Breite zu Höhe der Tische
-    const double gridheight = 379; // Höhe des Grids min. 379
-
     final orderProvider = Provider.of<OrderProvider>(context);
     final languageProvider = Provider.of<LanguageProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context); // Zugriff auf den ProductProvider
@@ -54,10 +48,12 @@ class OrderScreen extends StatelessWidget {
             },
             icon: const Icon(Icons.settings),
           ),
-          IconButton(
-            onPressed: () => orderProvider.showAddButtonDialog(context, languageProvider.language),
-            icon: const Icon(Icons.add),
-          ),
+          !orderProvider.isTableSelect
+              ? IconButton(
+                  onPressed: () => orderProvider.showAddButtonDialog(context, languageProvider.language),
+                  icon: const Icon(Icons.add),
+                )
+              : const SizedBox.shrink(),
           const SizedBox(width: 16),
         ],
       ),
@@ -88,8 +84,8 @@ class OrderScreen extends StatelessWidget {
                             ? SizedBox(
                                 height: gridheight,
                                 child: CategoryRow(
-                                  category:
-                                      productProvider.categoryData, // Zugriff auf categoryData vom ProductProvider
+                                  categories:
+                                      productProvider.categories, // Zugriff auf categoryData vom ProductProvider
                                 ),
                               )
                             : SizedBox(

@@ -1,12 +1,14 @@
-import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/features/registration-login/application/login_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 
-class LoginTextField extends StatefulWidget {
+class LoginTextField extends StatelessWidget {
   final String labelName;
   final bool isPassword;
   final TextEditingController controller;
   final Color labelTextColor;
-  final double borderRadius; // Radius für die Ecken
+  final double borderRadius;
   final Color backgroundColor;
   final double height;
   final Widget? prefixIcon;
@@ -24,57 +26,49 @@ class LoginTextField extends StatefulWidget {
   });
 
   @override
-  _LoginTextFieldState createState() => _LoginTextFieldState();
-}
-
-class _LoginTextFieldState extends State<LoginTextField> {
-  bool _obscureText = true;
-
-  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LoginProvider>(context, listen: true);
+
     return Container(
       decoration: BoxDecoration(
-        color: widget.backgroundColor,
-        borderRadius: BorderRadius.circular(widget.borderRadius), // Radius für die Ecken
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(widget.borderRadius), // Radius für die Ecken
+        borderRadius: BorderRadius.circular(borderRadius),
         child: SizedBox(
-          height: widget.height,
+          height: height,
           child: TextField(
-            controller: widget.controller,
+            controller: controller,
+            obscureText: isPassword ? provider.obscureText : false,
             decoration: InputDecoration(
               filled: true,
-              fillColor: widget.backgroundColor,
-              border: InputBorder.none, // Kein Rahmen
-              focusedBorder: InputBorder.none, // Kein Rahmen, wenn im Fokus
-              errorBorder: InputBorder.none, // Kein Rahmen bei Fehler
-              labelText: widget.labelName,
-              labelStyle: TextStyle(color: widget.labelTextColor),
-              floatingLabelStyle: TextStyle(color: widget.labelTextColor),
+              fillColor: backgroundColor,
+              border: InputBorder.none,
+              labelText: labelName,
+              labelStyle: TextStyle(color: labelTextColor),
+              floatingLabelStyle: TextStyle(color: labelTextColor),
               floatingLabelBehavior: FloatingLabelBehavior.never,
-              contentPadding: EdgeInsets.symmetric(vertical: (widget.height - 20) / 2, horizontal: 12),
-              prefixIcon: widget.prefixIcon != null
+              contentPadding: EdgeInsets.symmetric(
+                vertical: (height - 20) / 2,
+                horizontal: 12,
+              ),
+              prefixIcon: prefixIcon != null
                   ? IconTheme(
-                      data: IconThemeData(color: widget.labelTextColor),
-                      child: widget.prefixIcon!,
+                      data: IconThemeData(color: labelTextColor),
+                      child: prefixIcon!,
                     )
                   : null,
-              suffixIcon: widget.isPassword
+              suffixIcon: isPassword
                   ? IconButton(
                       icon: Icon(
-                        color: widget.labelTextColor,
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                        provider.obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: labelTextColor,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
+                      onPressed: provider.toggleObscureText,
                     )
                   : null,
             ),
-            obscureText: widget.isPassword ? _obscureText : false,
           ),
         ),
       ),

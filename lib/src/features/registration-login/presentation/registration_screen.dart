@@ -5,6 +5,7 @@ import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/core/presentation/theme_container.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/registration-login/presentation/shimmer_logo.dart';
+import 'package:cash_track/src/features/registration-login/presentation/widgets/abg_checkbox_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -126,24 +127,40 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Stack(
+      appBar: AppBar(
+        title: Text(textFiles[language]![27]),
+      ),
+      body: Column(
         children: [
-          const ThemeContainer(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(bottomPadding, 0, bottomPadding, sitesPadding),
-            child: Column(
-              children: [
-                const SizedBox(height: 0),
-                _logo(),
-                const SizedBox(height: 50),
-                _emailTextField(),
-                const SizedBox(height: 8),
-                _passwordTextField(),
-                const SizedBox(height: 16),
-                _registerButton(),
-                const SizedBox(height: 8),
-              ],
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    lightThemeList[0],
+                    lightThemeList[1],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(bottomPadding, 0, bottomPadding, sitesPadding),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 0),
+                    _logo(),
+                    const SizedBox(height: 50),
+                    _emailTextField(),
+                    const SizedBox(height: 8),
+                    _passwordTextField(),
+                    const SizedBox(height: 16),
+                    _registerButton(),
+                    const SizedBox(height: 8),
+                    AgbCheckboxField(agbText: 'hallo', agbLink: 'agbLink')
+                  ],
+                ),
+              ),
             ),
           ),
         ],

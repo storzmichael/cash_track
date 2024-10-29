@@ -53,36 +53,7 @@ class TextFieldEvent extends StatelessWidget {
         ValueListenableBuilder<bool>(
           valueListenable: isButtonEnabled,
           builder: (context, isEnabled, child) {
-            return BigButton(
-              buttonName: textFiles[language]![44],
-              onPressed: isEnabled
-                  ? () async {
-                      try {
-                        Map<String, List> categoryData = productProvider.categoryData;
-                        List<String> orderDeskNumbers = orderProvider.orderDeskNumbers;
-                        Map<String, List<ProductItem>> orderDeskProducts = orderProvider.orderDeskProducts;
-                        List<ProductItem> paidProducts = orderProvider.cashoutProducts;
-                        List<String> tables = orderProvider.tables;
-
-                        await setNewEvent(
-                          eventNameController.text,
-                          categoryData,
-                          orderDeskNumbers,
-                          orderDeskProducts,
-                          paidProducts,
-                          tables,
-                        );
-
-                        Navigator.pushReplacementNamed(context, "/createProducts");
-                      } catch (e) {
-                        print(e);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Fehler beim Erstellen des Events: $e')),
-                        );
-                      }
-                    }
-                  : null,
-            );
+            return BigButton(buttonName: textFiles[language]![44], onPressed: () {});
           },
         ),
         SizedBox(height: bottomSafeArea),
