@@ -30,7 +30,7 @@
 
 1. **Anmelden**: Der Benutzer meldet sich mit seinen Anmeldedaten über Firebase Auth an.
 2. **Kassieren**: Benutzer können Bestellungen verwalten, Zahlungen entgegennehmen und Verkaufsdaten in Echtzeit einsehen.
-3. **Ladeanimationen**: Die Shimmer-Effekte sorgen für eine reibungslose UX, indem Ladezeiten überbrückt und Inhalte attraktiv dargestellt werden.
+
 
 ## Weitere Informationen
 
