@@ -3,6 +3,8 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Importiere Firebase Auth
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -28,27 +30,15 @@ class SettingScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _signOut(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      // Hier kannst du den Benutzer zur Anmeldeseite weiterleiten oder eine andere Aktion durchführen
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacementNamed("/"); // Beispiel
-    } catch (e) {
-      // Fehlerbehandlung
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${textFiles[language]![56]}: $e')),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
-          textFiles[language]![49],
+          textFiles[languageProvider.language]![49], // Titel für die Einstellungen
           style: Theme.of(context).textTheme.labelLarge,
         ),
       ),
@@ -74,9 +64,9 @@ class SettingScreen extends StatelessWidget {
                     _buildListTile(
                       context,
                       icon: Icons.person,
-                      title: textFiles[language]![2],
+                      title: textFiles[languageProvider.language]![2], // Profil
                       onTap: () {
-                        // Hier kannst du die Navigationslogik zu deinem Profil-Screen hinzufügen
+                        // Navigationslogik zu deinem Profil-Screen hinzufügen
                       },
                     ),
                     _buildDivider(),
@@ -85,18 +75,18 @@ class SettingScreen extends StatelessWidget {
                     _buildListTile(
                       context,
                       icon: Icons.lock,
-                      title: textFiles[language]![57],
+                      title: textFiles[languageProvider.language]![57], // Datenschutz
                       onTap: () {
-                        // Hier kannst du die Navigationslogik zu Datenschutz-Einstellungen hinzufügen
+                        // Navigationslogik zu Datenschutz-Einstellungen hinzufügen
                       },
                     ),
                     _buildDivider(),
 
-                    // Benachrichtigungen
+                    // Sprache
                     _buildListTile(
                       context,
                       icon: Icons.language,
-                      title: textFiles[language]![58],
+                      title: textFiles[languageProvider.language]![58], // Sprache
                       onTap: () {
                         Navigator.pushNamed(context, "/language");
                       },
@@ -107,9 +97,9 @@ class SettingScreen extends StatelessWidget {
                     _buildListTile(
                       context,
                       icon: Icons.devices,
-                      title: textFiles[language]![59],
+                      title: textFiles[languageProvider.language]![59], // Chats
                       onTap: () {
-                        // Hier kannst du die Navigationslogik zu Chat-Einstellungen hinzufügen
+                        // Navigationslogik zu Chat-Einstellungen hinzufügen
                       },
                     ),
                     _buildDivider(),
@@ -118,23 +108,12 @@ class SettingScreen extends StatelessWidget {
                     _buildListTile(
                       context,
                       icon: Icons.help,
-                      title: textFiles[language]![60],
+                      title: textFiles[languageProvider.language]![60], // Hilfe
                       onTap: () {
-                        // Hier kannst du die Navigationslogik zu Hilfe-Seite hinzufügen
+                        // Navigationslogik zu Hilfe-Seite hinzufügen
                       },
                     ),
                     _buildDivider(),
-
-                    // Abmelden
-                    _buildListTile(
-                      context,
-                      icon: Icons.exit_to_app,
-                      title: textFiles[language]![61],
-                      onTap: () {
-                        _signOut(context);
-                      },
-                      color: alertColor,
-                    ),
                   ],
                 ),
               ),

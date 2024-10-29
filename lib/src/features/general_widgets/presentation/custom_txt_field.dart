@@ -1,8 +1,8 @@
-import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
-import 'package:flutter/material.dart';
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -18,39 +18,45 @@ class CustomTextField extends StatelessWidget {
   // Optional input formatter for restricting input (e.g., digits only)
   final TextInputFormatter? inputFormatter;
 
+  // Function to handle text change
+  final void Function(String)? onChanged; // Hier hinzugefügt
+
   // Constructor for initializing CustomTextField widget
   const CustomTextField({
-    super.key, // Key for widget identification
-    this.controller, // Text controller (optional)
-    required this.eventTextfieldItem, // Required object for hint text and other properties
-    this.keyboardType = TextInputType.text, // Default keyboard type is text
-    this.inputFormatter, // Optional input formatter for validation
-    required Null Function(dynamic value) onChanged, // Function to handle text change
+    super.key,
+    this.controller,
+    required this.eventTextfieldItem,
+    this.keyboardType = TextInputType.text,
+    this.inputFormatter,
+    this.onChanged, // Hier hinzugefügt
   });
 
   @override
   Widget build(BuildContext context) {
-    // Main widget build method that returns a customized text field
     return Container(
       decoration: BoxDecoration(
-        color: textFieldColor, // Background color for the text field
-        borderRadius: BorderRadius.circular(borderRadiusSmallButton), // Rounded corners
+        color: textFieldColor,
+        borderRadius: BorderRadius.circular(borderRadiusSmallButton),
       ),
-      height: textFieldheight, // Fixed height for the text field
-      width: double.infinity, // Full width of the parent container
+      height: textFieldheight,
+      width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: textPadding), // Horizontal padding
+        padding: const EdgeInsets.symmetric(horizontal: textPadding),
         child: Center(
           child: TextFormField(
-            controller: controller, // Links the controller to the text field
+            autofocus: true,
+            controller: controller,
+            keyboardType: keyboardType, // Keyboard type verwenden
+            inputFormatters: inputFormatter != null ? [inputFormatter!] : null,
             decoration: InputDecoration(
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold), // Bold label text style
-              hintText: eventTextfieldItem.eventTextfieldHintText, // Hint text from eventTextfieldItem
-              hintStyle: const TextStyle(color: Colors.white), // Hint text color
-              border: InputBorder.none, // No border style for the text field
-              isCollapsed: true, // Collapses the field's internal padding
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              hintText: eventTextfieldItem.eventTextfieldHintText,
+              hintStyle: const TextStyle(color: Colors.white),
+              border: InputBorder.none,
+              isCollapsed: true,
             ),
-            textAlignVertical: TextAlignVertical.center, // Centers the text vertically
+            textAlignVertical: TextAlignVertical.center,
+            onChanged: onChanged, // onChanged-Callback hier hinzugefügt
           ),
         ),
       ),

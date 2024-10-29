@@ -3,10 +3,13 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
+import 'package:cash_track/src/features/registration-login/domain/password_reset_service.dart';
 import 'package:cash_track/src/features/registration-login/presentation/shimmer_logo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Importiere Provider
 import 'login_text_field.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _signInWithEmailandPassword() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       setState(() {
-        _errorMassage = textFiles[language]![69];
+        _errorMassage = textFiles[language]![69]; // Fehlertext für leere Eingaben
       });
       _errorAlert();
       return;
@@ -50,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _errorAlert();
     } catch (e) {
       setState(() {
-        _errorMassage = '${textFiles[language]![70]}: $e';
+        _errorMassage = '${textFiles[language]![70]}: $e'; // Unerwarteter Fehler
       });
       _errorAlert();
     }
@@ -62,14 +65,14 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(textFiles[language]![54]),
+            title: Text(textFiles[language]![54]), // Fehlerdialog-Titel
             content: Text(
               _errorMassage!,
               style: const TextStyle(fontSize: 13, color: alertColor),
             ),
             actions: <Widget>[
               TextButton(
-                child: Text(textFiles[language]![55]),
+                child: Text(textFiles[language]![55]), // Dialog-Button
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -86,16 +89,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _emailTextField() {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
     return LoginTextField(
-      labelName: textFiles[language]![22],
+      labelName: textFiles[languageProvider.language]![22], // E-Mail-Label
       controller: _emailController,
       prefixIcon: const Icon(Icons.person_2_outlined),
     );
   }
 
   Widget _passwordTextField() {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
     return LoginTextField(
-      labelName: textFiles[language]![23],
+      labelName: textFiles[languageProvider.language]![23], // Passwort-Label
       isPassword: true,
       controller: _passwordController,
       prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -103,20 +108,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _loginButton() {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
     return BigButton(
       onPressed: _signInWithEmailandPassword,
-      buttonName: textFiles[language]![20],
+      buttonName: textFiles[languageProvider.language]![20], // Login-Button-Text
     );
   }
 
   Widget _registerButton() {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
     return TextButton(
       onPressed: () {
         Navigator.pushNamed(context, "/registration");
       },
       child: Text(
-        textFiles[language]![27],
-        style: Theme.of(context).textTheme.labelLarge,
+        textFiles[languageProvider.language]![27], // Registrierung-Button-Text
+        style: Theme.of(context).textTheme.labelMedium,
+      ),
+    );
+  }
+
+  Widget _passwordForgotButton() {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+    return TextButton(
+      onPressed: () {
+        showPasswordResetDialog(
+          context,
+        );
+      },
+      child: Text(
+        textFiles[languageProvider.language]![84], // Registrierung-Button-Text
+        style: Theme.of(context).textTheme.labelMedium,
       ),
     );
   }
@@ -165,11 +187,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       _passwordTextField(),
                       const SizedBox(height: 16),
                       _loginButton(),
-                      _registerButton(),
+                      Row(
+                        children: [
+                          _passwordForgotButton(),
+                          Expanded(child: SizedBox()),
+                          _registerButton(),
+                        ],
+                      ),
                       Expanded(
                         child: SizedBox(),
                       ),
-                      _testButton(),
+                      //_testButton(),
                       const SizedBox(height: bottomSafeArea),
                     ],
                   ),

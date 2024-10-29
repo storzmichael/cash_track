@@ -12,6 +12,7 @@ class DialogHelper {
     required String confirmButtonText,
     required Function(String) onConfirm,
     String? initialValue = '', // Optional initial value for the text field
+    TextEditingController? controller,
   }) {
     final TextEditingController textController = TextEditingController(text: initialValue);
 

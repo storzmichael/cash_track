@@ -2,11 +2,24 @@ import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/presentation/layout_widgets/event_grid.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
 import 'package:shimmer/shimmer.dart';
 
 class EventScreen extends StatelessWidget {
   const EventScreen({super.key});
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacementNamed("/"); // Beispiel
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${textFiles[language]![56]}: $e')),
+      );
+    }
+  }
 
   Widget _logo() {
     return Center(
@@ -32,8 +45,12 @@ class EventScreen extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            textFiles[language]![21],
+          Consumer<LanguageProvider>(
+            builder: (context, languageProvider, child) {
+              return Text(
+                textFiles[languageProvider.language]![21], // Dynamischer Text
+              );
+            },
           ),
         ],
       ),
@@ -42,11 +59,23 @@ class EventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                _signOut(context);
+              },
+              icon: Icon(
+                Icons.logout_outlined,
+                color: Colors.red,
+              ))
+        ],
         automaticallyImplyLeading: false,
         title: Text(
-          textFiles[language]![0],
+          textFiles[languageProvider.language]![0], // Dynamischer Titel
           style: Theme.of(context).textTheme.labelLarge,
         ),
       ),
@@ -69,9 +98,7 @@ class EventScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     _logo(),
-                    const SizedBox(
-                      height: 32,
-                    ),
+                    const SizedBox(height: 32),
                     const EventGrid(),
                   ],
                 ),

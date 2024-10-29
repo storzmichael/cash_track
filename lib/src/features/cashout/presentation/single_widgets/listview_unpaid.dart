@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/order/application/order_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,8 +41,8 @@ class ListViewUnpaid extends StatelessWidget {
 
               // Überprüfen, ob product null ist
               if (product == null) {
-                return const ListTile(
-                  title: Text('Produkt nicht gefunden'),
+                return ListTile(
+                  title: Text(textFiles[language]![79]),
                 );
               }
 
@@ -52,7 +53,7 @@ class ListViewUnpaid extends StatelessWidget {
                 trailing:
                     Text('${(product.productPrice * product.quantity).toStringAsFixed(2)} €'), // Kategorie oder Preis
                 onTap: () {
-                  orderProvider.addProductToCashout(orderProvider.deskNumber, product);
+                  orderProvider.addProductToCashout(product, context);
                   log('Liste zubezahlenden Produkte: ${orderProvider.cashoutProducts}');
                 },
               );

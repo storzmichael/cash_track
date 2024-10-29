@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class ButtonCategoryCustom extends StatelessWidget {
   final String categoryTitle; // Titel der Kategorie, der auf dem Button angezeigt wird
-  final VoidCallback onPressed; // Callback-Funktion, die bei Klick auf den Button ausgeführt wird
+  final VoidCallback? onPressed; // Callback-Funktion, die bei Klick auf den Button ausgeführt wird
+  final VoidCallback? onLongPressed; // Callback-Funktion für Long-Press
   final Color backgroundColor; // Hintergrundfarbe des Buttons
   final Color textColor; // Textfarbe des Buttons
   final double borderRadius; // Radius der abgerundeten Ecken des Buttons
@@ -17,7 +18,8 @@ class ButtonCategoryCustom extends StatelessWidget {
   const ButtonCategoryCustom({
     super.key,
     required this.categoryTitle, // Der Titel der Kategorie ist erforderlich
-    required this.onPressed, // Die Aktion bei Knopfdruck ist erforderlich
+    this.onPressed, // Die Aktion bei Knopfdruck ist erforderlich
+    this.onLongPressed, // Die Aktion bei Langdruck ist optional
     this.backgroundColor = greenColor, // Standard-Hintergrundfarbe ist grün
     this.textColor = Colors.white, // Standard-Textfarbe ist weiß
     this.borderRadius = borderRadiusSmallButton, // Standardradius für abgerundete Ecken
@@ -33,23 +35,26 @@ class ButtonCategoryCustom extends StatelessWidget {
     return SizedBox(
       height: height, // Setzt die Höhe des Buttons
       width: width, // Setzt die Breite des Buttons
-      child: ElevatedButton(
-        onPressed: onPressed, // Setzt die Funktion, die bei Knopfdruck aufgerufen wird
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor, // Hintergrundfarbe des Buttons
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius), // Setzt die abgerundeten Ecken
+      child: GestureDetector(
+        onLongPress: onLongPressed, // Setzt die Funktion für Long-Press
+        child: ElevatedButton(
+          onPressed: onPressed, // Setzt die Funktion, die bei Knopfdruck aufgerufen wird
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor, // Hintergrundfarbe des Buttons
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius), // Setzt die abgerundeten Ecken
+            ),
           ),
-        ),
-        child: Text(
-          categoryTitle, // Zeigt den Titel der Kategorie an
-          textAlign: TextAlign.center, // Zentrierte Textausrichtung
-          maxLines: maxLines, // Maximale Anzahl der Zeilen
-          overflow: TextOverflow.ellipsis, // Textüberlauf wird mit Punkten angezeigt
-          style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                color: textColor, // Setzt die Textfarbe
-                fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal, // Setzt die Schriftstärke
-              ),
+          child: Text(
+            categoryTitle, // Zeigt den Titel der Kategorie an
+            textAlign: TextAlign.center, // Zentrierte Textausrichtung
+            maxLines: maxLines, // Maximale Anzahl der Zeilen
+            overflow: TextOverflow.ellipsis, // Textüberlauf wird mit Punkten angezeigt
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: textColor, // Setzt die Textfarbe
+                  fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal, // Setzt die Schriftstärke
+                ),
+          ),
         ),
       ),
     );

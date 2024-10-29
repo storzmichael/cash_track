@@ -1,13 +1,17 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Importiere Provider
 import 'package:shimmer/shimmer.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
 
 class ShimmerLogo extends StatelessWidget {
   const ShimmerLogo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+
     return Center(
       child: Column(
         children: [
@@ -35,7 +39,7 @@ class ShimmerLogo extends StatelessWidget {
             height: 16,
           ),
           Text(
-            textFiles[language]![21], // Zusätzlicher Text aus der Sprachdatei
+            textFiles[languageProvider.language]![21], // Zusätzlicher Text aus der Sprachdatei
           ),
         ],
       ),
