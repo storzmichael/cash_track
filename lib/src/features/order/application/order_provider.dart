@@ -1,8 +1,11 @@
 import 'dart:developer';
 
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
+import 'package:cash_track/src/features/events/application/product_provider.dart';
+import 'package:cash_track/src/features/events/presentation/screens/create_category.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +128,14 @@ class OrderProvider with ChangeNotifier {
           actions: [
             CupertinoDialogAction(
               onPressed: () {
-                Navigator.pushNamed(context, "/createProducts");
+                isInEditing = true;
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreateCategoryScreen(), // Hier den gewünschten Screen angeben
+                  ),
+                );
               },
               child: Text(textFiles[languageProvider.language]![36]),
             ),
@@ -147,6 +157,42 @@ class OrderProvider with ChangeNotifier {
                 Navigator.pop(context);
               },
               child: Text(textFiles[languageProvider.language]![14]),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> showDeleteCategoryDialog(BuildContext context, ProductProvider productProvider, int index) async {
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(textFiles[languageProvider.language]![92]), // Titel für die Bestätigung
+          content: Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Text(textFiles[languageProvider.language]![93]), // Inhalt der Bestätigung
+          ),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pop(context); // Schließe den Dialog
+              },
+              child: Text(
+                textFiles[languageProvider.language]![14],
+                style: TextStyle(color: blackColor),
+              ), // "Abbrechen" oder "Nein"
+            ),
+            CupertinoDialogAction(
+              onPressed: () {
+                productProvider.deleteCategory(index); // Führe die Löschaktion aus
+                Navigator.pop(context); // Schließe den Dialog
+              },
+              isDestructiveAction: true, // Markiere diese Aktion als destruktiv
+              child: Text(textFiles[languageProvider.language]![94]), // "Löschen"
             ),
           ],
         );
@@ -282,34 +328,35 @@ class OrderProvider with ChangeNotifier {
   final List<ProductItem> _cashoutProducts = [];
   List<ProductItem> get cashoutProducts => _cashoutProducts;
 
-  void addProductToCashout(String deskNumber, ProductItem product) {
-    if (_orderDeskProducts.containsKey(deskNumber)) {
-      List<ProductItem> products = _orderDeskProducts[deskNumber] ?? [];
+  void addProductToCashout(ProductItem product, BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
 
-      final existingProduct = products.firstWhere(
-        (p) => p.productTitle == product.productTitle,
-        orElse: () => ProductItem(
-          productTitle: '',
-          productPrice: 0,
-        ),
+    if (product.productTitle.isNotEmpty && product.productPrice > 0) {
+      final existingProduct = _cashoutProducts.firstWhere(
+        (prod) => prod.productTitle == product.productTitle,
+        orElse: () => ProductItem(productTitle: '', productPrice: 0, quantity: 1),
       );
 
-      if (existingProduct.productTitle.isNotEmpty && existingProduct.quantity > 0) {
+      if (existingProduct.productTitle != '') {
+        print('Menge erhöhen');
+        existingProduct.quantity++;
+      } else {
+        print('Produkt hinzufügen');
         _cashoutProducts.add(ProductItem(
-          productTitle: existingProduct.productTitle,
-          productPrice: existingProduct.productPrice,
+          productTitle: product.productTitle,
+          productPrice: product.productPrice,
           quantity: 1,
         ));
-
-        existingProduct.quantity--;
-
-        if (existingProduct.quantity == 0) {
-          products.removeWhere((p) => p.productTitle == product.productTitle);
-        }
-
-        _orderDeskProducts[deskNumber] = products;
-        notifyListeners();
       }
+
+      notifyListeners();
+    } else {
+      // Snackbar anzeigen, wenn das Produkt ungültig ist
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(textFiles[languageProvider.language]![77]),
+        ),
+      );
     }
   }
 

@@ -48,10 +48,12 @@ class OrderScreen extends StatelessWidget {
             },
             icon: const Icon(Icons.settings),
           ),
-          IconButton(
-            onPressed: () => orderProvider.showAddButtonDialog(context, languageProvider.language),
-            icon: const Icon(Icons.add),
-          ),
+          !orderProvider.isTableSelect
+              ? IconButton(
+                  onPressed: () => orderProvider.showAddButtonDialog(context, languageProvider.language),
+                  icon: const Icon(Icons.add),
+                )
+              : const SizedBox.shrink(),
           const SizedBox(width: 16),
         ],
       ),

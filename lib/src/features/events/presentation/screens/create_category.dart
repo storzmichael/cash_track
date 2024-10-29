@@ -18,18 +18,19 @@ class CreateCategoryScreen extends StatelessWidget {
   const CreateCategoryScreen({super.key});
 
   Widget _addButton(BuildContext context, ProductProvider productProvider, String language) {
+    final isButtonEnabled = productProvider.categoryController.text.isNotEmpty; // Überprüfe, ob das Textfeld leer ist
+
     return Center(
       child: SizedBox(
         width: 200,
         height: bigBttnHeight,
         child: OutlinedBigButton(
-          buttonName: textFiles[language]![15],
-          onPressed: () {
-            productProvider.addCategory(productProvider.categoryController.text);
-            productProvider.categoryController.clear();
-            log(productProvider.categoryProductMap.toString());
-          },
-        ),
+            buttonName: textFiles[language]![15], // Der Button-Name bleibt immer ein String
+            onPressed: () {
+              productProvider.addCategory(productProvider.categoryController.text);
+              productProvider.categoryController.clear();
+              log(productProvider.categoryProductMap.toString());
+            }),
       ),
     );
   }
@@ -83,8 +84,7 @@ class CreateCategoryScreen extends StatelessWidget {
                                 ? SizedBox(
                                     height: gridheight,
                                     child: CategoryRow(
-                                      categories:
-                                          productProvider.categories, // Zugriff auf categoryData vom ProductProvider
+                                      categories: productProvider.categories,
                                     ),
                                   )
                                 : SizedBox(

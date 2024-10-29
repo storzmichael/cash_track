@@ -13,7 +13,6 @@ const double logowidth = 320;
 const double borderRadius = 16;
 const double monitorBorderRadius = 8;
 
-bool isTableSelect = false;
 bool isInEditing = true;
 
 String language = 'Deutsch';

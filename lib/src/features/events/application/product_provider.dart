@@ -29,6 +29,19 @@ class ProductProvider with ChangeNotifier {
   // Getter für die Kategorie-Produkt-Map
   Map<String, List<ProductItem>> get categoryProductMap => _categoryProductMap;
 
+  // Methode zum Löschen einer Kategorie
+  void deleteCategory(int index) {
+    if (index >= 0 && index < categories.length) {
+      String categoryToDelete = categories[index];
+
+      categories.removeAt(index);
+
+      categoryProductMap.remove(categoryToDelete);
+
+      notifyListeners();
+    }
+  }
+
   // Methode zum Hinzufügen einer neuen Kategorie
   void addCategory(String category) {
     if (!categories.contains(category)) {

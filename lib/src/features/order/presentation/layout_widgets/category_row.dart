@@ -42,17 +42,32 @@ class CategoryRow extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: smallPadding),
-                child: ButtonCategoryCustom(
-                  categoryTitle: categories[index], // Titel der Kategorie
-                  fontInBold: true, // Schrift fett
-                  onPressed: () {
-                    productProvider.setSelectedCategory(index);
-                    productProvider.toCategory =
-                        productProvider.categories[index]; // Setze die ausgewählte Kategorie im Provider
-                    log(productProvider.categoryProductMap.toString());
-                    log(productProvider.toCategory ?? 'Default Category');
-                  },
-                ),
+                child: isInEditing
+                    ? ButtonCategoryCustom(
+                        // dieses ändern
+                        categoryTitle: categories[index], // Titel der Kategorie
+                        fontInBold: true, // Schrift fett
+                        onPressed: () {
+                          productProvider.setSelectedCategory(index);
+                          productProvider.toCategory = categories[index]; // Setze die ausgewählte Kategorie im Provider
+                          print(productProvider.categories[index]);
+                          print(productProvider.toCategory);
+                        },
+                        onLongPressed: () async {
+                          await orderProvider.showDeleteCategoryDialog(context, productProvider, index);
+                        },
+                      )
+                    : ButtonCategoryCustom(
+                        categoryTitle: categories[index], // Titel der Kategorie
+                        fontInBold: true, // Schrift fett
+                        onPressed: () {
+                          productProvider.setSelectedCategory(index);
+                          productProvider.toCategory =
+                              productProvider.categories[index]; // Setze die ausgewählte Kategorie im Provider
+                          log(productProvider.categoryProductMap.toString());
+                          log(productProvider.toCategory ?? 'Default Category');
+                        },
+                      ),
               );
             },
           ),

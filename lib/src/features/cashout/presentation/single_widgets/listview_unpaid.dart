@@ -53,7 +53,7 @@ class ListViewUnpaid extends StatelessWidget {
                 trailing:
                     Text('${(product.productPrice * product.quantity).toStringAsFixed(2)} €'), // Kategorie oder Preis
                 onTap: () {
-                  orderProvider.addProductToCashout(orderProvider.deskNumber, product);
+                  orderProvider.addProductToCashout(product, context);
                   log('Liste zubezahlenden Produkte: ${orderProvider.cashoutProducts}');
                 },
               );

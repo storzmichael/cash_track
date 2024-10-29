@@ -92,9 +92,9 @@ class CreateProductScreen extends StatelessWidget {
                         );
 
                         productProvider.updateProductItem(
-                          _toCategory, // Die Kategorie
-                          index, // Der Index des Produkts
-                          updatedProduct, // Das aktualisierte ProductItem
+                          _toCategory,
+                          index,
+                          updatedProduct,
                         );
                       },
                     ),

@@ -35,7 +35,7 @@ List<String> german = [
   'Username', // 33
   'Eingaben ungültig', // 34
   'Registrierung abschließen', // 35
-  'Produkte erstellen', // 36
+  'Produkte bearbeiten', // 36
   'Produktname', // 37
   'Produktpreis', // 38
   'Produktkategorie', // 39
@@ -91,5 +91,8 @@ List<String> german = [
   'Auswertung Events', // 89
   'Kategorien erstellen', // 90
   'Kategorie:', // 91
+  'Kategorie löschen?', // 92
+  'Sind sie sicher?', // 93
+  'Löschen', // 94,
 ];
 // textFiles[language]![0]
