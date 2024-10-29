@@ -7,8 +7,11 @@
 
 - **Benutzerfreundliche Oberfläche**: Intuitiv und leicht zu bedienen, ideal für Vereinsmitglieder und Eventhelfer.
 - **Firebase Authentication**: Sichere Authentifizierung und Verwaltung der Benutzerkonten, sodass nur berechtigte Personen Zugriff auf die App haben.
-- **Provider**: State Management für eine reaktive und dynamische Benutzererfahrung, ohne unnötige Rebuilds.
-
+- **Eigene Events erstellen**: Benutzer können individuelle Events nach ihren Bedürfnissen anlegen.
+- **Kategorien erstellen**: Es können verschiedene Kategorien für Produkte erstellt werden, um die Verwaltung zu erleichtern.
+- **Eigene Produkte erstellen**: Benutzer haben die Möglichkeit, ihre eigenen Produkte hinzuzufügen.
+- **Zugriff auf vergangene Events**: Es kann auf vergangene Events zugegriffen werden, um Verkaufsdaten einzusehen.
+- **Gesamtübersicht**: Die App bietet eine Übersicht aller verkauften Produkte zu jedem Event.
 
 ## Genutzte Technologien
 
@@ -30,7 +33,6 @@
 
 1. **Anmelden**: Der Benutzer meldet sich mit seinen Anmeldedaten über Firebase Auth an.
 2. **Kassieren**: Benutzer können Bestellungen verwalten, Zahlungen entgegennehmen und Verkaufsdaten in Echtzeit einsehen.
-
 
 ## Weitere Informationen
 
