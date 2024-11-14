@@ -5,7 +5,6 @@ import 'package:cash_track/src/features/events/application/product_provider.dart
 import 'package:cash_track/src/features/events/domain/event_textfield_item.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
 import 'package:cash_track/src/features/order/domain/product_item.dart';
-import 'package:cash_track/src/features/order/presentation/layout_widgets/category_row.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
