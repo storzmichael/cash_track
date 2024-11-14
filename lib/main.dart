@@ -57,7 +57,7 @@ class MainApp extends StatelessWidget {
         "/language": (context) => const LanguageScreen(),
         "/settings": (context) => const SettingScreen(),
         "/paid": (context) => PaidProductsScreen(),
-        "createCategory": (context) => const CreateCategoryScreen(),
+        "/createCategory": (context) => const CreateCategoryScreen(),
       },
     );
   }

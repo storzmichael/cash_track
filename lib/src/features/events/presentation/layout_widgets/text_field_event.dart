@@ -53,7 +53,11 @@ class TextFieldEvent extends StatelessWidget {
         ValueListenableBuilder<bool>(
           valueListenable: isButtonEnabled,
           builder: (context, isEnabled, child) {
-            return BigButton(buttonName: textFiles[language]![44], onPressed: () {});
+            return BigButton(
+                buttonName: textFiles[language]![44],
+                onPressed: () {
+                  Navigator.pushNamed(context, "/createCategory");
+                });
           },
         ),
         SizedBox(height: bottomSafeArea),

@@ -1,16 +1,16 @@
 List<String> english = [
-  'event', // 0
-  'my events', // 1
-  'profile', // 2
-  'table number', //3
+  'Event', // 0
+  'My Events', // 1
+  'Profile', // 2
+  'Table Number', // 3
   'Total', // 4
-  'Complete payment', // 5
+  'Complete Payment', // 5
   'Pending', // 6
-  'Please create a category', // 7
+  'Please create a category.', // 7
   'No items in this category.', // 8
   'Please enter something', // 9
   'Table with the name', // 10
-  'already exists', // 11
+  'already exists!', // 11
   'Add new table', // 12
   'Enter table name', // 13
   'Cancel', // 14
@@ -18,28 +18,28 @@ List<String> english = [
   'Delete button', // 16
   'Do you really want to delete this button?', // 17
   'Delete', // 18
-  'Change profile', // 19
+  'Edit Profile', // 19
   'Login', // 20
   'Simply Smart Checkout', // 21
-  'E-mail', // 22
+  'Email', // 22
   'Password', // 23
-  'Password incorrect', // 24
+  'Incorrect password', // 24
   'Stay logged in', // 25
-  'Forgot your password?', // 26
+  'Forgot password?', // 26
   'Register', // 27
   'Please enter', // 28
-  'enter', // 29
+  'in', // 29
   'Please enter a valid email', // 30
   'Username must be at least 6 characters long', // 31
   'Password must be at least 6 characters long', // 32
   'Username', // 33
-  'Input invalid', // 34
+  'Invalid input', // 34
   'Complete registration', // 35
-  'Create products', // 36
+  'Edit products', // 36
   'Product name', // 37
   'Product price', // 38
   'Product category', // 39
-  'Product list by category', // 40
+  'Product list by categories', // 40
   'To event', // 41
   'Create new event', // 42
   'Generate new code', // 43
@@ -49,15 +49,14 @@ List<String> english = [
   'Join as guest', // 47
   'Registration', // 48
   'Settings', // 49
-  'Please enter e-mail and password', // 50
-
+  'Please enter email and password', // 50
   'An account with this email address already exists.', // 51
-  'An unknown error has occurred.', // 52
-  'Error occurred', // 53
+  'An unknown error occurred.', // 52
+  'An error occurred', // 53
   'Error', // 54
   'OK', // 55
   'Logout failed', // 56
-  'Data protection', // 57
+  'Privacy Policy', // 57
   'Language', // 58
   'Connected devices', // 59
   'Help', // 60
@@ -65,29 +64,34 @@ List<String> english = [
   'German', // 62
   'English', // 63
   'New event', // 64
-  'Join Event', // 65
+  'Join event', // 65
   'Event name', // 66
   'Creator', // 67
   'Code', // 68
   'Please enter email and password', // 69
-  'An unexpected error has occurred', // 70
-  'Please enter a valid price', // 71
-  'Are you sure you want to delete the product?', // 72,
-  'Please enter a valid price', // 73
+  'An unexpected error occurred', // 70
+  'Please enter a valid price.', // 71
+  'Really delete product?', // 72
+  'Please enter a valid price.', // 73
   'Product:', // 74
   'One of the fields is empty, please fill in all fields.', // 75
-  'There are already 12 products in this category. No more products can be added.', // 76
+  'There are already 12 products in this category. No further products can be added.', // 76
   'This product is no longer available.', // 77
-  'This product is not in the shopping cart.', // 78
-  'Product not found', // 79q
-  'What do you want to do?', // 80
-  'To the product', // 81
+  'This product is not in the cart.', // 78
+  'Product not found', // 79
+  'What would you like to do?', // 80
+  'To product', // 81
   'Leave event', // 82
   'Table:', // 83
   'Forgot password?', // 84
-  'Please submit email address', // 85
+  'Please provide email address', // 85
   'We will send you an email to reset your password', // 86
   'Send', // 87
-  'All products sold', // 88
-  'Evaluation events', // 89
+  'All sold products', // 88
+  'Event analysis', // 89
+  'Create categories', // 90
+  'Category:', // 91
+  'Delete category?', // 92
+  'Are you sure?', // 93
+  'Delete', // 94
 ];

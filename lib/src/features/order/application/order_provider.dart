@@ -328,35 +328,53 @@ class OrderProvider with ChangeNotifier {
   final List<ProductItem> _cashoutProducts = [];
   List<ProductItem> get cashoutProducts => _cashoutProducts;
 
-  void addProductToCashout(ProductItem product, BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+  void addProductToCashout(String deskNumber, ProductItem product) {
+    if (_orderDeskProducts.containsKey(deskNumber)) {
+      List<ProductItem> products = _orderDeskProducts[deskNumber] ?? [];
 
-    if (product.productTitle.isNotEmpty && product.productPrice > 0) {
-      final existingProduct = _cashoutProducts.firstWhere(
-        (prod) => prod.productTitle == product.productTitle,
-        orElse: () => ProductItem(productTitle: '', productPrice: 0, quantity: 1),
-      );
-
-      if (existingProduct.productTitle != '') {
-        print('Menge erhöhen');
-        existingProduct.quantity++;
-      } else {
-        print('Produkt hinzufügen');
-        _cashoutProducts.add(ProductItem(
-          productTitle: product.productTitle,
-          productPrice: product.productPrice,
-          quantity: 1,
-        ));
-      }
-
-      notifyListeners();
-    } else {
-      // Snackbar anzeigen, wenn das Produkt ungültig ist
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(textFiles[languageProvider.language]![77]),
+      final existingProduct = products.firstWhere(
+        (p) => p.productTitle == product.productTitle,
+        orElse: () => ProductItem(
+          productTitle: '',
+          productPrice: 0,
         ),
       );
+
+      if (existingProduct.productTitle.isNotEmpty && existingProduct.quantity > 0) {
+        // Prüfen, ob das Produkt bereits in `_cashoutProducts` existiert
+        final cashoutProduct = _cashoutProducts.firstWhere(
+          (p) => p.productTitle == product.productTitle,
+          orElse: () => ProductItem(
+            productTitle: '',
+            productPrice: 0,
+          ),
+        );
+
+        if (cashoutProduct.productTitle.isNotEmpty) {
+          // Produkt existiert bereits in `_cashoutProducts`, nur `quantity` erhöhen
+          cashoutProduct.quantity++;
+        } else {
+          // Produkt existiert noch nicht in `_cashoutProducts`, neu hinzufügen
+          _cashoutProducts.add(ProductItem(
+            productTitle: existingProduct.productTitle,
+            productPrice: existingProduct.productPrice,
+            quantity: 1,
+          ));
+        }
+
+        // `quantity` in `orderDeskProducts` reduzieren
+        existingProduct.quantity--;
+
+        // Produkt entfernen, falls `quantity` 0 erreicht
+        if (existingProduct.quantity == 0) {
+          products.removeWhere((p) => p.productTitle == product.productTitle);
+        }
+
+        // Aktualisierte Liste in der Map speichern
+        _orderDeskProducts[deskNumber] = products;
+
+        notifyListeners();
+      }
     }
   }
 
