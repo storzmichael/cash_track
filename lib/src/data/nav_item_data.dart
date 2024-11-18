@@ -3,21 +3,21 @@ import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/core/domain/nav_items.dart';
 import 'package:flutter/material.dart';
 
-// List of navigation items for the bottom navigation bar
+/// Liste der Navigationselemente für die untere Navigationsleiste
 List<NavigationItem> navigationItemData = [
   NavigationItem(
-    activeIcon: Icons.event_available, // Active icon when the event screen is selected
-    icon: Icons.event_outlined, // Default icon for the event screen
-    label: textFiles[language]![0], // Label for the event screen, pulled from the language file
+    activeIcon: Icons.event_available, // Aktives Icon für den Event-Bildschirm
+    icon: Icons.event_outlined, // Standard-Icon für den Event-Bildschirm
+    label: textFiles[language]![0], // Beschriftung für den Event-Bildschirm, aus der Sprachdatei geladen
   ),
   NavigationItem(
-    activeIcon: Icons.favorite, // Active icon when the favorites screen is selected
-    icon: Icons.favorite_border, // Default icon for the favorites screen
-    label: textFiles[language]![1], // Label for the favorites screen, pulled from the language file
+    activeIcon: Icons.favorite, // Aktives Icon für den Favoriten-Bildschirm
+    icon: Icons.favorite_border, // Standard-Icon für den Favoriten-Bildschirm
+    label: textFiles[language]![1], // Beschriftung für den Favoriten-Bildschirm, aus der Sprachdatei geladen
   ),
   NavigationItem(
-    activeIcon: Icons.settings, // Active icon when the profile screen is selected
-    icon: Icons.settings, // Default icon for the profile screen
-    label: textFiles[language]![49], // Label for the profile screen, pulled from the language file
+    activeIcon: Icons.settings, // Aktives Icon für den Profil- oder Einstellungs-Bildschirm
+    icon: Icons.settings, // Standard-Icon für den Profil- oder Einstellungs-Bildschirm
+    label: textFiles[language]![49], // Beschriftung für den Profil-Bildschirm, aus der Sprachdatei geladen
   ),
 ];

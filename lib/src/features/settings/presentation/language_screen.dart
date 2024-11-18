@@ -8,67 +8,71 @@ import 'package:cash_track/src/data/lang/app_text.dart';
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
 
+  // Hilfsmethode zum Erstellen eines ListTile-Widgets mit Symbol, Titel und einer Aktion
   Widget _buildListTile(
     BuildContext context, {
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    Color color = Colors.black,
+    required IconData icon, // Icon, das vor dem Titel angezeigt wird
+    required String title, // Titel des ListTiles
+    required VoidCallback onTap, // Aktion, die bei einem Tap ausgeführt wird
+    Color color = Colors.black, // Farbe des Icons (Standard: Schwarz)
   }) {
     return ListTile(
-      leading: Icon(icon, color: color),
-      title: Text(title),
-      onTap: onTap,
+      leading: Icon(icon, color: color), // Das Icon für das ListTile
+      title: Text(title), // Der Titel des ListTile
+      onTap: onTap, // Aktion, die beim Tippen auf das ListTile ausgeführt wird
     );
   }
 
+  // Hilfsmethode zum Erstellen einer horizontalen Trennlinie (Divider)
   Widget _buildDivider() {
     return const Divider(
-      height: 0.1,
-      color: Colors.white,
+      height: 0.1, // Minimale Höhe des Dividers
+      color: Colors.white, // Farbe des Dividers (weiß)
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    // Zugriff auf den LanguageProvider, um die aktuelle Sprache zu verwalten
     final languageProvider = Provider.of<LanguageProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          textFiles[languageProvider.language]![58], // Titel für die Spracheinstellungen
+          textFiles[languageProvider.language]![
+              58], // Titel für die Spracheinstellungen, dynamisch basierend auf der gewählten Sprache
         ),
       ),
       body: Stack(
         children: [
-          const ThemeContainer(),
+          const ThemeContainer(), // Ein Container für das Hintergrund-Design oder Theme
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0), // Padding für das ListView
             child: ListView(
               children: [
-                // Sprache: Deutsch
+                // ListTile für Deutsch, beim Tippen wird die Sprache auf Deutsch gesetzt
                 _buildListTile(
                   context,
-                  icon: Icons.language,
-                  title: 'Deutsch',
+                  icon: Icons.language, // Das Sprach-Icon
+                  title: 'Deutsch', // Titel für Deutsch
                   onTap: () {
-                    languageProvider.setLanguage('Deutsch');
+                    languageProvider.setLanguage('Deutsch'); // Setzt die Sprache auf Deutsch
                   },
                 ),
-                _buildDivider(),
+                _buildDivider(), // Divider zwischen den ListTiles
 
-                // Sprache: Englisch
+                // ListTile für Englisch, beim Tippen wird die Sprache auf Englisch gesetzt
                 _buildListTile(
                   context,
-                  icon: Icons.language,
-                  title: 'English',
+                  icon: Icons.language, // Das Sprach-Icon
+                  title: 'English', // Titel für Englisch
                   onTap: () {
-                    languageProvider.setLanguage('English');
+                    languageProvider.setLanguage('English'); // Setzt die Sprache auf Englisch
                   },
                 ),
-                _buildDivider(),
+                _buildDivider(), // Divider zwischen den ListTiles
 
-                // Weitere Einstellungen...
+                // Weitere Einstellungen könnten hier hinzugefügt werden
               ],
             ),
           ),

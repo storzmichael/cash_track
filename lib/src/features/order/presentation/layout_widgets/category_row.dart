@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cash_track/src/config/button_varibals.dart';
 import 'package:cash_track/src/config/config.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_product_screen.dart.dart';
@@ -18,7 +19,7 @@ class CategoryRow extends StatelessWidget {
   final List<String> categories; // Liste der Kategorien
   final List<ProductItem> products; // Liste der Produkte
 
-  CategoryRow({
+  const CategoryRow({
     super.key,
     required this.categories,
     this.products = const [],
@@ -44,9 +45,11 @@ class CategoryRow extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: smallPadding),
                 child: isInEditing
                     ? ButtonCategoryCustom(
-                        // dieses ändern
                         categoryTitle: categories[index], // Titel der Kategorie
                         fontInBold: true, // Schrift fett
+                        backgroundColor: productProvider.selectedCategory == index
+                            ? greenColor // Farbe für ausgewählte Kategorie
+                            : greyColor, // Standardfarbe
                         onPressed: () {
                           productProvider.setSelectedCategory(index);
                           productProvider.toCategory = categories[index]; // Setze die ausgewählte Kategorie im Provider
@@ -60,6 +63,9 @@ class CategoryRow extends StatelessWidget {
                     : ButtonCategoryCustom(
                         categoryTitle: categories[index], // Titel der Kategorie
                         fontInBold: true, // Schrift fett
+                        backgroundColor: productProvider.selectedCategory == index
+                            ? greenColor // Farbe für ausgewählte Kategorie
+                            : greyColor, // Standardfarbe
                         onPressed: () {
                           productProvider.setSelectedCategory(index);
                           productProvider.toCategory =

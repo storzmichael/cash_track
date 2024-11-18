@@ -9,13 +9,14 @@ import 'package:cash_track/src/features/settings/application/language_provider.d
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
+  // Logo-Anzeige, hier mit der Bild-URL aus den App-Einstellungen
   Widget _logo() {
     return const Center(
       child: SizedBox(
-        height: 150,
+        height: 150, // Höhe des Logos
         child: Image(
-          image: AssetImage(appImagePath),
-          fit: BoxFit.fitHeight,
+          image: AssetImage(appImagePath), // Der Pfad des App-Logos
+          fit: BoxFit.fitHeight, // Skaliere das Bild, um es in den verfügbaren Raum zu passen
         ),
       ),
     );
@@ -23,14 +24,15 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den LanguageProvider
+    final languageProvider = Provider.of<LanguageProvider>(context); // Zugriff auf den aktuellen LanguageProvider
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, // Verhindert die Zurück-Navigation
         title: Text(
-          textFiles[languageProvider.language]![1], // Dynamischer Text
-          style: Theme.of(context).textTheme.labelLarge,
+          textFiles[languageProvider.language]![
+              1], // Dynamischer Text für den Titel basierend auf der aktuellen Sprache
+          style: Theme.of(context).textTheme.labelLarge, // Stil des AppBar-Titels
         ),
       ),
       body: Column(
@@ -40,20 +42,20 @@ class FavoritesScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    lightThemeList[0],
-                    lightThemeList[1],
+                    lightThemeList[0], // Erste Farbe des Farbverlaufs
+                    lightThemeList[1], // Zweite Farbe des Farbverlaufs
                   ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: Alignment.topCenter, // Startpunkt des Farbverlaufs
+                  end: Alignment.bottomCenter, // Endpunkt des Farbverlaufs
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(sitesPadding),
+                padding: const EdgeInsets.all(sitesPadding), // Padding für den Inhalt
                 child: Column(
                   children: [
-                    _logo(),
-                    const SizedBox(height: 32),
-                    const EventList(),
+                    _logo(), // Zeigt das App-Logo an
+                    const SizedBox(height: 32), // Abstand zwischen Logo und Liste
+                    const EventList(), // EventList zeigt eine Liste von Favoriten an
                   ],
                 ),
               ),

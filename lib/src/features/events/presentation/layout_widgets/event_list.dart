@@ -12,16 +12,19 @@ class EventList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
+        // Dekoriert den Container mit der Hintergrundfarbe und abgerundeten Ecken
         decoration: BoxDecoration(
-          color: textFieldColor,
-          borderRadius: BorderRadius.circular(borderRadiusSmallButton),
+          color: textFieldColor, // Hintergrundfarbe für das Event-List-Container
+          borderRadius: BorderRadius.circular(borderRadiusSmallButton), // Abgerundete Ecken
         ),
         child: ListView.builder(
-          itemCount: eventDatas.length,
-          shrinkWrap: true,
+          // ListView zur Anzeige der Events
+          itemCount: eventDatas.length, // Anzahl der Einträge in der Event-Datenliste
+          shrinkWrap: true, // Schaltet das Schrumpfen der Liste ein, sodass sie nur so viel Platz wie benötigt einnimmt
           itemBuilder: (BuildContext context, int index) {
             return EventTxtField(
-              eventItem: eventDatas[index],
+              // Erzeugt ein Widget für jedes Event, das in der Liste angezeigt wird
+              eventItem: eventDatas[index], // Übergibt das Event-Item an das EventTxtField-Widget
             );
           },
         ),

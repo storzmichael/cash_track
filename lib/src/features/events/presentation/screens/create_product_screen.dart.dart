@@ -24,11 +24,21 @@ class CreateProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
+
+    // Initialisiere die Controller für Name und Preis
+    if (product.productTitle.toLowerCase() == "default") {
+      productProvider.nameController.clear(); // Leere den Produktnamen
+      productProvider.priceController.clear(); // Leere den Produktpreis
+    } else {
+      productProvider.nameController.text = product.productTitle; // Setze den Produktnamen
+      productProvider.priceController.text = product.productPrice.toString(); // Setze den Preis
+    }
+
     String _toCategory = productProvider.toCategory ?? '';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(textFiles[language]![36]),
+        title: Text(textFiles[language]![36]), // Setzt den Titel der AppBar
       ),
       body: Column(
         children: [
@@ -37,26 +47,25 @@ class CreateProductScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    lightThemeList[0],
-                    lightThemeList[1],
+                    lightThemeList[0], // Erste Farbe des Farbverlaufs
+                    lightThemeList[1], // Zweite Farbe des Farbverlaufs
                   ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: Alignment.topCenter, // Start des Farbverlaufs oben
+                  end: Alignment.bottomCenter, // Ende des Farbverlaufs unten
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(sitesPadding),
+                padding: const EdgeInsets.all(sitesPadding), // Padding für das Layout
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Zeigt die Kategorie des Produkts an
                     Text(
                       '${textFiles[language]![91]}      $_toCategory',
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // Produktname
+                    const SizedBox(height: 10),
+                    // Produktname Eingabefeld
                     CustomTextField(
                       controller: productProvider.nameController,
                       eventTextfieldItem: EventTextfieldItem(
@@ -65,7 +74,7 @@ class CreateProductScreen extends StatelessWidget {
                       onChanged: (value) {},
                     ),
                     const SizedBox(height: 10),
-                    // Produktpreis
+                    // Produktpreis Eingabefeld
                     CustomTextField(
                       controller: productProvider.priceController,
                       onChanged: (value) {},
@@ -73,14 +82,15 @@ class CreateProductScreen extends StatelessWidget {
                         eventTextfieldHintText: textFiles[language]![38],
                       ),
                     ),
-                    const SizedBox(height: 10),
                     const SizedBox(height: 30),
+                    // Button zum Hinzufügen des Produkts
                     _addButton(
                       context,
                       productProvider,
                       language,
                       _toCategory,
                       () {
+                        // Aktualisiere das Produkt mit neuen Werten
                         String updatedTitle = productProvider.nameController.text;
                         double updatedPrice =
                             double.tryParse(productProvider.priceController.text.replaceAll(',', '.')) ?? 0.0;
@@ -90,6 +100,7 @@ class CreateProductScreen extends StatelessWidget {
                           productPrice: updatedPrice,
                         );
 
+                        // Produkt aktualisieren
                         productProvider.updateProductItem(
                           _toCategory,
                           index,
@@ -97,13 +108,9 @@ class CreateProductScreen extends StatelessWidget {
                         );
                       },
                     ),
-
                     const SizedBox(height: 30),
-                    Text(textFiles[language]![40]),
-                    const SizedBox(height: 10),
-                    _cardProduct(productProvider, language),
-                    const SizedBox(height: bigBttnHeight),
                     Expanded(child: SizedBox()),
+                    // Button zum Bestätigen und Weitergehen
                     BigButton(
                       buttonName: textFiles[language]![41],
                       onPressed: () {
@@ -111,7 +118,7 @@ class CreateProductScreen extends StatelessWidget {
                         Navigator.pushReplacementNamed(context, "/order");
                       },
                     ),
-                    const SizedBox(height: bottomSafeArea),
+                    const SizedBox(height: bottomSafeArea), // Abstand zum unteren Rand
                   ],
                 ),
               ),
@@ -123,6 +130,7 @@ class CreateProductScreen extends StatelessWidget {
   }
 }
 
+// Button zum Hinzufügen eines Produkts
 Widget _addButton(
   BuildContext context,
   ProductProvider productProvider,
@@ -133,30 +141,32 @@ Widget _addButton(
   return Center(
     child: SizedBox(
       width: 200,
-      height: bigBttnHeight,
+      height: bigBttnHeight, // Höhe des Buttons
       child: OutlinedBigButton(
-        buttonName: textFiles[language]![15],
+        buttonName: textFiles[language]![15], // Button-Name aus der Sprachdatei
         onPressed: () {
+          // Überprüfe, ob der Preis korrekt eingegeben wurde
           double? price = double.tryParse(productProvider.priceController.text.replaceAll(',', '.'));
           if (price == null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(textFiles[language]![71]),
+                content: Text(textFiles[language]![71]), // Fehlermeldung anzeigen
                 duration: const Duration(seconds: 2),
               ),
             );
             return;
           }
-          onPressedCallback();
-          productProvider.nameController.clear();
-          productProvider.priceController.clear();
-          Navigator.pop(context);
+          onPressedCallback(); // Callback ausführen, um das Produkt hinzuzufügen
+          productProvider.nameController.clear(); // Eingabefeld für Name leeren
+          productProvider.priceController.clear(); // Eingabefeld für Preis leeren
+          Navigator.pop(context); // Zurück zur vorherigen Seite
         },
       ),
     ),
   );
 }
 
+// Darstellung eines Produkts als Karte
 Widget _cardProduct(ProductProvider productProvider, String language) {
   return Card(
     margin: const EdgeInsets.symmetric(horizontal: 10.0),

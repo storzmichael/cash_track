@@ -23,6 +23,7 @@ class PaidProductsScreen extends StatelessWidget {
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {
+                // Navigation zurück zur Bestellübersicht
                 Navigator.pushNamed(context, "/order");
               },
               icon: Icon(
@@ -30,7 +31,7 @@ class PaidProductsScreen extends StatelessWidget {
                 size: 30, // Hier kannst du die gewünschte Größe angeben
               ),
             ),
-            title: Text(textFiles[language]![88]),
+            title: Text(textFiles[language]![88]), // Titel aus der Sprachdatei
           ),
           body: Column(
             children: [
@@ -55,6 +56,7 @@ class PaidProductsScreen extends StatelessWidget {
                       sitesPadding,
                     ),
                     child: ListView.builder(
+                      // Listet alle bezahlten Produkte auf
                       itemCount: orderProvider.paidProducts.length,
                       itemBuilder: (context, index) {
                         final product = orderProvider.paidProducts[index];
@@ -68,24 +70,24 @@ class PaidProductsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // Bereich für den Gesamtpreis
+              // Bereich für die Anzeige des Gesamtpreises
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      textFiles[language]![4],
+                      textFiles[language]![4], // Gesamtpreistext aus der Sprachdatei
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      '${totalPrice.toStringAsFixed(2)} €',
+                      '${totalPrice.toStringAsFixed(2)} €', // Gesamtpreis für die bezahlten Produkte
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ),
-              SafeArea(child: SizedBox())
+              SafeArea(child: SizedBox()) // SafeArea stellt sicher, dass nichts unter der Statusleiste verdeckt wird
             ],
           ),
         );
