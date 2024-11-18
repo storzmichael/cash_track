@@ -1,5 +1,6 @@
 import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
+import 'package:cash_track/src/features/events/application/event_functions.dart';
 import 'package:cash_track/src/features/events/data/event_textfield_data.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/big_button.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/custom_txt_field.dart';
@@ -7,8 +8,38 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
-class TextFieldEvent extends StatelessWidget {
+class TextFieldEvent extends StatefulWidget {
   const TextFieldEvent({super.key});
+
+  @override
+  _TextFieldEventState createState() => _TextFieldEventState();
+}
+
+class _TextFieldEventState extends State<TextFieldEvent> {
+  final TextEditingController eventNameController = TextEditingController();
+  final TextEditingController eventDateController = TextEditingController();
+
+  bool isButtonEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Listener, der den Button-Status basierend auf der Eingabe im Textfeld aktualisiert
+    eventNameController.addListener(_updateButtonState);
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      isButtonEnabled = eventNameController.text.isNotEmpty && eventDateController.text.isNotEmpty;
+    });
+  }
+
+  @override
+  void dispose() {
+    eventNameController.dispose();
+    eventDateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +47,8 @@ class TextFieldEvent extends StatelessWidget {
     final languageProvider = Provider.of<LanguageProvider>(context);
     final String language = languageProvider.language;
 
-    // Controller für das Event-Namen Textfeld
-    final TextEditingController eventNameController = TextEditingController();
-
     // Holt die Event-Textfeld-Daten, die das Layout und die Labels enthalten
     final eventTextfieldDatas = getEventTextfieldDatas(context);
-
-    // ValueNotifier für den Status des Buttons (aktiv oder deaktiviert)
-    ValueNotifier<bool> isButtonEnabled = ValueNotifier(false);
-
-    // Listener, der den Status des Buttons basierend auf der Eingabe im Textfeld aktualisiert
-    void _updateButtonState() {
-      isButtonEnabled.value = eventNameController.text.isNotEmpty;
-    }
-
-    // Füge den Listener zum Textfeld hinzu
-    eventNameController.addListener(_updateButtonState);
 
     return Column(
       children: [
@@ -44,18 +61,25 @@ class TextFieldEvent extends StatelessWidget {
           },
         ),
         const SizedBox(height: 12), // Abstand zwischen den Elementen
+        CustomTextField(
+          eventTextfieldItem: eventTextfieldDatas[1], // Holen des zweiten Textfeldes für das Eventdatum
+          controller: eventDateController, // Setze den Controller für das Textfeld
+          onChanged: (value) {
+            _updateButtonState(); // Update den Button-Status bei Textänderung
+          },
+        ),
+        const SizedBox(height: 12), // Abstand zwischen den Elementen
 
         // Erstelle neues Event Button, der nur aktiv ist, wenn der Text im Feld nicht leer ist
-        ValueListenableBuilder<bool>(
-          valueListenable: isButtonEnabled, // Hört auf Änderungen im Button-Status
-          builder: (context, isEnabled, child) {
-            return BigButton(
-                buttonName: textFiles[language]![44], // Button-Text aus der Sprachdatei
-                onPressed: () {
+        BigButton(
+          buttonName: textFiles[language]![44], // Button-Text aus der Sprachdatei
+          onPressed: isButtonEnabled
+              ? () {
+                  EventFunctions().createEvent(eventNameController.text, eventDateController.text);
                   // Navigiere zum nächsten Bildschirm, wenn der Button aktiv ist
                   Navigator.pushNamed(context, "/createCategory");
-                });
-          },
+                }
+              : null, // Button nur aktiv, wenn Eingabe vorhanden ist
         ),
         SizedBox(
             height: bottomSafeArea), // Sicherstellen, dass der Button nicht hinter der unteren Bildschirmkante landet

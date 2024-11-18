@@ -171,7 +171,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     const SizedBox(height: 16),
                     _registerButton(), // Registrierungs-Button
                     const SizedBox(height: 8),
-                    AgbCheckboxField(agbText: 'hallo', agbLink: 'agbLink') // Checkbox für AGB
+                    AgbCheckboxField(agbText: '', agbLink: 'agbLink') // Checkbox für AGB
                   ],
                 ),
               ),
