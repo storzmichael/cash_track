@@ -17,7 +17,7 @@ class CashoutScreen extends StatelessWidget {
   final double monitorHeight = 200;
 
   // Konstruktor der CashoutScreen-Klasse
-  CashoutScreen({
+  const CashoutScreen({
     super.key,
     this.selectedTable,
     this.orderSum = '0.00', // Standardwert für die Bestellsumme
