@@ -26,7 +26,7 @@ class CreateProductScreen extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context);
 
     // Initialisiere die Controller für Name und Preis
-    if (product.productTitle.toLowerCase() == "default") {
+    if (product.productTitle.toLowerCase() == "") {
       productProvider.nameController.clear(); // Leere den Produktnamen
       productProvider.priceController.clear(); // Leere den Produktpreis
     } else {

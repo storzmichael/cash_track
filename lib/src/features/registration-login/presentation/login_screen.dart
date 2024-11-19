@@ -211,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Expanded(
                         child: SizedBox(), // Platz für weitere Widgets
                       ),
-                      //_testButton(), // Test-Button (wird nicht angezeigt)
+                      _testButton(), // Test-Button (wird nicht angezeigt)
                       const SizedBox(height: bottomSafeArea), // Abstand nach unten
                     ],
                   ),

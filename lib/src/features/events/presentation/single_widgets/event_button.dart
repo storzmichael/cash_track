@@ -57,7 +57,7 @@ class EventButton extends StatelessWidget {
               Text(
                 eventButtonItem.eventButtonTitle, // Der Titel des Buttons
                 textAlign: TextAlign.center, // Der Text wird zentriert
-                maxLines: 1, // Der Text darf nur eine Zeile einnehmen
+                maxLines: 2, // Der Text darf nur eine Zeile einnehmen
                 overflow: TextOverflow.ellipsis, // Wenn der Text zu lang ist, wird er mit "..." abgeschnitten
                 style: Theme.of(context).textTheme.labelLarge, // Setzt den Stil des Textes basierend auf dem App-Theme
               ),
