@@ -43,6 +43,7 @@ class CreateCategoryScreen extends StatelessWidget {
         final String language = languageProvider.language; // Aktuelle Sprache abrufen
 
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text(textFiles[language]![90]), // Titel der AppBar aus der Sprachdatei
@@ -68,6 +69,7 @@ class CreateCategoryScreen extends StatelessWidget {
                       children: [
                         // Produktkategorie Eingabe
                         CustomTextField(
+                          isFocused: false,
                           controller: productProvider.categoryController, // Controller für das Eingabefeld
                           eventTextfieldItem: EventTextfieldItem(
                             eventTextfieldHintText:

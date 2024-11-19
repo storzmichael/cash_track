@@ -48,18 +48,18 @@ class ProductProvider with ChangeNotifier {
       categories.add(category);
       // Erstelle eine neue Liste für die Kategorie
       categoryProductMap[category] = [
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
-        ProductItem(productTitle: 'default', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
+        ProductItem(productTitle: '', productPrice: 0),
       ];
 
       notifyListeners();

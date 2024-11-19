@@ -32,7 +32,7 @@ class ProductGrid extends StatelessWidget {
         final item = productItemsList[index]; // Holen des Produkts aus der Liste
 
         // Direktzugriff auf das 'productTitle' Feld der ProductItem Klasse
-        if (item.productTitle == 'default') {
+        if (item.productTitle == '') {
           return const SizedBox.shrink(); // Rückgabe eines leeren Widgets
         }
 
