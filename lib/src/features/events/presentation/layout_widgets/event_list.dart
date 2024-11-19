@@ -1,5 +1,7 @@
 import 'package:cash_track/src/config/button_varibals.dart';
+import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/events/application/event_functions.dart';
 import 'package:cash_track/src/features/events/data/event_data.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,7 @@ class EventList extends StatelessWidget {
                     event.eventTitle,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text('Datum: ${event.eventDate}'),
+                  subtitle: Text('${textFiles[language]![95]}: ${event.eventDate}'),
                   trailing: Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     // Leere Funktion, Aktion bei Klick kann später hinzugefügt werden

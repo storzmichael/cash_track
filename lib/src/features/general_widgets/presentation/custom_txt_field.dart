@@ -19,7 +19,9 @@ class CustomTextField extends StatelessWidget {
   final TextInputFormatter? inputFormatter;
 
   // Funktion, die aufgerufen wird, wenn sich der Text ändert
-  final void Function(String)? onChanged; // Hier hinzugefügt
+  final void Function(String)? onChanged;
+
+  final bool isFocused;
 
   // Konstruktor zur Initialisierung des CustomTextField-Widgets
   const CustomTextField({
@@ -28,7 +30,8 @@ class CustomTextField extends StatelessWidget {
     required this.eventTextfieldItem,
     this.keyboardType = TextInputType.text,
     this.inputFormatter,
-    this.onChanged, // Hier hinzugefügt
+    this.onChanged,
+    this.isFocused = true, // Flag, ob das Textfeld fokussiert ist
   });
 
   @override
@@ -44,7 +47,7 @@ class CustomTextField extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: textPadding), // Padding innerhalb des Containers
         child: Center(
           child: TextFormField(
-            autofocus: true, // Das Textfeld wird beim Erstellen automatisch fokussiert
+            autofocus: isFocused, // Das Textfeld wird beim Erstellen automatisch fokussiert
             controller: controller, // Der Controller zum Verwalten des Textes
             keyboardType: keyboardType, // Der Tastaturtyp (z.B. Text, Zahl)
             inputFormatters:
