@@ -6,22 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
-  // Controller for managing the text input
+  // Controller für das Textfeld, um den Text zu verwalten
   final TextEditingController? controller;
 
-  // Custom object that holds text field configuration
+  // Ein benutzerdefiniertes Objekt, das die Textfeld-Konfiguration enthält
   final EventTextfieldItem eventTextfieldItem;
 
-  // Defines the keyboard type for input (default is text)
+  // Definiert den Tastaturtyp für die Eingabe (Standard: Text)
   final TextInputType keyboardType;
 
-  // Optional input formatter for restricting input (e.g., digits only)
+  // Optionaler Eingabe-Formatter, um die Eingabe zu beschränken (z.B. nur Zahlen)
   final TextInputFormatter? inputFormatter;
 
-  // Function to handle text change
+  // Funktion, die aufgerufen wird, wenn sich der Text ändert
   final void Function(String)? onChanged; // Hier hinzugefügt
 
-  // Constructor for initializing CustomTextField widget
+  // Konstruktor zur Initialisierung des CustomTextField-Widgets
   const CustomTextField({
     super.key,
     this.controller,
@@ -35,28 +35,29 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: textFieldColor,
-        borderRadius: BorderRadius.circular(borderRadiusSmallButton),
+        color: textFieldColor, // Hintergrundfarbe des Textfeldes
+        borderRadius: BorderRadius.circular(borderRadiusSmallButton), // Eckenrundung
       ),
-      height: textFieldheight,
-      width: double.infinity,
+      height: textFieldheight, // Höhe des Textfeldes
+      width: double.infinity, // Das Textfeld soll die gesamte Breite einnehmen
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: textPadding),
+        padding: const EdgeInsets.symmetric(horizontal: textPadding), // Padding innerhalb des Containers
         child: Center(
           child: TextFormField(
-            autofocus: true,
-            controller: controller,
-            keyboardType: keyboardType, // Keyboard type verwenden
-            inputFormatters: inputFormatter != null ? [inputFormatter!] : null,
+            autofocus: true, // Das Textfeld wird beim Erstellen automatisch fokussiert
+            controller: controller, // Der Controller zum Verwalten des Textes
+            keyboardType: keyboardType, // Der Tastaturtyp (z.B. Text, Zahl)
+            inputFormatters:
+                inputFormatter != null ? [inputFormatter!] : null, // Input-Formatter anwenden, wenn vorhanden
             decoration: InputDecoration(
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-              hintText: eventTextfieldItem.eventTextfieldHintText,
-              hintStyle: const TextStyle(color: Colors.white),
-              border: InputBorder.none,
-              isCollapsed: true,
+              labelStyle: const TextStyle(fontWeight: FontWeight.bold), // Stil für das Label
+              hintText: eventTextfieldItem.eventTextfieldHintText, // Hinweistext aus dem EventTextfieldItem
+              hintStyle: const TextStyle(color: Colors.white), // Stil des Hinweistextes
+              border: InputBorder.none, // Kein Rahmen um das Textfeld
+              isCollapsed: true, // Das Textfeld soll nicht zusätzlich Platz einnehmen
             ),
-            textAlignVertical: TextAlignVertical.center,
-            onChanged: onChanged, // onChanged-Callback hier hinzugefügt
+            textAlignVertical: TextAlignVertical.center, // Vertikale Ausrichtung des Textes
+            onChanged: onChanged, // Callback-Funktion, die bei Änderung des Textes aufgerufen wird
           ),
         ),
       ),

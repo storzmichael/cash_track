@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 
-// Function to navigate to the app's home screen
+/// Navigationsfunktionen für verschiedene Bildschirme in der App
+
+/// Navigiert zum Startbildschirm der App.
 void navigateToAppHome(BuildContext context) {
-  // Use the Navigator to push to the "/appHome" route
+  // Verwenden des Navigators, um zur Route "/appHome" zu wechseln
   Navigator.pushNamed(context, "/appHome");
 }
 
-// Function to navigate to the order screen
+/// Navigiert zum Bestellbildschirm.
 void navigateToOrderScreen(BuildContext context) {
-  // Use the Navigator to push to the "/order" route
+  // Verwenden des Navigators, um zur Route "/order" zu wechseln
   Navigator.pushNamed(context, "/order");
 }
 
-// Function to navigate to the cashout screen
+/// Navigiert zum Abrechnungsbildschirm.
 void navigateToCashoutScreen(BuildContext context) {
-  // Use the Navigator to push to the "/cashout" route
+  // Verwenden des Navigators, um zur Route "/cashout" zu wechseln
   Navigator.pushNamed(context, "/cashout");
 }
 
-// Function to navigate to the edit event screen
-void navigateToCreateProductScreen(BuildContext context, index) {
-  // Use the Navigator to push to the "/editEvent" route
+/// Navigiert zum Bildschirm für das Bearbeiten von Produkten.
+void navigateToCreateProductScreen(BuildContext context, int index) {
+  // Verwenden des Navigators, um zur Route "/createProducts" zu wechseln
   Navigator.pushNamed(context, "/createProducts");
 }
 
-// Function to navigate to the create event screen
+/// Navigiert zum Bildschirm für das Erstellen eines neuen Events.
 void navigateToCreateEventScreen(BuildContext context) {
-  // Use the Navigator to push to the "/createEvent" route
+  // Verwenden des Navigators, um zur Route "/createEvent" zu wechseln
   Navigator.pushNamed(context, "/createEvent");
 }
+
 
 // Example:
 // navigateToEditEventScreen(context);

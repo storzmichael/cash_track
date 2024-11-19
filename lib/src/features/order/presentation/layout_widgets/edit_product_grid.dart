@@ -55,8 +55,8 @@ class EditProductGrid extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CreateProductScreen(
-                      index: index,
-                      product: item,
+                      product: item, // Produkt, das bearbeitet wird
+                      index: index, // Index des Produkts
                     ),
                   ),
                 );

@@ -1,7 +1,7 @@
-import 'package:cash_track/src/config/config.dart';
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Importiere Firebase Auth
+import 'package:cash_track/src/features/registration-login/domain/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart';
@@ -9,111 +9,134 @@ import 'package:cash_track/src/features/settings/application/language_provider.d
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
 
+  // Hilfsmethode zum Erstellen eines ListTile-Widgets mit Symbol, Titel und einer Aktion
   Widget _buildListTile(
     BuildContext context, {
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    Color color = Colors.black,
+    required IconData icon, // Icon, das vor dem Titel angezeigt wird
+    required String title, // Titel des ListTiles
+    required VoidCallback onTap, // Aktion, die bei einem Tap ausgeführt wird
+    Color color = Colors.black, // Farbe des Icons (Standard: Schwarz)
   }) {
     return ListTile(
-      leading: Icon(icon, color: color),
-      title: Text(title),
-      onTap: onTap,
+      leading: Icon(icon, color: color), // Das Icon für das ListTile
+      title: Text(title), // Der Titel des ListTile
+      onTap: onTap, // Aktion, die beim Tippen auf das ListTile ausgeführt wird
     );
   }
 
+  // Hilfsmethode zum Erstellen einer horizontalen Trennlinie (Divider)
   Widget _buildDivider() {
     return const Divider(
-      height: 0.1,
-      color: whiteColor,
+      height: 0.1, // Minimale Höhe des Dividers
+      color: whiteColor, // Farbe des Dividers (weiß)
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    // Zugriff auf den LanguageProvider, um die aktuelle Sprache zu verwalten
     final languageProvider = Provider.of<LanguageProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, // Verhindert die Anzeige des Zurück-Buttons
         title: Text(
-          textFiles[languageProvider.language]![49], // Titel für die Einstellungen
-          style: Theme.of(context).textTheme.labelLarge,
+          textFiles[languageProvider.language]![
+              49], // Titel für die Einstellungen, dynamisch basierend auf der gewählten Sprache
+          style: Theme.of(context).textTheme.labelLarge, // Stil für den Titel
         ),
       ),
       body: Column(
         children: [
           Expanded(
             child: Container(
+              // Dekoration für den Hintergrund, mit einem Farbverlauf
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    lightThemeList[0],
-                    lightThemeList[1],
+                    lightThemeList[0], // Erste Farbe des Farbverlaufs
+                    lightThemeList[1], // Zweite Farbe des Farbverlaufs
                   ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: Alignment.topCenter, // Beginn des Farbverlaufs oben
+                  end: Alignment.bottomCenter, // Ende des Farbverlaufs unten
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0), // Padding für die ListView
                 child: ListView(
                   children: [
-                    // Profil
-                    _buildListTile(
-                      context,
-                      icon: Icons.person,
-                      title: textFiles[languageProvider.language]![2], // Profil
-                      onTap: () {
-                        // Navigationslogik zu deinem Profil-Screen hinzufügen
-                      },
-                    ),
-                    _buildDivider(),
+                    // ListTile für Profil
+                    // _buildListTile(
+                    //   context,
+                    //   icon: Icons.person, // Profil-Icon
+                    //   title: textFiles[languageProvider.language]![2], // Titel für "Profil"
+                    //   onTap: () {
+                    //     // Hier kann eine Navigationslogik zum Profil-Screen eingefügt werden
+                    //   },
+                    // ),
+                    //_buildDivider(), // Divider zwischen den ListTiles
 
-                    // Datenschutz
-                    _buildListTile(
-                      context,
-                      icon: Icons.lock,
-                      title: textFiles[languageProvider.language]![57], // Datenschutz
-                      onTap: () {
-                        // Navigationslogik zu Datenschutz-Einstellungen hinzufügen
-                      },
-                    ),
-                    _buildDivider(),
+                    // ListTile für Datenschutz
+                    // _buildListTile(
+                    //   context,
+                    //   icon: Icons.lock, // Datenschutz-Icon
+                    //   title: textFiles[languageProvider.language]![57], // Titel für "Datenschutz"
+                    //   onTap: () {
+                    //     // Hier kann eine Navigationslogik zu den Datenschutz-Einstellungen eingefügt werden
+                    //   },
+                    // ),
+                    //_buildDivider(), // Divider zwischen den ListTiles
 
-                    // Sprache
+                    // ListTile für Sprache
                     _buildListTile(
                       context,
-                      icon: Icons.language,
-                      title: textFiles[languageProvider.language]![58], // Sprache
+                      icon: Icons.language, // Sprach-Icon
+                      title: textFiles[languageProvider.language]![58], // Titel für "Sprache"
                       onTap: () {
+                        // Navigiert zur Spracheinstellung-Seite
                         Navigator.pushNamed(context, "/language");
                       },
                     ),
-                    _buildDivider(),
+                    _buildDivider(), // Divider zwischen den ListTiles
 
-                    // Chats
+                    // ListTile für Chats
+                    // _buildListTile(
+                    //   context,
+                    //   icon: Icons.devices, // Chats-Icon
+                    //   title: textFiles[languageProvider.language]![59], // Titel für "Chats"
+                    //   onTap: () {
+                    //     // Hier kann eine Navigationslogik zu den Chat-Einstellungen eingefügt werden
+                    //   },
+                    // ),
+                    _buildDivider(), // Divider zwischen den ListTiles
+
+                    // ListTile um den Account zu löschen
                     _buildListTile(
                       context,
-                      icon: Icons.devices,
-                      title: textFiles[languageProvider.language]![59], // Chats
+                      icon: Icons.delete, // Löschen-Icon
+                      title: textFiles[languageProvider.language]![60], // Titel für "Account löschen"
                       onTap: () {
-                        // Navigationslogik zu Chat-Einstellungen hinzufügen
-                      },
-                    ),
-                    _buildDivider(),
+                        // Zeigt den Dialog an, wenn das ListTile angetippt wird
+                        DialogHelper.showDeleteAccountDialog(
+                          context: context,
+                          onDelete: () async {
+                            // Aufrufen der deleteAccount-Methode von Auth
+                            try {
+                              await Auth().deleteAccount(); // Löscht das Benutzerkonto
+                              await Auth().signOut(); // Loggt den Benutzer aus
 
-                    // Hilfe
-                    _buildListTile(
-                      context,
-                      icon: Icons.help,
-                      title: textFiles[languageProvider.language]![60], // Hilfe
-                      onTap: () {
-                        // Navigationslogik zu Hilfe-Seite hinzufügen
+                              // Navigiere zum Login-Screen nach dem Löschen des Accounts
+                              Navigator.of(context).pushReplacementNamed("/"); // Navigiere zum Login-Screen
+                            } catch (e) {
+                              // Fehlerbehandlung: Du kannst hier eine Fehlermeldung anzeigen
+                              print("Fehler beim Löschen des Kontos: $e");
+                            }
+                          },
+                        );
                       },
                     ),
-                    _buildDivider(),
+
+                    _buildDivider(), // Divider zwischen den ListTiles
                   ],
                 ),
               ),

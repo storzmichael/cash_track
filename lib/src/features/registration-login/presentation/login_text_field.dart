@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/config/config_colors.dart';
 
+// Das LoginTextField Widget stellt ein benutzerdefiniertes Textfeld für die Anmeldung dar
 class LoginTextField extends StatelessWidget {
-  final String labelName;
-  final bool isPassword;
-  final TextEditingController controller;
-  final Color labelTextColor;
-  final double borderRadius;
-  final Color backgroundColor;
-  final double height;
-  final Widget? prefixIcon;
+  // Erforderliche und optionale Parameter des Textfeldes
+  final String labelName; // Labeltext für das Textfeld
+  final bool isPassword; // Gibt an, ob das Textfeld ein Passwortfeld ist
+  final TextEditingController controller; // Controller zur Steuerung des Textfeldes
+  final Color labelTextColor; // Farbe des Labeltextes
+  final double borderRadius; // Eckenradius des Textfeldes
+  final Color backgroundColor; // Hintergrundfarbe des Textfeldes
+  final double height; // Höhe des Textfeldes
+  final Widget? prefixIcon; // Optionales Präfix-Icon im Textfeld
 
   const LoginTextField({
     super.key,
@@ -27,45 +29,51 @@ class LoginTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Provider für Login-Verhalten (z.B. Passwortsichtbarkeit)
     final provider = Provider.of<LoginProvider>(context, listen: true);
 
+    // Das Container-Widget hält das Textfeld mit abgerundeten Ecken und Hintergrundfarbe
     return Container(
       decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(borderRadius),
+        color: backgroundColor, // Hintergrundfarbe des Textfeldes
+        borderRadius: BorderRadius.circular(borderRadius), // Abgerundete Ecken
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius), // Sicherstellen, dass die Ecken abgerundet sind
         child: SizedBox(
-          height: height,
+          height: height, // Höhe des Textfeldes
           child: TextField(
-            controller: controller,
-            obscureText: isPassword ? provider.obscureText : false,
+            controller: controller, // Verwendeter TextEditingController
+            obscureText: isPassword ? provider.obscureText : false, // Wenn Passwort, dann Sichtbarkeit steuern
             decoration: InputDecoration(
-              filled: true,
-              fillColor: backgroundColor,
-              border: InputBorder.none,
-              labelText: labelName,
-              labelStyle: TextStyle(color: labelTextColor),
-              floatingLabelStyle: TextStyle(color: labelTextColor),
-              floatingLabelBehavior: FloatingLabelBehavior.never,
+              filled: true, // Füllt das Textfeld
+              fillColor: backgroundColor, // Hintergrundfarbe
+              border: InputBorder.none, // Keine sichtbare Umrandung
+              labelText: labelName, // Beschriftung des Textfeldes
+              labelStyle: TextStyle(color: labelTextColor), // Stil der Beschriftung
+              floatingLabelStyle: TextStyle(color: labelTextColor), // Stil der schwebenden Beschriftung
+              floatingLabelBehavior: FloatingLabelBehavior.never, // Schwebende Beschriftung deaktivieren
               contentPadding: EdgeInsets.symmetric(
-                vertical: (height - 20) / 2,
-                horizontal: 12,
+                vertical: (height - 20) / 2, // Vertikale Polsterung
+                horizontal: 12, // Horizontale Polsterung
               ),
               prefixIcon: prefixIcon != null
                   ? IconTheme(
-                      data: IconThemeData(color: labelTextColor),
-                      child: prefixIcon!,
+                      data: IconThemeData(
+                          color:
+                              labelTextColor), // Falls ein Präfix-Icon vorhanden ist, wird es mit der Textfarbe gefärbt
+                      child: prefixIcon!, // Das Präfix-Icon
                     )
                   : null,
               suffixIcon: isPassword
                   ? IconButton(
                       icon: Icon(
-                        provider.obscureText ? Icons.visibility_off : Icons.visibility,
+                        provider.obscureText
+                            ? Icons.visibility_off
+                            : Icons.visibility, // Zeigt je nach Zustand das Sichtbarkeits-Icon an
                         color: labelTextColor,
                       ),
-                      onPressed: provider.toggleObscureText,
+                      onPressed: provider.toggleObscureText, // Umkehren der Sichtbarkeit bei Klick
                     )
                   : null,
             ),

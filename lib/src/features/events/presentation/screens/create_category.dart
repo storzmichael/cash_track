@@ -17,9 +17,8 @@ import 'package:cash_track/src/features/settings/application/language_provider.d
 class CreateCategoryScreen extends StatelessWidget {
   const CreateCategoryScreen({super.key});
 
+  // Widget für den "Hinzufügen"-Button
   Widget _addButton(BuildContext context, ProductProvider productProvider, String language) {
-    final isButtonEnabled = productProvider.categoryController.text.isNotEmpty; // Überprüfe, ob das Textfeld leer ist
-
     return Center(
       child: SizedBox(
         width: 200,
@@ -27,6 +26,7 @@ class CreateCategoryScreen extends StatelessWidget {
         child: OutlinedBigButton(
             buttonName: textFiles[language]![15], // Der Button-Name bleibt immer ein String
             onPressed: () {
+              // Füge die Kategorie hinzu und lösche anschließend den Text im Eingabefeld
               productProvider.addCategory(productProvider.categoryController.text);
               productProvider.categoryController.clear();
               log(productProvider.categoryProductMap.toString());
@@ -45,7 +45,7 @@ class CreateCategoryScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text(textFiles[language]![90]),
+            title: Text(textFiles[language]![90]), // Titel der AppBar aus der Sprachdatei
           ),
           body: Column(
             children: [
@@ -54,37 +54,42 @@ class CreateCategoryScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        lightThemeList[0],
-                        lightThemeList[1],
+                        lightThemeList[0], // Erste Farbfarbe für den Hintergrund
+                        lightThemeList[1], // Zweite Farbfarbe für den Hintergrund
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(sitesPadding),
+                    padding: const EdgeInsets.all(sitesPadding), // Abstand für das Layout
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Produktkategorie
+                        // Produktkategorie Eingabe
                         CustomTextField(
-                          controller: productProvider.categoryController,
+                          controller: productProvider.categoryController, // Controller für das Eingabefeld
                           eventTextfieldItem: EventTextfieldItem(
-                            eventTextfieldHintText: textFiles[language]![39],
+                            eventTextfieldHintText:
+                                textFiles[language]![39], // Textfeld Hinweistext aus der Sprachdatei
                           ),
-                          onChanged: (value) {},
+                          onChanged: (value) {}, // Listener für Eingabeveränderungen
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 30), // Abstand zwischen den Eingabefeldern
+
+                        // "Hinzufügen"-Button
                         _addButton(context, productProvider, language),
 
-                        Expanded(child: SizedBox()),
+                        Expanded(child: SizedBox()), // Platzhalter für weitere Elemente
+
+                        // Anzeige der bestehenden Kategorien
                         Consumer<ProductProvider>(
                           builder: (context, productProvider, child) {
                             return productProvider.categories.isNotEmpty
                                 ? SizedBox(
-                                    height: gridheight,
+                                    height: gridheight, // Höhe der Kategorie-Zeile
                                     child: CategoryRow(
-                                      categories: productProvider.categories,
+                                      categories: productProvider.categories, // Übergebe die Liste der Kategorien
                                     ),
                                   )
                                 : SizedBox(
@@ -93,24 +98,26 @@ class CreateCategoryScreen extends StatelessWidget {
                                     child: Align(
                                       alignment: Alignment.topCenter,
                                       child: Text(
-                                        textFiles[languageProvider.language]![7],
-                                        style: Theme.of(context).textTheme.labelLarge,
+                                        textFiles[languageProvider.language]![
+                                            7], // Hinweistext, wenn keine Kategorien vorhanden sind
+                                        style: Theme.of(context).textTheme.labelLarge, // Styling für den Text
                                       ),
                                     ),
                                   );
                           },
                         ),
 
-                        const SizedBox(height: bigBttnHeight),
+                        const SizedBox(height: bigBttnHeight), // Abstand zum nächsten Button
 
+                        // Button zum Zurückgehen zum Order-Screen
                         BigButton(
-                          buttonName: textFiles[language]![41],
+                          buttonName: textFiles[language]![41], // Button-Name aus der Sprachdatei
                           onPressed: () {
-                            isInEditing = false;
-                            Navigator.pushReplacementNamed(context, "/order");
+                            isInEditing = false; // Setze den Bearbeitungsmodus auf "false"
+                            Navigator.pushReplacementNamed(context, "/order"); // Wechsel zu /order Screen
                           },
                         ),
-                        const SizedBox(height: bottomSafeArea),
+                        const SizedBox(height: bottomSafeArea), // Abstand zur unteren Bildschirmkante
                       ],
                     ),
                   ),

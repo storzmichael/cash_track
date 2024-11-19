@@ -1,50 +1,55 @@
 import 'package:flutter/cupertino.dart';
-import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 
 class DialogHelper {
-  // Reusable Cupertino dialog for text input
+  // Wiederverwendbarer Cupertino-Dialog für die Texteingabe
   static void showTextInputDialog({
-    required BuildContext context,
-    required String title,
-    required String placeholder,
-    required String cancelButtonText,
-    required String confirmButtonText,
-    required Function(String) onConfirm,
-    String? initialValue = '', // Optional initial value for the text field
-    TextEditingController? controller,
+    required BuildContext context, // Der BuildContext des aktuellen Widgets
+    required String title, // Titel des Dialogs
+    required String placeholder, // Platzhaltertext für das Eingabefeld
+    required String cancelButtonText, // Text für die Abbrechen-Schaltfläche
+    required String confirmButtonText, // Text für die Bestätigen-Schaltfläche
+    required Function(String) onConfirm, // Callback-Funktion, die den eingegebenen Text verarbeitet
+    String? initialValue = '', // Optionaler Anfangswert für das Textfeld
+    TextEditingController? controller, // Optionaler Controller für das Textfeld
   }) {
     final TextEditingController textController = TextEditingController(text: initialValue);
 
+    // Zeigt einen Cupertino-Dialog mit Texteingabe an
     showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: Text(title),
+          title: Text(title), // Titel des Dialogs
           content: Column(
             children: [
-              const SizedBox(height: 16), // Adds spacing between title and content
+              const SizedBox(height: 16), // Abstand zwischen Titel und Inhalt
               CupertinoTextField(
-                autofocus: true,
-                controller: textController,
-                placeholder: placeholder, // Placeholder text
+                autofocus: true, // Aktiviert das Textfeld beim Öffnen
+                controller: textController, // TextController zur Verwaltung des Eingabewerts
+                placeholder: placeholder, // Platzhaltertext
               ),
             ],
           ),
           actions: <Widget>[
+            // Abbrechen-Schaltfläche
             CupertinoDialogAction(
               isDefaultAction: true,
-              child: Text(cancelButtonText, style: const TextStyle(color: blackColor)), // Cancel button style
+              child:
+                  Text(cancelButtonText, style: const TextStyle(color: blackColor)), // Stil der Abbrechen-Schaltfläche
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Schließt den Dialog
               },
             ),
+            // Bestätigen-Schaltfläche
             CupertinoDialogAction(
-              child: Text(confirmButtonText, style: const TextStyle(color: primeryColor)), // Confirm button style
+              child: Text(confirmButtonText,
+                  style: const TextStyle(color: primeryColor)), // Stil der Bestätigen-Schaltfläche
               onPressed: () {
-                String inputText = textController.text.trim();
-                onConfirm(inputText); // Callback with the entered text
-                Navigator.of(context).pop();
+                String inputText = textController.text.trim(); // Entfernt führende/trailende Leerzeichen
+                onConfirm(inputText); // Ruft die Callback-Funktion mit dem eingegebenen Text auf
+                Navigator.of(context).pop(); // Schließt den Dialog
               },
             ),
           ],
@@ -53,45 +58,97 @@ class DialogHelper {
     );
   }
 
-  // Reusable Cupertino dialog without text input
+  // Wiederverwendbarer Cupertino-Dialog ohne Texteingabe
   static void showConfirmationDialog({
-    required BuildContext context,
-    required String title,
-    required String message,
-    required String cancelButtonText,
-    required String confirmButtonText,
-    Color textColor = primeryColor,
-    required Function() onConfirm,
+    required BuildContext context, // Der BuildContext des aktuellen Widgets
+    required String title, // Titel des Dialogs
+    required String message, // Nachricht im Dialog
+    required String cancelButtonText, // Text für die Abbrechen-Schaltfläche
+    required String confirmButtonText, // Text für die Bestätigen-Schaltfläche
+    Color textColor = primeryColor, // Farbe des Bestätigungsbuttons (Standard: primeryColor)
+    required Function() onConfirm, // Callback-Funktion für die Bestätigungsaktion
   }) {
+    // Zeigt einen Cupertino-Dialog zur Bestätigung an
     showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: Text(title),
+          title: Text(title), // Titel des Dialogs
           content: Column(
-            mainAxisSize: MainAxisSize.min, // Ensures the dialog is not oversized
+            mainAxisSize: MainAxisSize.min, // Stellt sicher, dass der Dialog nicht zu groß ist
             children: [
-              const SizedBox(height: 16), // Adds spacing between title and content
+              const SizedBox(height: 16), // Abstand zwischen Titel und Nachricht
               Text(
-                message, // Message text
-                style: const TextStyle(color: Colors.black),
+                message, // Nachrichtentext
+                style: const TextStyle(color: Colors.black), // Stil der Nachricht
               ),
-              const SizedBox(height: 16), // Adds spacing below the message
+              const SizedBox(height: 16), // Abstand unterhalb der Nachricht
             ],
           ),
           actions: <Widget>[
+            // Abbrechen-Schaltfläche
             CupertinoDialogAction(
               isDefaultAction: true,
-              child: Text(cancelButtonText, style: const TextStyle(color: blackColor)), // Cancel button style
+              child:
+                  Text(cancelButtonText, style: const TextStyle(color: blackColor)), // Stil der Abbrechen-Schaltfläche
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Schließt den Dialog
               },
             ),
+            // Bestätigen-Schaltfläche
             CupertinoDialogAction(
-              child: Text(confirmButtonText, style: TextStyle(color: textColor)), // Confirm button style
+              child: Text(confirmButtonText, style: TextStyle(color: textColor)), // Stil der Bestätigen-Schaltfläche
               onPressed: () {
-                onConfirm(); // Callback for confirmation action
-                Navigator.of(context).pop();
+                onConfirm(); // Ruft die Callback-Funktion für die Bestätigungsaktion auf
+                Navigator.of(context).pop(); // Schließt den Dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Neuer Dialog zum Löschen des Benutzerkontos
+  static void showDeleteAccountDialog({
+    required BuildContext context, // Der BuildContext des aktuellen Widgets
+    required Function() onDelete, // Callback-Funktion für die Löschaktion
+  }) {
+    // Zeigt einen Cupertino-Dialog zur Bestätigung des Kontolöschens an
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Konto löschen'), // Titel des Dialogs
+          content: Column(
+            mainAxisSize: MainAxisSize.min, // Stellt sicher, dass der Dialog nicht zu groß ist
+            children: [
+              const SizedBox(height: 16), // Abstand zwischen Titel und Nachricht
+              const Text(
+                'Möchtest du dein Konto wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.',
+                style: TextStyle(color: Colors.black), // Stil der Nachricht
+              ),
+              const SizedBox(height: 16), // Abstand unterhalb der Nachricht
+            ],
+          ),
+          actions: <Widget>[
+            // Abbrechen-Schaltfläche
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: const Text('Abbrechen', style: TextStyle(color: blackColor)), // Stil der Abbrechen-Schaltfläche
+              onPressed: () {
+                Navigator.of(context).pop(); // Schließt den Dialog
+              },
+            ),
+            // Bestätigen-Schaltfläche (Löschen)
+            CupertinoDialogAction(
+              child: const Text(
+                'Löschen',
+                style: TextStyle(color: Colors.red), // Rote Farbe für Löschaktion
+              ),
+              onPressed: () {
+                onDelete(); // Ruft die Callback-Funktion für die Löschaktion auf
+                Navigator.of(context).pop(); // Schließt den Dialog
               },
             ),
           ],

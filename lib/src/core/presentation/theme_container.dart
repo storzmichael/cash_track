@@ -1,25 +1,26 @@
 import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
-// A container that provides a themed background with a gradient
+// Ein Container, der einen thematischen Hintergrund mit einem Farbverlauf bereitstellt
 class ThemeContainer extends StatelessWidget {
-  final bool isDark; // Determines whether the dark theme is used
-  final Widget? child; // The child widget that will be placed inside the container
+  final bool isDark; // Bestimmt, ob das dunkle Thema verwendet wird
+  final Widget? child; // Das Kind-Widget, das im Container platziert wird
+
   const ThemeContainer({super.key, this.isDark = false, this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      clipBehavior: Clip.none, // No clipping behavior for child overflow
+      clipBehavior: Clip.none, // Keine Beschneidungslogik für überlappende Kind-Widgets
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          // If isDark is true, use dark theme colors; otherwise, use light theme colors
+          // Wenn `isDark` true ist, verwende dunkle Theme-Farben; andernfalls helle Theme-Farben
           colors: isDark ? darkThemeList : lightThemeList,
-          begin: Alignment.topCenter, // Gradient starts from the top center
-          end: Alignment.bottomCenter, // Gradient ends at the bottom center
+          begin: Alignment.topCenter, // Farbverlauf beginnt oben in der Mitte
+          end: Alignment.bottomCenter, // Farbverlauf endet unten in der Mitte
         ),
       ),
-      child: child, // Places the child widget inside the container
+      child: child, // Platziert das Kind-Widget innerhalb des Containers
     );
   }
 }

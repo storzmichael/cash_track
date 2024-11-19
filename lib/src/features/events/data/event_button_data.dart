@@ -15,10 +15,10 @@ List<EventButtonItem> getEventButtonDatas(BuildContext context) {
       eventButtonIcon: Icons.add,
       eventButtonOnPressed: (context) => navigateToCreateEventScreen(context),
     ),
-    EventButtonItem(
-      eventButtonTitle: textFiles[language]![65],
-      eventButtonIcon: Icons.start,
-      eventButtonOnPressed: (context) {},
-    ),
+    // EventButtonItem(
+    //   eventButtonTitle: textFiles[language]![65],
+    //   eventButtonIcon: Icons.start,
+    //   eventButtonOnPressed: (context) {},
+    // ),
   ];
 }

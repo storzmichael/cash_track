@@ -14,7 +14,7 @@ List<EventTextfieldItem> getEventTextfieldDatas(BuildContext context) {
       eventTextfieldHintText: textFiles[language]![66],
     ),
     EventTextfieldItem(
-      eventTextfieldHintText: textFiles[language]![23],
+      eventTextfieldHintText: textFiles[language]![95],
     ),
     EventTextfieldItem(
       eventTextfieldHintText: textFiles[language]![67],

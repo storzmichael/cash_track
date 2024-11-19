@@ -3,49 +3,51 @@ import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
 
 class BigButton extends StatelessWidget {
-  final String buttonName;
-  final VoidCallback? onPressed;
-  final Color backgroundColor;
-  final Color textColor;
-  final double borderRadius;
-  final bool fontInBold;
-  final EdgeInsetsGeometry padding;
-  final int maxLines;
+  final String buttonName; // Der Name des Buttons (Text, der angezeigt wird)
+  final VoidCallback? onPressed; // Callback-Funktion, die beim Drücken des Buttons aufgerufen wird
+  final Color backgroundColor; // Hintergrundfarbe des Buttons
+  final Color textColor; // Textfarbe des Buttons
+  final double borderRadius; // Die Rundung der Ecken des Buttons
+  final bool fontInBold; // Bestimmt, ob der Text fett angezeigt wird
+  final EdgeInsetsGeometry padding; // Padding innerhalb des Buttons
+  final int maxLines; // Maximale Anzahl der Zeilen für den Text im Button
 
+  // Konstruktor des BigButton mit optionalen Parametern
   const BigButton({
     super.key,
-    required this.buttonName,
-    required this.onPressed,
-    this.backgroundColor = primeryColor, // Background color (default: primeryColor)
-    this.textColor = Colors.black, // Text color (default: black)
-    this.borderRadius = borderRadiusLargeButton, // Rounded corners (default: borderRadiusLargeButton)
-    this.fontInBold = true, // Font weight (default: bold)
-    this.padding = const EdgeInsets.symmetric(horizontal: 5.0), // Button padding (default: EdgeInsets.all(5.0))
-    this.maxLines = 1, // Max number of text lines (default: 1)
+    required this.buttonName, // Der Name des Buttons (Pflichtparameter)
+    required this.onPressed, // Die Funktion, die beim Drücken des Buttons aufgerufen wird (Pflichtparameter)
+    this.backgroundColor = primeryColor, // Hintergrundfarbe (Standard: primeryColor)
+    this.textColor = Colors.black, // Textfarbe (Standard: schwarz)
+    this.borderRadius = borderRadiusLargeButton, // Rundung der Ecken (Standard: borderRadiusLargeButton)
+    this.fontInBold = true, // Schriftstärke (Standard: fett)
+    this.padding = const EdgeInsets.symmetric(
+        horizontal: 5.0), // Padding innerhalb des Buttons (Standard: horizontaler Abstand von 5.0)
+    this.maxLines = 1, // Maximale Anzahl der Textzeilen (Standard: 1)
   });
 
   @override
   Widget build(BuildContext context) {
-    // Build method that returns the UI widget for the button
+    // Der Build-Method, der das UI-Widget für den Button zurückgibt
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: onPressed, // Die Funktion, die beim Drücken des Buttons aufgerufen wird
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
+        backgroundColor: backgroundColor, // Setzt die Hintergrundfarbe
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius), // Rounded corners
+          borderRadius: BorderRadius.circular(borderRadius), // Rundet die Ecken des Buttons
         ),
-        padding: padding, // Button padding
+        padding: padding, // Setzt das Padding innerhalb des Buttons
       ),
       child: Center(
-        // Text label inside the button
+        // Zentriert den Text innerhalb des Buttons
         child: Text(
-          buttonName,
-          textAlign: TextAlign.center, // Centered text alignment
-          maxLines: maxLines, // Limits the text to the specified max lines
-          overflow: TextOverflow.ellipsis, // Text overflow behavior
+          buttonName, // Der Text des Buttons
+          textAlign: TextAlign.center, // Der Text wird zentriert angezeigt
+          maxLines: maxLines, // Limitiert die Anzahl der Textzeilen auf maxLines
+          overflow: TextOverflow.ellipsis, // Definiert das Verhalten bei Textüberlauf (zeigt "..." an)
           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: textColor, // Text color
-                fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal, // Font weight
+                color: textColor, // Textfarbe des Buttons
+                fontWeight: fontInBold ? FontWeight.bold : FontWeight.normal, // Bestimmt die Schriftstärke
               ),
         ),
       ),
