@@ -59,7 +59,7 @@ List<String> german = [
   'Datenschutz', // 57
   'Sprache', // 58
   'Verbunden Geräte', // 59
-  'Hilfe', // 60
+  'Account löschen', // 60
   'Abmelden', // 61
   'deutsch', // 62
   'englisch', // 63
@@ -94,5 +94,6 @@ List<String> german = [
   'Kategorie löschen?', // 92
   'Sind sie sicher?', // 93
   'Löschen', // 94,
+  'Datum', // 95
 ];
 // textFiles[language]![0]

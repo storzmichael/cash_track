@@ -21,8 +21,14 @@ class EventTxtField extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // Verteilt den Raum gleichmäßig zwischen den Elementen
             crossAxisAlignment: CrossAxisAlignment.start, // Ordnet die Elemente am oberen Rand der Zeile aus
             children: [
-              Text(eventItem.eventTitle), // Zeigt den Titel des Events an
-              Text(eventItem.eventDate), // Zeigt das Datum des Events an
+              Text(
+                eventItem.eventTitle,
+                style: TextStyle(fontSize: 18),
+              ), // Zeigt den Titel des Events an
+              Text(
+                eventItem.eventDate,
+                style: TextStyle(fontSize: 18),
+              ), // Zeigt das Datum des Events an
             ],
           ),
           const Divider(), // Trennt den Inhalt visuell ab

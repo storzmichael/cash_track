@@ -3,6 +3,7 @@ import 'package:cash_track/src/config/theme_data.dart';
 import 'package:cash_track/src/core/application/navigation_provider.dart';
 import 'package:cash_track/src/core/presentation/app_home.dart';
 import 'package:cash_track/src/features/cashout/presentation/paid_product_screen.dart';
+import 'package:cash_track/src/features/events/application/event_functions.dart';
 import 'package:cash_track/src/features/events/application/product_provider.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_category.dart';
 import 'package:cash_track/src/features/events/presentation/screens/create_event_screen.dart';
@@ -34,6 +35,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => LanguageProvider()),
         ChangeNotifierProvider(create: (context) => LoginProvider()),
+        ChangeNotifierProvider(create: (context) => EventFunctions()),
       ],
       child: const MainApp(),
     ),

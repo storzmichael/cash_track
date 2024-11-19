@@ -1,5 +1,7 @@
 import 'package:cash_track/src/config/config_colors.dart';
+import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 import 'package:cash_track/src/data/lang/app_text.dart';
+import 'package:cash_track/src/features/registration-login/domain/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart';
@@ -64,26 +66,26 @@ class SettingScreen extends StatelessWidget {
                 child: ListView(
                   children: [
                     // ListTile für Profil
-                    _buildListTile(
-                      context,
-                      icon: Icons.person, // Profil-Icon
-                      title: textFiles[languageProvider.language]![2], // Titel für "Profil"
-                      onTap: () {
-                        // Hier kann eine Navigationslogik zum Profil-Screen eingefügt werden
-                      },
-                    ),
-                    _buildDivider(), // Divider zwischen den ListTiles
+                    // _buildListTile(
+                    //   context,
+                    //   icon: Icons.person, // Profil-Icon
+                    //   title: textFiles[languageProvider.language]![2], // Titel für "Profil"
+                    //   onTap: () {
+                    //     // Hier kann eine Navigationslogik zum Profil-Screen eingefügt werden
+                    //   },
+                    // ),
+                    //_buildDivider(), // Divider zwischen den ListTiles
 
                     // ListTile für Datenschutz
-                    _buildListTile(
-                      context,
-                      icon: Icons.lock, // Datenschutz-Icon
-                      title: textFiles[languageProvider.language]![57], // Titel für "Datenschutz"
-                      onTap: () {
-                        // Hier kann eine Navigationslogik zu den Datenschutz-Einstellungen eingefügt werden
-                      },
-                    ),
-                    _buildDivider(), // Divider zwischen den ListTiles
+                    // _buildListTile(
+                    //   context,
+                    //   icon: Icons.lock, // Datenschutz-Icon
+                    //   title: textFiles[languageProvider.language]![57], // Titel für "Datenschutz"
+                    //   onTap: () {
+                    //     // Hier kann eine Navigationslogik zu den Datenschutz-Einstellungen eingefügt werden
+                    //   },
+                    // ),
+                    //_buildDivider(), // Divider zwischen den ListTiles
 
                     // ListTile für Sprache
                     _buildListTile(
@@ -98,25 +100,42 @@ class SettingScreen extends StatelessWidget {
                     _buildDivider(), // Divider zwischen den ListTiles
 
                     // ListTile für Chats
-                    _buildListTile(
-                      context,
-                      icon: Icons.devices, // Chats-Icon
-                      title: textFiles[languageProvider.language]![59], // Titel für "Chats"
-                      onTap: () {
-                        // Hier kann eine Navigationslogik zu den Chat-Einstellungen eingefügt werden
-                      },
-                    ),
+                    // _buildListTile(
+                    //   context,
+                    //   icon: Icons.devices, // Chats-Icon
+                    //   title: textFiles[languageProvider.language]![59], // Titel für "Chats"
+                    //   onTap: () {
+                    //     // Hier kann eine Navigationslogik zu den Chat-Einstellungen eingefügt werden
+                    //   },
+                    // ),
                     _buildDivider(), // Divider zwischen den ListTiles
 
-                    // ListTile für Hilfe
+                    // ListTile um den Account zu löschen
                     _buildListTile(
                       context,
-                      icon: Icons.help, // Hilfe-Icon
-                      title: textFiles[languageProvider.language]![60], // Titel für "Hilfe"
+                      icon: Icons.delete, // Löschen-Icon
+                      title: textFiles[languageProvider.language]![60], // Titel für "Account löschen"
                       onTap: () {
-                        // Hier kann eine Navigationslogik zur Hilfe-Seite eingefügt werden
+                        // Zeigt den Dialog an, wenn das ListTile angetippt wird
+                        DialogHelper.showDeleteAccountDialog(
+                          context: context,
+                          onDelete: () async {
+                            // Aufrufen der deleteAccount-Methode von Auth
+                            try {
+                              await Auth().deleteAccount(); // Löscht das Benutzerkonto
+                              await Auth().signOut(); // Loggt den Benutzer aus
+
+                              // Navigiere zum Login-Screen nach dem Löschen des Accounts
+                              Navigator.of(context).pushReplacementNamed("/"); // Navigiere zum Login-Screen
+                            } catch (e) {
+                              // Fehlerbehandlung: Du kannst hier eine Fehlermeldung anzeigen
+                              print("Fehler beim Löschen des Kontos: $e");
+                            }
+                          },
+                        );
                       },
                     ),
+
                     _buildDivider(), // Divider zwischen den ListTiles
                   ],
                 ),

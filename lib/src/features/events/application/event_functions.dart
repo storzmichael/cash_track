@@ -1,3 +1,34 @@
+import 'package:cash_track/src/features/events/data/event_data.dart';
+import 'package:cash_track/src/features/events/domain/event_item.dart';
+import 'package:flutter/material.dart';
+
+class EventFunctions extends ChangeNotifier {
+  final List<EventItem> eventsList = eventDatas;
+
+  // Mache die Methode nicht statisch
+  void createEvent(String eventTitle, String eventDate) {
+    final newEvent = EventItem(eventTitle: eventTitle, eventDate: eventDate);
+    eventsList.add(newEvent);
+    notifyListeners();
+    print('Event erstellt: $eventTitle am $eventDate');
+  }
+
+  void deleteEvent(String eventTitle) {
+    eventsList.removeWhere((event) => event.eventTitle == eventTitle);
+    notifyListeners();
+    print('Event gelöscht: $eventTitle');
+  }
+}
+
+
+
+
+
+
+
+
+
+
 // import 'package:cash_track/src/config/config_colors.dart';
 // import 'package:cash_track/src/core/presentation/dialog_helper.dart';
 // import 'package:cash_track/src/data/lang/app_text.dart';

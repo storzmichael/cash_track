@@ -59,7 +59,7 @@ List<String> english = [
   'Privacy Policy', // 57
   'Language', // 58
   'Connected devices', // 59
-  'Help', // 60
+  'Delete Account', // 60
   'Logout', // 61
   'German', // 62
   'English', // 63
@@ -94,4 +94,5 @@ List<String> english = [
   'Delete category?', // 92
   'Are you sure?', // 93
   'Delete', // 94
+  'Date', // 95
 ];

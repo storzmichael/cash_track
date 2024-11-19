@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:cash_track/src/config/config_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:cash_track/src/config/config_colors.dart';
 
 class DialogHelper {
   // Wiederverwendbarer Cupertino-Dialog für die Texteingabe
@@ -100,6 +100,54 @@ class DialogHelper {
               child: Text(confirmButtonText, style: TextStyle(color: textColor)), // Stil der Bestätigen-Schaltfläche
               onPressed: () {
                 onConfirm(); // Ruft die Callback-Funktion für die Bestätigungsaktion auf
+                Navigator.of(context).pop(); // Schließt den Dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Neuer Dialog zum Löschen des Benutzerkontos
+  static void showDeleteAccountDialog({
+    required BuildContext context, // Der BuildContext des aktuellen Widgets
+    required Function() onDelete, // Callback-Funktion für die Löschaktion
+  }) {
+    // Zeigt einen Cupertino-Dialog zur Bestätigung des Kontolöschens an
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Konto löschen'), // Titel des Dialogs
+          content: Column(
+            mainAxisSize: MainAxisSize.min, // Stellt sicher, dass der Dialog nicht zu groß ist
+            children: [
+              const SizedBox(height: 16), // Abstand zwischen Titel und Nachricht
+              const Text(
+                'Möchtest du dein Konto wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.',
+                style: TextStyle(color: Colors.black), // Stil der Nachricht
+              ),
+              const SizedBox(height: 16), // Abstand unterhalb der Nachricht
+            ],
+          ),
+          actions: <Widget>[
+            // Abbrechen-Schaltfläche
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: const Text('Abbrechen', style: TextStyle(color: blackColor)), // Stil der Abbrechen-Schaltfläche
+              onPressed: () {
+                Navigator.of(context).pop(); // Schließt den Dialog
+              },
+            ),
+            // Bestätigen-Schaltfläche (Löschen)
+            CupertinoDialogAction(
+              child: const Text(
+                'Löschen',
+                style: TextStyle(color: Colors.red), // Rote Farbe für Löschaktion
+              ),
+              onPressed: () {
+                onDelete(); // Ruft die Callback-Funktion für die Löschaktion auf
                 Navigator.of(context).pop(); // Schließt den Dialog
               },
             ),
