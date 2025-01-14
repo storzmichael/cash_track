@@ -3,8 +3,8 @@ import 'package:cash_track/src/data/lang/app_text.dart';
 import 'package:cash_track/src/features/general_widgets/presentation/outlined_big_button.dart';
 import 'package:cash_track/src/features/profil/presentation/circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Importiere Provider
-import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
+import 'package:provider/provider.dart';
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class ProfilScreen extends StatelessWidget {
   const ProfilScreen({super.key});

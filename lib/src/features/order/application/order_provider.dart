@@ -10,7 +10,7 @@ import 'package:cash_track/src/features/order/domain/product_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cash_track/src/features/settings/application/language_provider.dart'; // Importiere den LanguageProvider
+import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
 class OrderProvider with ChangeNotifier {
   bool _isTableSelect = false;
@@ -19,18 +19,26 @@ class OrderProvider with ChangeNotifier {
   bool _isCategorySelect = false;
   bool get isCategorySelect => _isCategorySelect;
 
+//----------------------------------------------------------------
+
   void setTableSelect(bool value) {
     _isTableSelect = value;
     notifyListeners();
   }
+
+//----------------------------------------------------------------
 
   void setCategorySelect(bool value) {
     _isCategorySelect = value;
     notifyListeners();
   }
 
+//----------------------------------------------------------------
+
   String _deskNumber = '';
   String get deskNumber => _deskNumber;
+
+//----------------------------------------------------------------
 
   void setDeskNumber(String deskNumber) {
     _isTableSelect = true;
@@ -41,8 +49,12 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
+//----------------------------------------------------------------
+
   final List<String> _orderDeskNumbers = [];
   List<String> get orderDeskNumbers => _orderDeskNumbers;
+
+//----------------------------------------------------------------
 
   void addDeskNumber(String deskNumber) {
     if (!_orderDeskNumbers.contains(deskNumber)) {
@@ -52,8 +64,12 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
+//----------------------------------------------------------------
+
   final Map<String, List<ProductItem>> _orderDeskProducts = {};
   Map<String, List<ProductItem>> get orderDeskProducts => _orderDeskProducts;
+
+//----------------------------------------------------------------
 
   final List<String> _tables = [
     '1',
@@ -64,6 +80,8 @@ class OrderProvider with ChangeNotifier {
     '6',
   ];
   List<String> get tables => _tables;
+
+  //----------------------------------------------------------------
 
   void addNewButton(BuildContext context, String buttonName, String language) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false); // Zugriff auf den LanguageProvider
@@ -100,6 +118,8 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
+//----------------------------------------------------------------
+
   void showAddButtonDialog(BuildContext context, String language) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
     DialogHelper.showTextInputDialog(
@@ -113,6 +133,8 @@ class OrderProvider with ChangeNotifier {
       },
     );
   }
+
+//----------------------------------------------------------------
 
   void showSettingButtonDialog(BuildContext context, String language) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
@@ -164,6 +186,8 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
+//----------------------------------------------------------------
+
   Future<void> showDeleteCategoryDialog(BuildContext context, ProductProvider productProvider, int index) async {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
 
@@ -200,6 +224,8 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
+//----------------------------------------------------------------
+
   void showDeleteConfirmDialog(BuildContext context, int index, String language) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
     DialogHelper.showConfirmationDialog(
@@ -215,8 +241,12 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
+//----------------------------------------------------------------
+
   final List<ProductItem> _selectedProducts = [];
   List<ProductItem> get selectedProducts => _selectedProducts;
+
+//----------------------------------------------------------------
 
   void addToSelect(ProductItem product, BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
@@ -251,10 +281,14 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
+//----------------------------------------------------------------
+
   void clearMonitor() {
     _selectedProducts.clear();
     notifyListeners();
   }
+
+//----------------------------------------------------------------
 
   double get totalPrice {
     double total = 0.0;
@@ -263,6 +297,8 @@ class OrderProvider with ChangeNotifier {
     }
     return total;
   }
+
+//----------------------------------------------------------------
 
   void removeProductfromSelect(ProductItem product, BuildContext context) {
     final existingProduct = _selectedProducts.firstWhere(
@@ -290,6 +326,8 @@ class OrderProvider with ChangeNotifier {
       );
     }
   }
+
+//----------------------------------------------------------------
 
   void transferProductsToOrder() {
     while (selectedProducts.isNotEmpty) {
@@ -319,14 +357,20 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
+//----------------------------------------------------------------
+
   String? selectedCategoryKey;
   void setCategory(String categoryKey) {
     selectedCategoryKey = categoryKey;
     notifyListeners();
   }
 
+//----------------------------------------------------------------
+
   final List<ProductItem> _cashoutProducts = [];
   List<ProductItem> get cashoutProducts => _cashoutProducts;
+
+//----------------------------------------------------------------
 
   void addProductToCashout(String deskNumber, ProductItem product) {
     if (_orderDeskProducts.containsKey(deskNumber)) {
@@ -378,8 +422,12 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
+//----------------------------------------------------------------
+
   final List<ProductItem> _paidProducts = [];
   List<ProductItem> get paidProducts => _paidProducts;
+
+//----------------------------------------------------------------
 
   void addToPaidProducts() {
     for (var newProduct in cashoutProducts) {
@@ -405,6 +453,8 @@ class OrderProvider with ChangeNotifier {
     // Benachrichtige die Listener über Änderungen
     notifyListeners();
   }
+
+//----------------------------------------------------------------
 
   void returnProductToOrder(ProductItem product, BuildContext context) {
     final existingProduct = cashoutProducts.firstWhere(
@@ -450,6 +500,8 @@ class OrderProvider with ChangeNotifier {
       );
     }
   }
+
+//----------------------------------------------------------------
 
   double get totalPriceToPay {
     double total = 0.0;

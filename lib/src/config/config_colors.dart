@@ -18,7 +18,7 @@ const Color blackColor = Colors.black;
 const Color alertColor = Colors.red;
 const Color whiteColor = Colors.white;
 const Color monitorColor = textFieldColor;
-const Color textFieldColor = Color.fromARGB(255, 170, 170, 170);
+const Color textFieldColor = Color.fromARGB(255, 178, 178, 178);
 const Color greyColor = Colors.grey;
 
 const Color lightThemeColorLight = Color.fromARGB(255, 255, 255, 255);

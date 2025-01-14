@@ -40,6 +40,7 @@ class AppHome extends StatelessWidget {
               },
               showSelectedLabels: true, // Zeigt Labels für das ausgewählte Item
               showUnselectedLabels: false, // Versteckt Labels für nicht ausgewählte Items
+
               items: [
                 BottomNavigationBarItem(
                   activeIcon: Icon(Icons.event), // Beispiel-Icon für den Event-Screen

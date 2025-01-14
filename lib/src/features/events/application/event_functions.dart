@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class EventFunctions extends ChangeNotifier {
   final List<EventItem> eventsList = eventDatas;
 
-  // Mache die Methode nicht statisch
   void createEvent(String eventTitle, String eventDate) {
     final newEvent = EventItem(eventTitle: eventTitle, eventDate: eventDate);
     eventsList.add(newEvent);

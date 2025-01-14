@@ -7,7 +7,7 @@ import 'package:cash_track/src/features/registration-login/domain/password_reset
 import 'package:cash_track/src/features/registration-login/presentation/shimmer_logo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Importiere Provider
+import 'package:provider/provider.dart';
 import 'login_text_field.dart';
 import 'package:cash_track/src/features/settings/application/language_provider.dart';
 
